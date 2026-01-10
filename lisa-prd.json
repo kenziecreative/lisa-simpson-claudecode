@@ -1,0 +1,598 @@
+{
+  "project": "Lisa - Multi-Discipline Creative Orchestration Plugin for Claude Code",
+  "description": "A Claude Code plugin that brings autonomous orchestration to marketing, PR, and branding teams, using the Ralph Wiggum Stop hook pattern. Lisa helps creative professionals automate campaign deliverables with quality gates, institutional memory, and discipline-appropriate language.",
+  "branchName": "main",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Plugin structure and metadata",
+      "description": "As a developer, I need the basic Lisa plugin structure with proper metadata",
+      "acceptanceCriteria": [
+        "Create .claude/plugins/lisa/ directory structure",
+        "Create .claude-plugin/plugin.json with name='lisa', version='1.0.0', description, author",
+        "Create README.md with overview, quick start, installation instructions",
+        "Directory structure matches Ralph Wiggum pattern: commands/, hooks/, scripts/, skills/, schemas/, examples/",
+        "All directories created and documented in README",
+        "Description mentions support for marketing, PR, and branding disciplines"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependencies": [],
+      "notes": "Foundation for all other user stories"
+    },
+    {
+      "id": "US-002",
+      "title": "Campaign brief JSON schema",
+      "description": "As a creative professional, I need a structured format to define campaign deliverables across marketing, PR, and branding",
+      "acceptanceCriteria": [
+        "Create schemas/campaign-brief.schema.json with JSON schema",
+        "Schema includes: campaign name, description, campaignType enum ('marketing' | 'pr' | 'branding'), deliverables array",
+        "Each deliverable has: id, type, title, description, acceptanceCriteria, priority, approved (boolean), targetKeyword, dependencies",
+        "Deliverable types enum includes Marketing types: email-sequence, landing-page-copy, social-posts, ad-copy, blog-article, newsletter, case-study, webinar-script",
+        "Deliverable types enum includes PR types: press-release, media-pitch, press-kit, crisis-communication, talking-points, media-advisory, op-ed, qa-document, fact-sheet",
+        "Deliverable types enum includes Branding types: brand-guidelines, brand-positioning, voice-tone-guide, messaging-framework, tagline, brand-story",
+        "Schema validates with standard JSON schema validator",
+        "Include examples in schema description fields for each discipline"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Core data structure that drives Lisa's orchestration across all disciplines"
+    },
+    {
+      "id": "US-003",
+      "title": "Example marketing campaign brief",
+      "description": "As a marketer, I need a reference example to understand the campaign brief format",
+      "acceptanceCriteria": [
+        "Create examples/q1-product-launch-marketing.json with realistic campaign",
+        "campaignType: 'marketing'",
+        "Include 5-6 diverse marketing deliverables (email, landing page, social, blog, newsletter)",
+        "Each deliverable has specific, verifiable acceptance criteria",
+        "Shows proper dependency ordering (e.g., landing page before social posts)",
+        "Shows proper priority values (1=highest)",
+        "Includes detailed descriptions in marketer-friendly language",
+        "File validates against schema from US-002"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependencies": ["US-002"],
+      "notes": "Marketing example - serves as template for marketers"
+    },
+    {
+      "id": "US-004",
+      "title": "Stop hook implementation",
+      "description": "As a developer, I need the Stop hook that implements Lisa's iterative loop",
+      "acceptanceCriteria": [
+        "Create hooks/stop-hook.sh (executable, #!/bin/bash)",
+        "Reads .claude/lisa-campaign.local.md state file",
+        "Extracts YAML frontmatter: iteration, max_iterations, completion_promise, campaign_name, campaign_type",
+        "Validates numeric fields before arithmetic operations",
+        "Checks if max_iterations reached → exit 0 if yes",
+        "Reads transcript from stdin JSON, extracts last assistant message",
+        "Checks for <promise>COMPLETION_TEXT</promise> using exact string matching",
+        "If complete → delete state file, exit 0",
+        "If incomplete → increment iteration, re-inject prompt, output JSON with decision='block'",
+        "Atomic state file updates using temp file pattern",
+        "Include discipline-appropriate system messages (emojis, progress indicators)",
+        "System message adapts based on campaign_type (marketing/PR/branding terminology)"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Core orchestration logic - critical component, discipline-agnostic"
+    },
+    {
+      "id": "US-005",
+      "title": "Hook registration configuration",
+      "description": "As a developer, I need to register the Stop hook with Claude Code",
+      "acceptanceCriteria": [
+        "Create hooks/hooks.json",
+        "Register Stop hook pointing to hooks/stop-hook.sh",
+        "Use ${CLAUDE_PLUGIN_ROOT} for path resolution",
+        "Include description field",
+        "Format matches Ralph Wiggum hooks.json structure",
+        "Valid JSON that Claude Code can parse"
+      ],
+      "priority": 5,
+      "passes": false,
+      "dependencies": ["US-004"],
+      "notes": "Connects Stop hook to Claude Code's hook system"
+    },
+    {
+      "id": "US-006",
+      "title": "Campaign setup script",
+      "description": "As a developer, I need a script that initializes a Lisa campaign loop",
+      "acceptanceCriteria": [
+        "Create scripts/setup-lisa-campaign.sh (executable)",
+        "Accepts arguments: campaign-brief-path, max-iterations, completion-promise",
+        "Validates campaign brief JSON exists and is valid",
+        "Extracts campaignType from brief JSON",
+        "Creates .claude/lisa-campaign.local.md with YAML frontmatter + prompt body",
+        "Frontmatter includes: active=true, iteration=1, max_iterations, completion_promise, campaign_name, campaign_type, started_at",
+        "Prompt body includes: discipline-appropriate agent instructions, file references, completion guidance",
+        "Creates learnings.txt if it doesn't exist (with template header)",
+        "Returns success/error exit codes with helpful error messages",
+        "Includes validation and error handling"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependencies": ["US-002", "US-004"],
+      "notes": "Initializes the campaign loop state, adapts to discipline"
+    },
+    {
+      "id": "US-007",
+      "title": "/lisa command",
+      "description": "As a creative professional, I need a simple command to start a campaign loop",
+      "acceptanceCriteria": [
+        "Create commands/lisa.md with command definition",
+        "Command accepts: campaign-brief.json path",
+        "Optional flags: --max-iterations (default: 30), --completion-promise (default: 'COMPLETE')",
+        "Calls scripts/setup-lisa-campaign.sh with parameters",
+        "Displays startup message with campaign info, discipline, and iteration count",
+        "Outputs initial prompt to start the loop",
+        "Includes usage examples for marketing, PR, and branding campaigns",
+        "Error handling for missing files or invalid arguments"
+      ],
+      "priority": 7,
+      "passes": false,
+      "dependencies": ["US-006"],
+      "notes": "Primary entry point for all creative professionals"
+    },
+    {
+      "id": "US-008",
+      "title": "/cancel-lisa command",
+      "description": "As a creative professional, I need to cancel an active campaign loop",
+      "acceptanceCriteria": [
+        "Create commands/cancel-lisa.md",
+        "Checks if .claude/lisa-campaign.local.md exists",
+        "If exists: deletes state file, reports iteration count where cancelled",
+        "If not exists: reports 'No active Lisa campaign'",
+        "Includes confirmation message with campaign name and type",
+        "Simple, no arguments needed"
+      ],
+      "priority": 8,
+      "passes": false,
+      "dependencies": ["US-006"],
+      "notes": "Safety mechanism to stop runaway loops"
+    },
+    {
+      "id": "US-009",
+      "title": "Flexible agent prompt template",
+      "description": "As a developer, I need agent prompts that adapt to marketing, PR, and branding contexts",
+      "acceptanceCriteria": [
+        "Create prompts/marketing-agent.md for marketing campaigns",
+        "Create prompts/pr-agent.md for PR campaigns",
+        "Create prompts/branding-agent.md for branding campaigns",
+        "Each defines Lisa's identity appropriately: 'AI marketing coordinator' / 'AI PR coordinator' / 'AI branding coordinator'",
+        "Step-by-step instructions: read brief → pick deliverable → create → check quality → update brief → log learnings → check completion",
+        "Emphasizes discipline-appropriate language (translate technical operations)",
+        "Includes deliverable sizing guidelines specific to each discipline",
+        "Defines quality gate requirements appropriate to discipline (marketing: SEO, PR: AP Style, branding: consistency)",
+        "Completion detection guidance: output <promise>COMPLETE</promise> when all approved=true",
+        "Examples of good vs. bad acceptance criteria for each discipline",
+        "Instructions to speak in discipline-specific terminology"
+      ],
+      "priority": 9,
+      "passes": false,
+      "dependencies": ["US-002"],
+      "notes": "Three variants of the core prompt - the 'personality' for each discipline"
+    },
+    {
+      "id": "US-010",
+      "title": "Brand compliance check script",
+      "description": "As a creative professional, I need automated brand guideline validation",
+      "acceptanceCriteria": [
+        "Create scripts/brand-check.sh (executable)",
+        "Takes file path as argument",
+        "Reads brand-config.json for approved/prohibited terms",
+        "Scans content for required brand terminology",
+        "Flags any prohibited terms found",
+        "Returns exit code 0 (pass) or 1 (fail)",
+        "Outputs specific violations with line numbers",
+        "Handles markdown, HTML, and plain text files",
+        "Includes helpful error messages",
+        "Works across all three disciplines"
+      ],
+      "priority": 10,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Critical quality gate for brand consistency across all disciplines"
+    },
+    {
+      "id": "US-011",
+      "title": "Brand configuration file",
+      "description": "As a creative professional, I need to configure brand guidelines",
+      "acceptanceCriteria": [
+        "Create scripts/brand-config.json",
+        "Structure: { approvedTerms: [], prohibitedTerms: [], requiredTerms: [], voiceToneKeywords: [] }",
+        "Include sensible defaults (generic brand terms)",
+        "Well-commented with examples",
+        "Easy to customize for specific brands",
+        "Documented in README with customization guide"
+      ],
+      "priority": 11,
+      "passes": false,
+      "dependencies": ["US-010"],
+      "notes": "Configuration for brand-check.sh"
+    },
+    {
+      "id": "US-012",
+      "title": "Readability score script",
+      "description": "As a marketer or PR professional, I need to ensure content meets readability standards",
+      "acceptanceCriteria": [
+        "Create scripts/readability-check.py (executable, #!/usr/bin/env python3)",
+        "Takes file path and optional threshold as arguments",
+        "Calculates Flesch-Kincaid Reading Ease score",
+        "Calculates Flesch-Kincaid Grade Level",
+        "Validates score meets threshold (default: > 60)",
+        "Returns exit code 0 (pass) or 1 (fail)",
+        "Outputs scores and pass/fail reason in friendly format",
+        "Handles markdown (strips formatting before scoring)",
+        "Requires: textstat library"
+      ],
+      "priority": 12,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Quality gate for content accessibility - primarily for marketing and PR"
+    },
+    {
+      "id": "US-013",
+      "title": "SEO validation script",
+      "description": "As a marketer, I need to check SEO basics for web content",
+      "acceptanceCriteria": [
+        "Create scripts/seo-check.py (executable)",
+        "Takes file path and target keyword as arguments",
+        "Checks keyword density (2-4% target range)",
+        "Validates meta description exists and < 160 chars",
+        "Checks for H1 and H2 headers",
+        "Validates title tag exists (if HTML)",
+        "Returns exit code 0 (pass) or 1 (fail)",
+        "Outputs specific SEO issues found",
+        "Works with markdown and HTML files",
+        "Requires: beautifulsoup4, markdown libraries"
+      ],
+      "priority": 13,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Quality gate for web content optimization - marketing-specific"
+    },
+    {
+      "id": "US-014",
+      "title": "Accessibility check script",
+      "description": "As a creative professional, I need to ensure content meets accessibility standards",
+      "acceptanceCriteria": [
+        "Create scripts/accessibility-check.py (executable)",
+        "Takes file path as argument",
+        "Checks color contrast ratios (WCAG 2.1 AA: 4.5:1 for normal text, 3:1 for large text)",
+        "Validates alt text exists for images (if HTML/markdown with images)",
+        "Checks heading hierarchy (H1 → H2 → H3, no skipping)",
+        "Validates semantic HTML structure",
+        "Returns exit code 0 (pass) or 1 (fail)",
+        "Outputs specific accessibility issues found",
+        "Works with HTML and markdown files",
+        "Requires: beautifulsoup4, markdown libraries"
+      ],
+      "priority": 14,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Quality gate for accessibility - important for all disciplines, especially branding"
+    },
+    {
+      "id": "US-015",
+      "title": "AP Style check script",
+      "description": "As a PR professional, I need to ensure content follows AP Style guidelines",
+      "acceptanceCriteria": [
+        "Create scripts/ap-style-check.py (executable)",
+        "Takes file path as argument",
+        "Checks common AP Style rules: state abbreviations, date formats, time formats, title capitalization",
+        "Validates no Oxford comma usage (AP Style standard)",
+        "Checks for proper use of 'more than' vs 'over' for quantities",
+        "Flags common style errors: 'alot', incorrect percent usage, etc.",
+        "Returns exit code 0 (pass) or 1 (fail)",
+        "Outputs specific style violations found",
+        "Works with markdown and plain text files",
+        "Includes helpful suggestions for corrections"
+      ],
+      "priority": 15,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Quality gate for AP Style compliance - PR-specific"
+    },
+    {
+      "id": "US-016",
+      "title": "Python requirements file",
+      "description": "As a developer, I need Python dependencies documented",
+      "acceptanceCriteria": [
+        "Create scripts/requirements.txt",
+        "Include: textstat, beautifulsoup4, markdown",
+        "Pin versions for reproducibility",
+        "Documented in README with installation instructions: pip install -r scripts/requirements.txt",
+        "Works with Python 3.8+"
+      ],
+      "priority": 16,
+      "passes": false,
+      "dependencies": ["US-012", "US-013", "US-014", "US-015"],
+      "notes": "Ensures quality check scripts have dependencies"
+    },
+    {
+      "id": "US-017",
+      "title": "Marketing plan generation skill",
+      "description": "As a marketer, I need a skill that helps me create a marketing plan/PRD",
+      "acceptanceCriteria": [
+        "Create skills/marketing-plan/SKILL.md",
+        "Skill asks clarifying questions about the marketing campaign (audience, goals, channels, timeline)",
+        "Questions use lettered options (A, B, C) for easy selection",
+        "Generates structured markdown PRD based on answers",
+        "PRD includes: campaign overview, target audience, goals/KPIs, deliverables list, timeline",
+        "Saves to campaign-plans/marketing-prd-[campaign-name].md",
+        "Marketer-friendly language throughout",
+        "Includes examples of good marketing deliverable descriptions"
+      ],
+      "priority": 17,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "First skill - helps marketers who don't have a plan yet"
+    },
+    {
+      "id": "US-018",
+      "title": "PR plan generation skill",
+      "description": "As a PR professional, I need a skill that helps me create a PR plan/PRD",
+      "acceptanceCriteria": [
+        "Create skills/pr-plan/SKILL.md",
+        "Skill asks clarifying questions about the PR campaign (announcement type, target media, spokespeople, timeline, crisis vs proactive)",
+        "Questions use lettered options (A, B, C) for easy selection",
+        "Generates structured markdown PRD based on answers",
+        "PRD includes: announcement overview, target media outlets, key messages, spokespeople, deliverables list, timeline, embargo dates if applicable",
+        "Saves to campaign-plans/pr-prd-[campaign-name].md",
+        "PR-professional language throughout",
+        "Includes examples of good PR deliverable descriptions"
+      ],
+      "priority": 18,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Second skill - helps PR professionals create plans"
+    },
+    {
+      "id": "US-019",
+      "title": "Branding plan generation skill",
+      "description": "As a branding professional, I need a skill that helps me create a branding plan/PRD",
+      "acceptanceCriteria": [
+        "Create skills/branding-plan/SKILL.md",
+        "Skill asks clarifying questions about the branding project (rebrand vs refresh, target audience, brand attributes, deliverables needed)",
+        "Questions use lettered options (A, B, C) for easy selection",
+        "Generates structured markdown PRD based on answers",
+        "PRD includes: brand overview, brand values/attributes, target audience, positioning, deliverables list, timeline",
+        "Saves to campaign-plans/branding-prd-[campaign-name].md",
+        "Branding-professional language throughout",
+        "Includes examples of good branding deliverable descriptions"
+      ],
+      "priority": 19,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Third skill - helps branding professionals create plans"
+    },
+    {
+      "id": "US-020",
+      "title": "PRD to JSON conversion skill",
+      "description": "As a creative professional, I need to convert my markdown PRD to campaign-brief.json format",
+      "acceptanceCriteria": [
+        "Create skills/lisa/SKILL.md",
+        "Takes markdown PRD as input (file path)",
+        "Detects discipline type from PRD content (marketing/PR/branding keywords)",
+        "Parses PRD and converts to campaign-brief.json structure with appropriate campaignType",
+        "Enforces deliverable sizing rules (warns if too large)",
+        "Validates dependency ordering (dependencies come before dependents)",
+        "Validates acceptance criteria quality (specific, verifiable)",
+        "Outputs valid campaign-brief.json file",
+        "Validates against schema from US-002",
+        "Provides helpful feedback if conversion issues found",
+        "Includes examples of good PRD → JSON conversions for all three disciplines"
+      ],
+      "priority": 20,
+      "passes": false,
+      "dependencies": ["US-002", "US-017", "US-018", "US-019"],
+      "notes": "Conversion skill - works for marketing, PR, and branding PRDs"
+    },
+    {
+      "id": "US-021",
+      "title": "Example PR campaign brief",
+      "description": "As a PR professional, I need a reference example to understand the campaign brief format",
+      "acceptanceCriteria": [
+        "Create examples/product-announcement-pr.json with realistic PR campaign",
+        "campaignType: 'pr'",
+        "Include 5-6 diverse PR deliverables (press release, media pitch, press kit, talking points, Q&A)",
+        "Each deliverable has specific, verifiable acceptance criteria",
+        "Shows proper dependency ordering (e.g., press release before media pitch)",
+        "Shows proper priority values (1=highest)",
+        "Includes detailed descriptions in PR-professional language",
+        "File validates against schema from US-002"
+      ],
+      "priority": 21,
+      "passes": false,
+      "dependencies": ["US-002"],
+      "notes": "PR example - serves as template for PR professionals"
+    },
+    {
+      "id": "US-022",
+      "title": "Example branding campaign brief",
+      "description": "As a branding professional, I need a reference example to understand the campaign brief format",
+      "acceptanceCriteria": [
+        "Create examples/brand-refresh-branding.json with realistic branding project",
+        "campaignType: 'branding'",
+        "Include 4-5 diverse branding deliverables (brand positioning, voice-tone guide, messaging framework, brand story, tagline)",
+        "Each deliverable has specific, verifiable acceptance criteria",
+        "Shows proper dependency ordering (e.g., brand positioning before messaging framework)",
+        "Shows proper priority values (1=highest)",
+        "Includes detailed descriptions in branding-professional language",
+        "File validates against schema from US-002"
+      ],
+      "priority": 22,
+      "passes": false,
+      "dependencies": ["US-002"],
+      "notes": "Branding example - serves as template for branding professionals"
+    },
+    {
+      "id": "US-023",
+      "title": "Comprehensive README documentation",
+      "description": "As a creative professional, I need clear documentation to get started with Lisa",
+      "acceptanceCriteria": [
+        "README.md includes: Overview, What is Lisa, How it works for each discipline, Installation, Quick start",
+        "Step-by-step setup instructions",
+        "How to create campaign briefs for marketing, PR, and branding (using skills or manually)",
+        "How to run /lisa command with examples for each discipline",
+        "How to interpret results and progress",
+        "Quality gates explanation with examples (which gates apply to which disciplines)",
+        "learnings.txt usage patterns",
+        "Troubleshooting section",
+        "Example workflows (end-to-end) for marketing, PR, and branding",
+        "Link to campaign-brief schema documentation",
+        "Uses discipline-appropriate language (minimal technical jargon)",
+        "Clear explanation of multi-discipline support"
+      ],
+      "priority": 23,
+      "passes": false,
+      "dependencies": ["US-001", "US-002", "US-007", "US-017", "US-018", "US-019", "US-020"],
+      "notes": "Critical for adoption - all creative professionals need clear guidance"
+    },
+    {
+      "id": "US-024",
+      "title": "Quality gates documentation",
+      "description": "As a creative professional, I need to understand how to configure quality checks",
+      "acceptanceCriteria": [
+        "Create QUALITY-GATES.md",
+        "Documents each quality check script (brand, readability, SEO, accessibility, AP Style)",
+        "Clear matrix showing which quality gates apply to which disciplines (marketing/PR/branding)",
+        "Configuration options for each check",
+        "How to customize brand guidelines in brand-config.json",
+        "How to set readability thresholds",
+        "How to add new quality checks",
+        "Integration with Lisa's orchestration loop",
+        "Exit code conventions (0=pass, 1=fail)",
+        "Examples of passing and failing content for each discipline",
+        "Troubleshooting quality check failures"
+      ],
+      "priority": 24,
+      "passes": false,
+      "dependencies": ["US-010", "US-011", "US-012", "US-013", "US-014", "US-015"],
+      "notes": "Helps all creative professionals customize Lisa for their needs"
+    },
+    {
+      "id": "US-025",
+      "title": "Learnings log initialization",
+      "description": "As a creative professional, I need a learnings log that captures insights across campaigns",
+      "acceptanceCriteria": [
+        "setup-lisa-campaign.sh creates learnings.txt if it doesn't exist",
+        "Template header structure: '## Brand Patterns', '## Campaign Insights', '## Discipline-Specific Learnings', separator line",
+        "Instructions comment at top explaining append-only pattern",
+        "Example entries showing proper format",
+        "Date/time stamped entries: [YYYY-MM-DD HH:MM] - [Discipline] - [Deliverable ID]",
+        "Entry format: what was created, files changed, learnings for future iterations",
+        "Never overwrites existing content (append-only)",
+        "Documented in README with usage examples",
+        "Works across all three disciplines"
+      ],
+      "priority": 25,
+      "passes": false,
+      "dependencies": ["US-006"],
+      "notes": "Institutional memory across campaigns and disciplines"
+    },
+    {
+      "id": "US-026",
+      "title": "Example deliverables directory",
+      "description": "As a creative professional, I need example output to understand what Lisa produces",
+      "acceptanceCriteria": [
+        "Create examples/deliverables/ directory",
+        "Marketing examples: email-sequence.md (3 emails), landing-page-copy.md, social-posts.md",
+        "PR examples: press-release.md, media-pitch.md, talking-points.md",
+        "Branding examples: brand-positioning.md, voice-tone-guide.md, messaging-framework.md",
+        "Each example demonstrates good structure and quality",
+        "Marketing examples pass brand compliance, readability, and SEO checks",
+        "PR examples pass brand compliance, readability, and AP Style checks",
+        "Branding examples pass brand compliance and accessibility checks",
+        "Documented in README as reference materials for each discipline"
+      ],
+      "priority": 26,
+      "passes": false,
+      "dependencies": ["US-003", "US-021", "US-022"],
+      "notes": "Helps all creative professionals understand expected output quality"
+    },
+    {
+      "id": "US-027",
+      "title": "Extensibility documentation",
+      "description": "As a developer, I need documentation on how to extend Lisa",
+      "acceptanceCriteria": [
+        "Create EXTENDING.md",
+        "How to add new deliverable types (enum extension)",
+        "How to add new quality check scripts",
+        "How to add new skills for different workflows",
+        "How to add support for additional creative disciplines (e.g., content strategy, social media management)",
+        "How to integrate with external tools (CMS, email platforms, media databases)",
+        "Hook points for future enhancements",
+        "Plugin architecture explanation",
+        "Examples of potential extensions: A/B testing, analytics integration, CMS publishing, media contact management",
+        "Code structure walkthrough",
+        "How to add new agent prompt templates for new disciplines"
+      ],
+      "priority": 27,
+      "passes": false,
+      "dependencies": ["US-001", "US-023"],
+      "notes": "Enables future growth and customization for additional disciplines"
+    },
+    {
+      "id": "US-028",
+      "title": "Integration test - End-to-end campaign flows",
+      "description": "As a developer, I need to verify Lisa works end-to-end for all three disciplines",
+      "acceptanceCriteria": [
+        "Create test-marketing-campaign.json with 2 simple marketing deliverables",
+        "Create test-pr-campaign.json with 2 simple PR deliverables",
+        "Create test-branding-campaign.json with 2 simple branding deliverables",
+        "Run /lisa for each test campaign with --max-iterations 10",
+        "Verify Lisa creates deliverables for each discipline",
+        "Verify appropriate quality checks run and pass for each discipline (marketing: SEO, PR: AP Style, branding: accessibility)",
+        "Verify campaign-brief.json updated (approved=true) for all tests",
+        "Verify learnings.txt populated with discipline-specific entries",
+        "Verify <promise>COMPLETE</promise> output when done for all tests",
+        "Verify state file deleted after completion for all tests",
+        "Document test results in README for all three disciplines"
+      ],
+      "priority": 28,
+      "passes": false,
+      "dependencies": ["US-007", "US-009", "US-010", "US-012", "US-013", "US-014", "US-015"],
+      "notes": "Validation that all components work together across marketing, PR, and branding"
+    }
+  ],
+  "technicalNotes": {
+    "architecture": "Claude Code plugin using Stop hook pattern (Ralph Wiggum technique)",
+    "disciplines": ["marketing", "pr", "branding"],
+    "dependencies": [
+      "Claude Code (host platform)",
+      "Bash 4.0+ (for scripts)",
+      "Python 3.8+ (for quality checks)",
+      "jq (for JSON parsing in bash)",
+      "textstat (Python library)",
+      "beautifulsoup4 (Python library)",
+      "markdown (Python library)"
+    ],
+    "fileLocations": {
+      "pluginRoot": ".claude/plugins/lisa/",
+      "stateFile": ".claude/lisa-campaign.local.md",
+      "campaignBrief": "campaign-brief.json (user-specified path)",
+      "learningsLog": "learnings.txt",
+      "deliverables": "deliverables/ (output directory)"
+    },
+    "qualityGatesMatrix": {
+      "marketing": ["brand-check", "readability-check", "seo-check", "accessibility-check"],
+      "pr": ["brand-check", "readability-check", "ap-style-check", "accessibility-check"],
+      "branding": ["brand-check", "accessibility-check"]
+    }
+  },
+  "successCriteria": [
+    "All 28 user stories have passes=true",
+    "Example campaigns run successfully end-to-end for all three disciplines",
+    "All quality check scripts return proper exit codes",
+    "Documentation is clear and appropriate for each discipline",
+    "Plugin follows Ralph Wiggum architectural patterns",
+    "Agent prompts adapt correctly to marketing, PR, and branding contexts",
+    "Extensibility points documented for future enhancements and additional disciplines"
+  ]
+}
