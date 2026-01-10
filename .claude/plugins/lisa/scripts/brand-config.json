@@ -1,0 +1,55 @@
+{
+  "approvedTerms": [
+    "innovative",
+    "customer-focused",
+    "reliable",
+    "efficient",
+    "solution",
+    "platform",
+    "seamless",
+    "experience"
+  ],
+  "prohibitedTerms": [
+    "cheap",
+    "basically",
+    "literally",
+    "very unique",
+    "revolutionize",
+    "game-changer",
+    "bleeding edge",
+    "synergy"
+  ],
+  "requiredTerms": [],
+  "voiceToneKeywords": [
+    "professional",
+    "approachable",
+    "confident",
+    "clear"
+  ],
+  "_comments": {
+    "approvedTerms": "Words and phrases that align with your brand voice and positioning. These aren't required but are encouraged. Use terms that differentiate your brand and reflect your values.",
+    "prohibitedTerms": "Words and phrases to avoid. These will cause brand compliance check to fail. Include: competitor names, overused jargon, terms that conflict with brand positioning, casual/unprofessional language, hyperbole, clichés.",
+    "requiredTerms": "Terms that MUST appear in content (e.g., trademark names, legal requirements). Leave empty [] if none required. Use sparingly - only for critical brand terms.",
+    "voiceToneKeywords": "Descriptive keywords for your brand voice and tone. Used for reference and guidance. Examples: professional, friendly, authoritative, playful, technical, accessible, formal, casual.",
+    "customization": "To customize for your brand: 1) Add your brand-specific terminology to approvedTerms, 2) Add competitor names and off-brand terms to prohibitedTerms, 3) Add required trademark/legal terms to requiredTerms, 4) Update voiceToneKeywords to match your brand personality.",
+    "examples": {
+      "approvedTerms_examples": [
+        "For tech company: 'innovative', 'scalable', 'cloud-native', 'API-first'",
+        "For healthcare: 'patient-centered', 'evidence-based', 'compassionate', 'outcomes-driven'",
+        "For finance: 'secure', 'compliant', 'transparent', 'trusted'",
+        "For retail: 'quality', 'curated', 'artisan', 'sustainable'"
+      ],
+      "prohibitedTerms_examples": [
+        "Competitor names: 'CompetitorCorp', 'RivalSoft'",
+        "Overused tech jargon: 'paradigm shift', 'disruptive', 'best-of-breed'",
+        "Casual language (if formal brand): 'awesome', 'cool', 'stuff'",
+        "Hyperbole: 'revolutionary', 'unprecedented', 'industry-leading' (unless factually true)"
+      ],
+      "requiredTerms_examples": [
+        "Trademark: 'YourBrand®' (if legally required in all materials)",
+        "Product names: 'YourProduct' (if must be mentioned)",
+        "Legal terms: 'FDA-approved' (if required by regulations)"
+      ]
+    }
+  }
+}
