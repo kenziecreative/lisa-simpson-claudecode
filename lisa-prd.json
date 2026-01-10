@@ -173,7 +173,7 @@
         "Instructions to speak in discipline-specific terminology"
       ],
       "priority": 9,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-002"],
       "notes": "Three variants of the core prompt - the 'personality' for each discipline"
     },
