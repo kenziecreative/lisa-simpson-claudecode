@@ -80,7 +80,7 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 
 ### Easy Installation with AI Assistants
 
-**Not technical? No problem.** Use an AI coding assistant like [Cursor](https://cursor.sh), [Windsurf](https://codeium.com/windsurf), [Google Antigravity](https://idx.google.com), or other AI-powered editors to handle the installation for you.
+**Not technical? No problem.** Use an AI coding assistant like [Cursor](https://cursor.sh), [Windsurf](https://codeium.com/windsurf), [Google Antigravity](https://antigravity.google/download), or other AI-powered editors to handle the installation for you.
 
 **Copy and paste this prompt into your AI assistant:**
 
