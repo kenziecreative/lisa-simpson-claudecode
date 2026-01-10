@@ -151,7 +151,7 @@
         "Simple, no arguments needed"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-006"],
       "notes": "Safety mechanism to stop runaway loops"
     },
