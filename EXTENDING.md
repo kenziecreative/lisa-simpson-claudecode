@@ -1444,7 +1444,7 @@ except SpecificException as e:
 
 ## Questions or Issues?
 
-- **GitHub Issues**: https://github.com/kenziecreative/lisa/issues
+- **GitHub Issues**: https://github.com/kenziecreative/lisa-simpson-claudecode/issues
 - **Documentation**: README.md, QUALITY-GATES.md
 - **Examples**: See `examples/` directory for reference implementations
 

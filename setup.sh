@@ -223,7 +223,7 @@ setup_lisa_repo() {
 
     # Clone repository
     print_info "Downloading Lisa from GitHub..."
-    git clone https://github.com/kenziecreative/lisa.git "$TEMP_DIR" 2>/dev/null || {
+    git clone https://github.com/kenziecreative/lisa-simpson-claudecode.git "$TEMP_DIR" 2>/dev/null || {
         print_error "Failed to clone repository. Check your internet connection."
         exit 1
     }
@@ -320,7 +320,7 @@ main() {
 
     if [[ "$OS" == "unknown" ]]; then
         print_error "Unsupported operating system: $OSTYPE"
-        print_info "Please install manually. See: https://github.com/kenziecreative/lisa"
+        print_info "Please install manually. See: https://github.com/kenziecreative/lisa-simpson-claudecode"
         exit 1
     fi
 
@@ -359,7 +359,7 @@ main() {
         echo "  2. Run: claude code"
         echo "  3. Use Lisa slash commands: /marketing, /pr, or /branding"
         echo ""
-        print_info "Documentation: https://github.com/kenziecreative/lisa"
+        print_info "Documentation: https://github.com/kenziecreative/lisa-simpson-claudecode"
         print_info "Need help? Check the troubleshooting guide in the README"
         echo ""
     else
@@ -367,7 +367,7 @@ main() {
         print_error "Installation verification failed"
         print_info "Some components may not have installed correctly"
         print_info "Please check the errors above and try again"
-        print_info "Or install manually: https://github.com/kenziecreative/lisa"
+        print_info "Or install manually: https://github.com/kenziecreative/lisa-simpson-claudecode"
         echo ""
         exit 1
     fi

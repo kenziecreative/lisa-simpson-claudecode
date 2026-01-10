@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/kenziecreative/lisa/schemas/campaign-brief.schema.json",
+  "$id": "https://github.com/kenziecreative/lisa-simpson-claudecode/schemas/campaign-brief.schema.json",
   "title": "Lisa Campaign Brief",
   "description": "Schema for defining campaign deliverables across marketing, PR, and branding disciplines",
   "type": "object",

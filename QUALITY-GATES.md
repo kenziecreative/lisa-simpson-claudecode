@@ -1137,6 +1137,6 @@ python3 -c "import textstat; print('✅ Dependencies installed')"
 
 **Questions or issues?**
 
-- GitHub Issues: https://github.com/kenziecreative/lisa/issues
-- Documentation: https://github.com/kenziecreative/lisa#readme
+- GitHub Issues: https://github.com/kenziecreative/lisa-simpson-claudecode/issues
+- Documentation: https://github.com/kenziecreative/lisa-simpson-claudecode#readme
 - Examples: See `examples/` directory for reference campaigns and deliverables

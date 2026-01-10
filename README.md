@@ -1,6 +1,6 @@
-# Lisa Plugin
+# Lisa for Claude Code
 
-**Multi-Discipline Creative Orchestration for Claude Code**
+**Multi-Discipline Creative Orchestration for Marketing, PR, and Branding Teams**
 
 Lisa is a Claude Code plugin that brings autonomous orchestration to marketing, PR, and branding teams. Using the Ralph Wiggum Stop hook pattern, Lisa helps creative professionals automate campaign deliverables with quality gates, institutional memory, and discipline-appropriate language.
 
@@ -77,7 +77,7 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 **For macOS and Linux users** - one command installs everything:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/kenziecreative/lisa/main/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/kenziecreative/lisa-simpson-claudecode/main/setup.sh | bash
 ```
 
 This automated script will:
@@ -130,7 +130,7 @@ Please help me install the Lisa plugin for Claude Code. Here's what needs to hap
      - Windows: Download from https://jqlang.github.io/jq/
 
 4. Clone the Lisa repository:
-   git clone https://github.com/kenziecreative/lisa.git
+   git clone https://github.com/kenziecreative/lisa-simpson-claudecode.git
 
 5. Copy Lisa to my Claude Code plugins directory:
    cp -r lisa ~/.claude/plugins/lisa
@@ -182,7 +182,7 @@ Before installing Lisa manually, you'll need:
 ##### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/kenziecreative/lisa.git
+git clone https://github.com/kenziecreative/lisa-simpson-claudecode.git
 ```
 
 ##### Step 2: Copy to Claude Code Plugins Directory
@@ -1036,7 +1036,7 @@ MIT License - see LICENSE file for details
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/kenziecreative/lisa/issues)
+- **Issues**: [GitHub Issues](https://github.com/kenziecreative/lisa-simpson-claudecode/issues)
 - **Email**: kelsey@kenziecreative.com
 - **Documentation**: This README and EXTENDING.md
 

@@ -149,5 +149,5 @@ End-to-end integration tests require Claude Code environment and should be perfo
 ---
 
 **Test performed by**: Claude Code
-**Repository**: https://github.com/kenziecreative/lisa
+**Repository**: https://github.com/kenziecreative/lisa-simpson-claudecode
 **Version**: 1.0.0

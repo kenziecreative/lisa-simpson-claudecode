@@ -303,7 +303,7 @@ pwd
 cd ~
 
 # 3. Clone the repository
-git clone https://github.com/kenziecreative/lisa.git
+git clone https://github.com/kenziecreative/lisa-simpson-claudecode.git
 
 # 4. Copy to plugins folder
 cp -r lisa ~/.claude/plugins/lisa
