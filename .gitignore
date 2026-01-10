@@ -1,0 +1,53 @@
+# Lisa Plugin - Files to Ignore
+# This .gitignore is for the Lisa plugin repository
+# Users should ignore these files in their own projects
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# User campaign output (created by Lisa)
+# These are user-specific and should not be committed
+# Note: /deliverables/ only ignores root-level, examples/deliverables/ is tracked
+/deliverables/
+learnings.txt
+campaign-plans/
+
+# User campaign state files (created by Lisa)
+.claude/lisa-campaign.local.md
+
+# User campaign briefs (user-specific)
+# Users should keep their own campaign briefs in their own repos
+# The examples/ directory IS committed for reference
+*-campaign-brief.json
+!examples/*.json
+
+# Test output
+test-*/
+*.test.md
+
+# Brand configuration (users should customize this)
+# Keep the default, but users may want to ignore their customized version
+# Uncomment the line below if you want to ignore your brand-config.json
+# scripts/brand-config.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

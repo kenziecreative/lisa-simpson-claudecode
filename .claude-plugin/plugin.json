@@ -1,0 +1,9 @@
+{
+  "name": "lisa",
+  "version": "1.0.0",
+  "description": "Multi-discipline creative orchestration plugin for Claude Code. Autonomous marketing, PR, and branding deliverable generation using the Ralph Wiggum Stop hook pattern. Lisa helps creative professionals automate campaign deliverables with quality gates, institutional memory, and discipline-appropriate language.",
+  "author": {
+    "name": "Kelsey Ruger",
+    "email": "kelsey@kenziecreative.com"
+  }
+}

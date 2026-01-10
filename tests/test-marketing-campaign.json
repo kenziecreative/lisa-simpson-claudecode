@@ -1,0 +1,53 @@
+{
+  "campaign": "Marketing Integration Test",
+  "campaignType": "marketing",
+  "description": "Simple 2-deliverable marketing campaign for integration testing. Validates that Lisa can create marketing content, run SEO and brand checks, and complete successfully.",
+  "deliverables": [
+    {
+      "id": "TEST-MKT-001",
+      "type": "social-posts",
+      "title": "Product announcement social posts",
+      "description": "Create 3 social media posts announcing a new product feature. Platform: LinkedIn and Twitter. Audience: B2B technology buyers. Tone: Professional but approachable. Each post should: (1) Lead with benefit, (2) Include specific metric or proof point, (3) End with clear CTA. Posts should vary in format: one question-based, one stat-based, one customer story. Target keyword: 'enterprise automation' should appear naturally in at least one post.",
+      "acceptanceCriteria": [
+        "3 distinct social posts (not just variations)",
+        "Each post under 280 characters for Twitter compatibility",
+        "Professional tone matching brand voice",
+        "Includes specific benefits and metrics",
+        "Target keyword 'enterprise automation' appears in at least one post",
+        "Clear CTAs (e.g., 'Learn more', 'Start trial', 'Read case study')",
+        "Passes brand compliance check",
+        "Passes readability check (Flesch >= 60)",
+        "Passes SEO check (keyword usage)"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": "enterprise automation",
+      "dependencies": [],
+      "notes": "First test deliverable - should complete quickly. Tests brand, readability, and SEO quality gates."
+    },
+    {
+      "id": "TEST-MKT-002",
+      "type": "email-sequence",
+      "title": "Product launch email",
+      "description": "Create a single product launch announcement email (not a full sequence, just one email for testing). Audience: Existing customers. Goal: Announce new feature and drive adoption. Email should include: Subject line (under 60 chars), Preview text, Body with benefit-led intro, 2-3 key feature highlights, Customer proof or testimonial, CTA to learn more or try feature. Tone: Friendly and excited but professional. Target keyword: 'workflow automation' should appear in subject or first paragraph.",
+      "acceptanceCriteria": [
+        "Subject line under 60 characters",
+        "Preview text (50-100 characters)",
+        "Body structured: intro, features, proof, CTA",
+        "2-3 specific feature highlights with benefits",
+        "Professional yet friendly tone",
+        "Target keyword 'workflow automation' in subject or intro",
+        "Clear CTA with link placeholder",
+        "Passes brand compliance check",
+        "Passes readability check (Flesch >= 60)",
+        "Passes SEO check (keyword usage)",
+        "Passes accessibility check (link text descriptive)"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": "workflow automation",
+      "dependencies": [],
+      "notes": "Second test deliverable. Tests all marketing quality gates: brand, readability, SEO, accessibility."
+    }
+  ]
+}
