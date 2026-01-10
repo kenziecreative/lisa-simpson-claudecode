@@ -1,0 +1,55 @@
+{
+  "campaign": "Branding Integration Test",
+  "campaignType": "branding",
+  "description": "Simple 2-deliverable branding project for integration testing. Validates that Lisa can create strategic brand documents, run brand and accessibility checks, and complete successfully.",
+  "deliverables": [
+    {
+      "id": "TEST-BRD-001",
+      "type": "brand-positioning",
+      "title": "Brand positioning statement",
+      "description": "Brand positioning statement for a hypothetical enterprise software company. Use classic positioning framework: For [target audience] who [need], [brand] is the [category] that [benefit] unlike [competitors] because [reason to believe]. Include: (1) Target audience definition (demographics and psychographics), (2) Positioning statement (one clear sentence), (3) Category specification, (4) Core benefit articulated, (5) Competitive differentiation (vs. 2 competitors), (6) Reason to believe (3 proof points with metrics). Word count: 400-500 words. Strategic, clear writing. Proper heading hierarchy for accessibility.",
+      "acceptanceCriteria": [
+        "Word count: 400-500 words",
+        "Target audience defined: demographics and psychographics",
+        "Positioning statement follows framework",
+        "Category clearly specified",
+        "Core benefit articulated (not just features)",
+        "Competitive differentiation vs. 2 competitors",
+        "Reason to believe: 3 proof points with specific metrics",
+        "Proper heading hierarchy (H1 > H2 > H3, no skipped levels)",
+        "Strategic rationale explaining positioning choices",
+        "Passes brand compliance check",
+        "Passes accessibility check"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": [],
+      "notes": "First test deliverable. Tests brand and accessibility quality gates (no SEO or readability score for strategic branding docs)."
+    },
+    {
+      "id": "TEST-BRD-002",
+      "type": "tagline",
+      "title": "Brand tagline options",
+      "description": "Create 5 tagline options for the brand defined in TEST-BRD-001. Each tagline must be 3-7 words. For each option, provide: (1) The tagline itself, (2) Rationale (how it connects to positioning), (3) Evaluation against criteria (clarity, differentiation, memorability, credibility, emotional resonance). Final recommendation: Choose best tagline with detailed reasoning. Usage guidelines: Where tagline should appear (with logo, marketing materials) and where it shouldn't (UI, technical docs). Word count: 300-400 words total. Clear structure with headings for accessibility.",
+      "acceptanceCriteria": [
+        "5 tagline options provided",
+        "Each tagline is 3-7 words",
+        "Each option evaluated on 5 criteria",
+        "Rationale connects each tagline to positioning from BRD-001",
+        "Final recommendation with detailed reasoning",
+        "Usage guidelines included",
+        "Word count: 300-400 words",
+        "Clear heading structure for scannability",
+        "No color-only instructions",
+        "Passes brand compliance check",
+        "Passes accessibility check"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["TEST-BRD-001"],
+      "notes": "Second test deliverable. Depends on TEST-BRD-001 positioning. Tests dependency handling, brand compliance, accessibility."
+    }
+  ]
+}

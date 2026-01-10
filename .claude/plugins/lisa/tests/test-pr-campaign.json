@@ -1,0 +1,56 @@
+{
+  "campaign": "PR Integration Test",
+  "campaignType": "pr",
+  "description": "Simple 2-deliverable PR campaign for integration testing. Validates that Lisa can create PR materials, run AP Style and brand checks, and complete successfully.",
+  "deliverables": [
+    {
+      "id": "TEST-PR-001",
+      "type": "press-release",
+      "title": "Product announcement press release",
+      "description": "Press release announcing new product feature. Lead with news (what launched, when available). Include customer traction metric (e.g., '50 companies adopted in beta'). CEO quote on market impact. Customer quote on practical benefits. Boilerplate paragraph about company. Media contact info. Follow AP Style: dates (Jan. 15, 2026), times (9 a.m. ET), numbers (spell out one-nine, numerals 10+). Word count: 400-500 words. Professional, factual tone. No hype or superlatives.",
+      "acceptanceCriteria": [
+        "Word count: 400-500 words",
+        "Lead paragraph includes: what, when, key innovation",
+        "Customer traction metric included",
+        "2 quotes: CEO and customer, properly attributed",
+        "Boilerplate paragraph about company at end",
+        "Media contact: name, email, phone",
+        "Follows AP Style for dates, times, numbers",
+        "No hype words (revolutionary, game-changing, etc.)",
+        "Passes brand compliance check",
+        "Passes readability check (Flesch >= 60)",
+        "Passes AP Style check"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": [],
+      "notes": "First test deliverable. Tests brand, readability, and AP Style quality gates (no SEO for PR)."
+    },
+    {
+      "id": "TEST-PR-002",
+      "type": "media-pitch",
+      "title": "Media pitch for tech journalists",
+      "description": "Email pitch to tech journalists about product announcement. Subject line with specific news hook (e.g., 'X companies adopt new Y technology'). Body: Lead with most newsworthy stat or fact. Explain why this matters now (market trend, customer pain). What's different/innovative. Customer proof. Timing angle if relevant. Offer CEO interview, customer intro, demo access. Keep under 250 words - journalists are busy. Conversational but professional tone. Follow AP Style for any dates, numbers.",
+      "acceptanceCriteria": [
+        "Word count: 150-250 words (email length)",
+        "Subject line with specific news hook",
+        "Lead with most compelling stat or fact",
+        "Explains 'why now' (timing, market relevance)",
+        "Differentiates from competitors or status quo",
+        "Customer proof point included",
+        "Clear offers: CEO interview, demo, customer access",
+        "Conversational professional tone",
+        "Follows AP Style for any dates/numbers",
+        "Passes brand compliance check",
+        "Passes readability check (Flesch >= 60)",
+        "Passes AP Style check"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": [],
+      "notes": "Second test deliverable. Tests all PR quality gates: brand, readability, AP Style."
+    }
+  ]
+}
