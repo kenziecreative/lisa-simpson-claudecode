@@ -329,7 +329,7 @@
         "Includes examples of good marketing deliverable descriptions"
       ],
       "priority": 17,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "First skill - helps marketers who don't have a plan yet"
     },
@@ -348,7 +348,7 @@
         "Includes examples of good PR deliverable descriptions"
       ],
       "priority": 18,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Second skill - helps PR professionals create plans"
     },
@@ -367,7 +367,7 @@
         "Includes examples of good branding deliverable descriptions"
       ],
       "priority": 19,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Third skill - helps branding professionals create plans"
     },
@@ -389,7 +389,7 @@
         "Includes examples of good PRD → JSON conversions for all three disciplines"
       ],
       "priority": 20,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-002", "US-017", "US-018", "US-019"],
       "notes": "Conversion skill - works for marketing, PR, and branding PRDs"
     },
