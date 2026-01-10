@@ -26,6 +26,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Lisa development files
+lisa-prd.json
+
 # Lisa output directories
 deliverables/
 learnings.txt
@@ -33,3 +36,4 @@ campaign-plans/
 
 # Lisa state files
 .claude/lisa-campaign.local.md
+.claude/ralph-loop.local.md
