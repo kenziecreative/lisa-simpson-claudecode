@@ -1,4 +1,4 @@
-# Lisa Plugin
+# Lisa Claude Code Plugin
 
 **Multi-Discipline Creative Orchestration for Claude Code**
 
