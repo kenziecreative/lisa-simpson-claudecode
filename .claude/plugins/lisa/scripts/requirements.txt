@@ -1,0 +1,25 @@
+# Lisa Plugin - Python Dependencies
+# Quality check scripts for marketing, PR, and branding campaigns
+#
+# Installation:
+#   pip install -r scripts/requirements.txt
+#
+# Or install with a virtual environment:
+#   python3 -m venv venv
+#   source venv/bin/activate  # On Windows: venv\Scripts\activate
+#   pip install -r scripts/requirements.txt
+#
+# Requires Python 3.8+
+
+# Readability scoring (readability-check.py)
+textstat==0.7.3
+
+# HTML/XML parsing (seo-check.py, accessibility-check.py)
+beautifulsoup4==4.12.3
+
+# Markdown to HTML conversion (seo-check.py, accessibility-check.py)
+# Used to analyze markdown content as HTML
+markdown==3.5.2
+
+# Transitive dependencies (automatically installed, listed for reference)
+# soupsieve>=2.5 (required by beautifulsoup4)

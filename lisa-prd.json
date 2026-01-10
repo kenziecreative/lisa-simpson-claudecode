@@ -231,7 +231,7 @@
         "Requires: textstat library"
       ],
       "priority": 12,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Quality gate for content accessibility - primarily for marketing and PR"
     },
@@ -252,7 +252,7 @@
         "Requires: beautifulsoup4, markdown libraries"
       ],
       "priority": 13,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Quality gate for web content optimization - marketing-specific"
     },
@@ -273,7 +273,7 @@
         "Requires: beautifulsoup4, markdown libraries"
       ],
       "priority": 14,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Quality gate for accessibility - important for all disciplines, especially branding"
     },
@@ -294,7 +294,7 @@
         "Includes helpful suggestions for corrections"
       ],
       "priority": 15,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Quality gate for AP Style compliance - PR-specific"
     },
@@ -310,7 +310,7 @@
         "Works with Python 3.8+"
       ],
       "priority": 16,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-012", "US-013", "US-014", "US-015"],
       "notes": "Ensures quality check scripts have dependencies"
     },
