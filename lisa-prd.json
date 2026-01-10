@@ -16,7 +16,7 @@
         "Description mentions support for marketing, PR, and branding disciplines"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "dependencies": [],
       "notes": "Foundation for all other user stories"
     },
