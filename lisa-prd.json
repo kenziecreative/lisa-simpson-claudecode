@@ -35,7 +35,7 @@
         "Include examples in schema description fields for each discipline"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Core data structure that drives Lisa's orchestration across all disciplines"
     },

@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/kenziecreative/lisa/schemas/campaign-brief.schema.json",
+  "title": "Lisa Campaign Brief",
+  "description": "Schema for defining campaign deliverables across marketing, PR, and branding disciplines",
+  "type": "object",
+  "required": ["campaign", "campaignType", "deliverables"],
+  "properties": {
+    "campaign": {
+      "type": "string",
+      "description": "Campaign name (e.g., 'Q1 Product Launch', 'Brand Refresh 2026')",
+      "minLength": 1,
+      "examples": ["Q1 2026 Product Launch", "Brand Refresh", "Press Event Announcement"]
+    },
+    "campaignType": {
+      "type": "string",
+      "enum": ["marketing", "pr", "branding"],
+      "description": "The discipline for this campaign. Determines which agent prompt and quality gates are applied."
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the campaign goals and context",
+      "examples": ["Launch campaign for new AI-powered analytics dashboard"]
+    },
+    "deliverables": {
+      "type": "array",
+      "description": "Array of deliverables to create for this campaign",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/deliverable"
+      }
+    }
+  },
+  "definitions": {
+    "deliverable": {
+      "type": "object",
+      "required": ["id", "type", "title", "description", "acceptanceCriteria", "priority", "approved"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this deliverable (e.g., 'DEL-001', 'MKT-001', 'PR-001')",
+          "pattern": "^[A-Z]+-[0-9]+$",
+          "examples": ["DEL-001", "MKT-001", "PR-001", "BRD-001"]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "email-sequence",
+            "landing-page-copy",
+            "social-posts",
+            "ad-copy",
+            "blog-article",
+            "newsletter",
+            "case-study",
+            "webinar-script",
+            "press-release",
+            "media-pitch",
+            "press-kit",
+            "crisis-communication",
+            "talking-points",
+            "media-advisory",
+            "op-ed",
+            "qa-document",
+            "fact-sheet",
+            "brand-guidelines",
+            "brand-positioning",
+            "voice-tone-guide",
+            "messaging-framework",
+            "tagline",
+            "brand-story"
+          ],
+          "description": "Type of deliverable. Marketing types: email-sequence, landing-page-copy, social-posts, ad-copy, blog-article, newsletter, case-study, webinar-script. PR types: press-release, media-pitch, press-kit, crisis-communication, talking-points, media-advisory, op-ed, qa-document, fact-sheet. Branding types: brand-guidelines, brand-positioning, voice-tone-guide, messaging-framework, tagline, brand-story."
+        },
+        "title": {
+          "type": "string",
+          "description": "Short, descriptive title for this deliverable",
+          "minLength": 1,
+          "examples": ["Welcome email series", "Product announcement press release", "Brand positioning statement"]
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of what needs to be created and why",
+          "minLength": 1,
+          "examples": [
+            "3-email nurture sequence for trial signups with progressive value proposition",
+            "Press release announcing new product features for tech media outlets",
+            "Brand positioning statement defining our unique value in the market"
+          ]
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "description": "Specific, verifiable criteria that must be met for this deliverable to be approved. Must be testable (not vague like 'good quality'). Examples: 'Includes 3 emails', 'Readability score > 60', 'Passes brand compliance check', 'Word count: 800-1000'.",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examples": [
+            ["3 emails with progressive value proposition", "CTAs link to onboarding flow", "Passes brand compliance", "Readability score > 60"],
+            ["Word count: 800-1000", "Includes executive quotes", "Follows AP Style", "Embargo date specified"],
+            ["Defines target audience", "Lists 3-5 brand attributes", "Includes competitive differentiation", "Passes accessibility check"]
+          ]
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Priority level (1 = highest priority, processed first). Use to control execution order and handle dependencies.",
+          "minimum": 1,
+          "examples": [1, 2, 3]
+        },
+        "approved": {
+          "type": "boolean",
+          "description": "Whether this deliverable has been completed and approved. Lisa sets this to true when all acceptance criteria are met. Start with false for all deliverables.",
+          "default": false
+        },
+        "targetKeyword": {
+          "type": ["string", "null"],
+          "description": "Optional: Target keyword for SEO optimization (used by seo-check.py for marketing deliverables). Set to null if not applicable.",
+          "examples": ["AI analytics dashboard", "enterprise software", null]
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Optional: Array of deliverable IDs that must be completed before this one. Ensure dependencies have lower priority numbers.",
+          "items": {
+            "type": "string"
+          },
+          "examples": [["DEL-001"], ["MKT-001", "MKT-002"], []]
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional: Additional notes, context, or instructions for creating this deliverable",
+          "examples": ["Use testimonial from Customer X", "Coordinate with PR team on timing", "Follow new brand guidelines"]
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "campaign": "Q1 2026 Product Launch",
+      "campaignType": "marketing",
+      "description": "Launch campaign for new AI-powered analytics dashboard",
+      "deliverables": [
+        {
+          "id": "DEL-001",
+          "type": "landing-page-copy",
+          "title": "Product landing page",
+          "description": "Main landing page for product announcement",
+          "acceptanceCriteria": [
+            "Hero section with benefit-driven headline",
+            "3 feature sections with customer pain points",
+            "Social proof section",
+            "Passes brand compliance",
+            "SEO optimized for 'AI analytics dashboard'",
+            "Readability score > 65"
+          ],
+          "priority": 1,
+          "approved": false,
+          "targetKeyword": "AI analytics dashboard",
+          "dependencies": []
+        },
+        {
+          "id": "DEL-002",
+          "type": "email-sequence",
+          "title": "Welcome email series",
+          "description": "3-email nurture sequence for trial signups",
+          "acceptanceCriteria": [
+            "3 emails: welcome, feature highlight, conversion nudge",
+            "Each email < 500 words",
+            "CTAs link to dashboard",
+            "Passes brand compliance",
+            "Readability score > 60"
+          ],
+          "priority": 2,
+          "approved": false,
+          "targetKeyword": null,
+          "dependencies": ["DEL-001"]
+        }
+      ]
+    },
+    {
+      "campaign": "Product Announcement",
+      "campaignType": "pr",
+      "description": "Press announcement for new product features",
+      "deliverables": [
+        {
+          "id": "PR-001",
+          "type": "press-release",
+          "title": "Product announcement press release",
+          "description": "Press release for tech media announcing new features",
+          "acceptanceCriteria": [
+            "Word count: 400-600",
+            "Includes executive quote",
+            "Follows AP Style",
+            "Passes brand compliance",
+            "Includes boilerplate",
+            "Contact information present"
+          ],
+          "priority": 1,
+          "approved": false,
+          "targetKeyword": null,
+          "dependencies": [],
+          "notes": "Embargo until March 15, 2026"
+        }
+      ]
+    },
+    {
+      "campaign": "Brand Refresh 2026",
+      "campaignType": "branding",
+      "description": "Refresh brand positioning and messaging",
+      "deliverables": [
+        {
+          "id": "BRD-001",
+          "type": "brand-positioning",
+          "title": "Updated brand positioning statement",
+          "description": "Define our unique value and differentiation in the market",
+          "acceptanceCriteria": [
+            "Defines target audience clearly",
+            "Lists 3-5 core brand attributes",
+            "Includes competitive differentiation",
+            "Articulates unique value proposition",
+            "Passes brand compliance",
+            "Passes accessibility check"
+          ],
+          "priority": 1,
+          "approved": false,
+          "targetKeyword": null,
+          "dependencies": []
+        }
+      ]
+    }
+  ]
+}
