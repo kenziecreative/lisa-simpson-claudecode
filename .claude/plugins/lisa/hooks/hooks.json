@@ -1,0 +1,15 @@
+{
+  "description": "Lisa plugin stop hook for multi-discipline campaign orchestration (marketing, PR, branding)",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/stop-hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

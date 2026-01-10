@@ -94,7 +94,7 @@
         "Valid JSON that Claude Code can parse"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-004"],
       "notes": "Connects Stop hook to Claude Code's hook system"
     },
