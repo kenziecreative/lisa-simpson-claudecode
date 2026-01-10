@@ -78,6 +78,21 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 - **Python 3.8+**: Required for quality check scripts
 - **jq**: Required for JSON parsing in bash scripts
 
+### New to the Command Line?
+
+If you're not comfortable working in the terminal, **start here first**: [Command Line Basics for Lisa Users](COMMAND-LINE-BASICS.md)
+
+This guide covers the essential commands you need:
+- `ls` - List files and folders
+- `cd` - Change directories
+- `cat` - View file contents
+- `mkdir` - Create folders
+- And how to navigate between directories
+
+**5-minute read** · Beginner-friendly · No prior experience needed
+
+---
+
 ### Easy Installation with AI Assistants
 
 **Not technical? No problem.** Use an AI coding assistant like [Cursor](https://cursor.com/download), [Windsurf](https://codeium.com/windsurf), [Google Antigravity](https://antigravity.google/download), or other AI-powered editors to handle the installation for you.
