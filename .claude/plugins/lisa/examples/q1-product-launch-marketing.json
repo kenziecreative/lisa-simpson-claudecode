@@ -1,0 +1,141 @@
+{
+  "campaign": "Q1 2026 Product Launch - AI Analytics Dashboard",
+  "campaignType": "marketing",
+  "description": "Comprehensive marketing campaign for launching our new AI-powered analytics dashboard targeting enterprise customers. Focus on data-driven decision making, ease of use, and ROI.",
+  "deliverables": [
+    {
+      "id": "MKT-001",
+      "type": "landing-page-copy",
+      "title": "Product landing page - Main hero and features",
+      "description": "Primary landing page for the product launch. Should emphasize the pain points of traditional analytics tools and position our AI-powered solution as the modern alternative.",
+      "acceptanceCriteria": [
+        "Hero section with benefit-driven headline addressing analytics complexity",
+        "3 feature sections highlighting AI capabilities, ease of use, and ROI",
+        "Customer pain points addressed (slow insights, complex setup, poor UX)",
+        "Social proof section with 2-3 customer logos",
+        "Clear CTA: 'Start Free Trial'",
+        "Passes brand compliance check",
+        "SEO optimized for 'AI analytics dashboard'",
+        "Readability score > 65",
+        "Meta description < 160 chars included"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": "AI analytics dashboard",
+      "dependencies": [],
+      "notes": "This is the foundation - all other deliverables will link here"
+    },
+    {
+      "id": "MKT-002",
+      "type": "email-sequence",
+      "title": "Welcome email series for trial signups",
+      "description": "3-email nurture sequence for users who start a free trial. Progressive education on features with gentle conversion nudges.",
+      "acceptanceCriteria": [
+        "Email 1: Welcome + getting started (onboarding focus)",
+        "Email 2: Feature highlight (AI predictions showcase)",
+        "Email 3: Conversion nudge with limited-time offer",
+        "Each email < 500 words",
+        "CTAs link to specific dashboard features",
+        "Passes brand compliance check",
+        "Readability score > 60",
+        "Subject lines included for each email"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["MKT-001"],
+      "notes": "Coordinate with product team on onboarding flow URLs"
+    },
+    {
+      "id": "MKT-003",
+      "type": "social-posts",
+      "title": "Launch week social media posts - LinkedIn",
+      "description": "5-post series for LinkedIn announcing the product launch. Mix of formats: announcement, feature spotlight, customer story, ROI data, call-to-action.",
+      "acceptanceCriteria": [
+        "5 distinct posts with varied formats",
+        "Post 1: Announcement (launch day)",
+        "Post 2: Feature spotlight (AI predictions)",
+        "Post 3: Customer success story",
+        "Post 4: ROI/stats data visualization",
+        "Post 5: Final CTA with urgency",
+        "Each post < 1300 characters (LinkedIn limit)",
+        "Includes relevant hashtags (#analytics #AI #datascience)",
+        "CTAs link to landing page",
+        "Passes brand compliance check"
+      ],
+      "priority": 3,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["MKT-001"],
+      "notes": "Schedule posts M-F during launch week"
+    },
+    {
+      "id": "MKT-004",
+      "type": "blog-article",
+      "title": "Thought leadership: The Future of Analytics is AI-Powered",
+      "description": "Long-form blog post positioning our product launch within the broader trend toward AI-powered business intelligence. Educational with subtle product mentions.",
+      "acceptanceCriteria": [
+        "Word count: 1200-1500",
+        "Structure: problem → market trends → solution approach → our product (subtle)",
+        "Includes 2-3 data points/statistics about analytics market",
+        "At least one expert quote or industry insight",
+        "2-3 mentions of our product (natural, not salesy)",
+        "CTA: Download white paper or start trial",
+        "Passes brand compliance check",
+        "SEO optimized for 'AI powered analytics'",
+        "Readability score > 60",
+        "Includes H2 and H3 headers"
+      ],
+      "priority": 4,
+      "approved": false,
+      "targetKeyword": "AI powered analytics",
+      "dependencies": ["MKT-001"],
+      "notes": "Publish 1 week before launch to build anticipation"
+    },
+    {
+      "id": "MKT-005",
+      "type": "newsletter",
+      "title": "Product launch announcement - Existing customer base",
+      "description": "Newsletter to existing customers announcing new product. Emphasize value for current users and migration path.",
+      "acceptanceCriteria": [
+        "Word count: 400-600",
+        "Personalized greeting (Hi [name])",
+        "Highlights new features relevant to existing users",
+        "Clear migration path or upgrade instructions",
+        "Special offer for existing customers (early access or discount)",
+        "CTA: 'Upgrade Now' and 'Learn More'",
+        "Passes brand compliance check",
+        "Readability score > 60",
+        "Mobile-friendly format"
+      ],
+      "priority": 5,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["MKT-001", "MKT-002"],
+      "notes": "Send day before public launch"
+    },
+    {
+      "id": "MKT-006",
+      "type": "case-study",
+      "title": "Beta customer success story - 40% faster insights",
+      "description": "Detailed case study of beta customer who achieved significant results. Use real data and quotes.",
+      "acceptanceCriteria": [
+        "Word count: 800-1000",
+        "Structure: challenge → solution → results → testimonial",
+        "Specific metrics: '40% faster time-to-insights', 'reduced analysis time by 15 hours/week'",
+        "Direct quotes from customer (3-4 quotes minimum)",
+        "Before/after comparison highlighted",
+        "Customer logo and name (with permission)",
+        "CTA: 'See how we can help you'",
+        "Passes brand compliance check",
+        "Readability score > 60",
+        "Includes customer photo if available"
+      ],
+      "priority": 6,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["MKT-001"],
+      "notes": "Customer: TechCorp Inc. Contact: Jane Smith for quotes"
+    }
+  ]
+}

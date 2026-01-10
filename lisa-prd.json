@@ -54,7 +54,7 @@
         "File validates against schema from US-002"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-002"],
       "notes": "Marketing example - serves as template for marketers"
     },
