@@ -492,7 +492,7 @@
         "Works across all three disciplines"
       ],
       "priority": 25,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-006"],
       "notes": "Institutional memory across campaigns and disciplines"
     },

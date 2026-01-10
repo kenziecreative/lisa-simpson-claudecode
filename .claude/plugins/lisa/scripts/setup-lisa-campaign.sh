@@ -161,14 +161,73 @@ if [[ ! -f "$LEARNINGS_FILE" ]]; then
   cat > "$LEARNINGS_FILE" <<'LEARNINGS_EOF'
 # Lisa Campaign Learnings
 
-This file captures institutional memory across campaigns and disciplines.
-Lisa appends learnings after each deliverable. This is append-only - never delete or modify existing entries.
+**Institutional memory across campaigns and disciplines**
 
-## Format
+This file captures insights, patterns, and learnings from every Lisa campaign.
+Lisa automatically appends entries after completing each deliverable.
+
+**IMPORTANT: This is append-only. Never delete or modify existing entries.**
+
+## How to Use This File
+
+- Lisa writes entries automatically - you don't need to do anything
+- Review learnings before starting new campaigns for insights
+- Search for specific deliverable types to see what worked well
+- Look for patterns across campaigns to improve your process
+
+## Entry Format
+
+Each entry follows this structure:
+```
 [YYYY-MM-DD HH:MM] - [Discipline] - [Deliverable ID] - [Campaign Name]
-What was created, files changed, learnings for future iterations
+Created: [deliverable type and filename]
+Key insights: [What worked well, challenges, recommendations]
+[Discipline]-specific notes: [Relevant context for future campaigns]
+```
 
 ────────────────────────────────────────────────────────────────────
+
+## Brand Patterns
+
+Consistent brand elements and messaging that resonate across campaigns.
+
+## Campaign Insights
+
+Strategic lessons and tactical wins from campaign executions.
+
+## Discipline-Specific Learnings
+
+### Marketing
+Insights specific to marketing campaigns, channels, and conversion strategies.
+
+### PR
+Lessons from media relations, coverage patterns, and journalist engagement.
+
+### Branding
+Strategic patterns in positioning, messaging, and brand expression.
+
+────────────────────────────────────────────────────────────────────
+
+## Example Entries
+
+[2026-01-10 14:30] - Marketing - MKT-001 - Q1 Product Launch
+Created: Landing page copy (deliverables/MKT-001-product-landing-page.md)
+Key insights: Benefit-driven headlines performed better than feature lists. Placing CTAs both above and below the fold increased conversions. Social proof section with customer logos and testimonials generated most engagement.
+Marketing-specific notes: Enterprise buyers respond strongly to ROI messaging and customer proof points. Technical details should be accessible but not oversimplified.
+
+[2026-01-12 09:15] - PR - PR-002 - Product Announcement
+Created: Media pitch for tech journalists (deliverables/PR-002-tech-media-pitch.md)
+Key insights: Leading with customer traction stat (3 Fortune 500 adoptions) generated higher response rate than leading with product features. Personalization to reporter's recent coverage significantly improved engagement.
+PR-specific notes: Tech journalists prefer innovation angle over business impact. Offering customer introductions alongside CEO interview increased pitch success rate. Timing pitch to coincide with industry event (competitor conference) created urgency.
+
+[2026-01-15 16:45] - Branding - BRD-001 - Brand Refresh 2026
+Created: Brand positioning statement (deliverables/BRD-001-brand-positioning.md)
+Key insights: Positioning on accessibility + enterprise power differentiated effectively from competitors (legacy = complex, simple tools = limited). 2x2 competitive positioning map visualized unique space clearly for stakeholders.
+Branding-specific notes: Target audience validation (enterprise tech decision-makers) helped focus all downstream work. Including "reason to believe" with specific proof points (customer count, deployment time) strengthened credibility.
+
+────────────────────────────────────────────────────────────────────
+
+## Your Campaign Learnings Start Below
 
 LEARNINGS_EOF
 fi
