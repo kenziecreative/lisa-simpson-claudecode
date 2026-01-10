@@ -193,7 +193,12 @@ install_claude_code() {
         print_step "Installing Claude Code CLI..."
         print_info "This may take a minute..."
 
-        npm install -g @anthropic-ai/claude-code
+        # Use sudo on Linux for global npm installs
+        if [[ "$OS" == "linux" ]]; then
+            sudo npm install -g @anthropic-ai/claude-code
+        else
+            npm install -g @anthropic-ai/claude-code
+        fi
 
         if command_exists claude; then
             print_success "Claude Code CLI installed"
