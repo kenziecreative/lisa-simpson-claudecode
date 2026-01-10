@@ -6,6 +6,8 @@
 
 ## Opening Your Terminal
 
+### Built-in System Terminals
+
 **macOS**:
 - Press `Cmd + Space`, type "Terminal", and press Enter
 - Or find it in Applications → Utilities → Terminal
@@ -17,6 +19,28 @@
 **Linux**:
 - Press `Ctrl + Alt + T`
 - Or find Terminal in your applications menu
+
+---
+
+### Better Options: Smart Terminals & AI Editors
+
+**For a better experience, consider these alternatives:**
+
+#### Smart Terminal Tools
+
+**[Warp](https://www.warp.dev)** - Modern terminal with AI assistance, autocomplete, and a more user-friendly interface. Great for beginners who find the traditional terminal intimidating.
+
+#### AI Editors with Built-In Terminals
+
+If you're using an AI coding assistant, you can open a terminal right inside the editor:
+
+- **[Cursor](https://cursor.com/download)** - Press `` Ctrl + ` `` (backtick) to open terminal
+- **[Windsurf](https://codeium.com/windsurf)** - Terminal panel available in the bottom section
+- **[Google Antigravity](https://antigravity.google/download)** - Built-in terminal in the IDE
+
+**Why this is easier**: You can work in the terminal and edit files side-by-side in the same window. If you need to check or modify a file, you don't have to switch between applications - just click on the file in the editor panel.
+
+**Recommended for Lisa users**: Use one of these AI editors with a built-in terminal. They provide a more beginner-friendly experience and let you ask the AI for help if you get stuck on a command.
 
 ---
 
