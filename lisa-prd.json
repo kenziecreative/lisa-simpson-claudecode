@@ -77,7 +77,7 @@
         "System message adapts based on campaign_type (marketing/PR/branding terminology)"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001"],
       "notes": "Core orchestration logic - critical component, discipline-agnostic"
     },
