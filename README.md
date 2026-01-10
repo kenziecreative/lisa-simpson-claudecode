@@ -72,11 +72,25 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 
 ## Installation
 
-### Prerequisites
+### Quick Install (Recommended)
 
-- **Claude Code CLI**: Lisa is a Claude Code plugin. Install the command-line interface from [claude.ai/code](https://claude.ai/code) or via npm: `npm install -g @anthropic-ai/claude-code`
-- **Python 3.8+**: Required for quality check scripts
-- **jq**: Required for JSON parsing in bash scripts
+**For macOS and Linux users** - one command installs everything:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/kenziecreative/lisa/main/setup.sh | bash
+```
+
+This automated script will:
+- ✅ Detect your operating system
+- ✅ Install all prerequisites (Python, jq, git, Node.js, Claude Code CLI)
+- ✅ Download and install Lisa
+- ✅ Verify everything works
+
+**Time:** 5-10 minutes | **No technical knowledge required**
+
+**What you'll see:** The script will ask for your password once - this is normal and safe. It needs permission to install software on your computer.
+
+---
 
 ### New to the Command Line?
 
@@ -137,15 +151,41 @@ Your AI assistant will handle checking prerequisites, installing missing depende
 
 ### Manual Installation
 
-If you prefer to install manually, follow these steps:
+**For advanced users** who want full control over the installation process.
 
-### Step 1: Clone the Repository
+#### Prerequisites
+
+Before installing Lisa manually, you'll need:
+
+- **git**: Version control system for downloading Lisa
+  - macOS: `brew install git` or install Xcode Command Line Tools
+  - Linux: `sudo apt-get install git` (Ubuntu/Debian) or `sudo yum install git` (CentOS/RHEL)
+  - Verify: `git --version`
+
+- **Python 3.8+**: Required for quality check scripts
+  - macOS: `brew install python3` or download from [python.org](https://www.python.org/downloads/)
+  - Linux: `sudo apt-get install python3 python3-pip`
+  - Verify: `python3 --version` (should show 3.8 or higher)
+
+- **jq**: JSON processor for bash scripts
+  - macOS: `brew install jq`
+  - Linux: `sudo apt-get install jq`
+  - Verify: `jq --version`
+
+- **Claude Code CLI**: The command-line interface for Claude Code
+  - Install via npm: `npm install -g @anthropic-ai/claude-code`
+  - Or download from [claude.ai/code](https://claude.ai/code)
+  - Verify: `claude --version`
+
+#### Installation Steps
+
+##### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/kenziecreative/lisa.git
 ```
 
-### Step 2: Copy to Claude Code Plugins Directory
+##### Step 2: Copy to Claude Code Plugins Directory
 
 ```bash
 # Copy the lisa directory to your Claude Code plugins folder
@@ -155,24 +195,42 @@ cp -r lisa ~/.claude/plugins/lisa
 ln -s /path/to/lisa ~/.claude/plugins/lisa
 ```
 
-### Step 3: Install Python Dependencies
+##### Step 3: Install Python Dependencies
 
 ```bash
 cd ~/.claude/plugins/lisa
-pip install -r scripts/requirements.txt
+pip3 install -r scripts/requirements.txt
 ```
 
 This installs:
-- `textstat` - Readability scoring
+- `textstat` - Readability scoring (Flesch reading ease)
 - `beautifulsoup4` - HTML/XML parsing
 - `markdown` - Markdown to HTML conversion
 
-### Step 4: Verify Installation
+##### Step 4: Verify Installation
 
-Restart Claude Code, then check that Lisa commands are available:
+Check that all Python dependencies installed correctly:
+
+```bash
+python3 -c "import textstat, bs4, markdown; print('✓ All dependencies installed')"
+```
+
+Verify Lisa is in the correct location:
+
+```bash
+ls ~/.claude/plugins/lisa/.claude-plugin/plugin.json
+```
+
+If you see the file path, Lisa is installed correctly.
+
+##### Step 5: Start Using Lisa
+
+Restart Claude Code (if it's running), then check that Lisa commands are available:
 
 ```
-/lisa
+/marketing
+/pr
+/branding
 ```
 
 You should see the Lisa command help text.
