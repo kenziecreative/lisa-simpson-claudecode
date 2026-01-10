@@ -134,7 +134,7 @@
         "Error handling for missing files or invalid arguments"
       ],
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-006"],
       "notes": "Primary entry point for all creative professionals"
     },
