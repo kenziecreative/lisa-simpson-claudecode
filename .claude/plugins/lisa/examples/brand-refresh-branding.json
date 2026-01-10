@@ -1,0 +1,125 @@
+{
+  "campaign": "TechFlow Brand Refresh 2026",
+  "campaignType": "branding",
+  "description": "Comprehensive brand refresh for TechFlow, modernizing our brand identity while maintaining equity built over 10 years. Focus on evolving from 'traditional enterprise software' perception to 'innovative, accessible technology leader'. Target audience: enterprise decision-makers who value both reliability and innovation. Deliverables establish strategic foundation, verbal identity, and implementation guidelines.",
+  "deliverables": [
+    {
+      "id": "BRD-001",
+      "type": "brand-positioning",
+      "title": "Updated brand positioning statement",
+      "description": "Strategic brand positioning statement defining TechFlow's unique value in the enterprise software market. Uses classic positioning framework: For [target audience] who [need], TechFlow is the [category] that [benefit] unlike [competitors] because [reason to believe]. Target audience: Enterprise technology decision-makers (CIOs, CTOs, VP Engineering) at mid-to-large companies seeking to modernize operations. Category: Enterprise workflow automation platform. Benefit: Simplifies complex business processes with powerful yet accessible automation. Differentiation: Unlike legacy enterprise software (SAP, Oracle) that requires extensive IT resources, or simple tools (Zapier) that lack enterprise capabilities, TechFlow bridges the gap with enterprise-grade power and consumer-grade ease of use. Includes competitive positioning map showing TechFlow's unique space: high capability + high accessibility. Audience insights section explaining decision-maker needs: reduce IT dependency, empower business users, maintain security and compliance.",
+      "acceptanceCriteria": [
+        "Defines target audience with demographics (roles, company size) and psychographics (values, needs)",
+        "Specifies category clearly (enterprise workflow automation platform)",
+        "Articulates core benefit (simplifies complex processes with accessible automation)",
+        "Competitive differentiation section comparing to 2-3 key competitors",
+        "Reason to believe: 3-5 proof points (customer count, deployment time, user satisfaction)",
+        "Includes competitive positioning map (2x2 grid or similar visualization)",
+        "Word count: 400-600 words",
+        "Strategic rationale: explains 'why' behind positioning choices",
+        "Passes brand compliance",
+        "Passes accessibility check"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": [],
+      "notes": "Foundation for all brand work. Validate with exec team before proceeding. Competitors: SAP (legacy complex), Zapier (simple limited), ServiceNow (IT-centric)."
+    },
+    {
+      "id": "BRD-002",
+      "type": "voice-tone-guide",
+      "title": "Brand voice & tone guidelines",
+      "description": "Comprehensive voice & tone guide establishing TechFlow's brand personality in all communications. Core voice dimensions with positioning on each spectrum: (1) Professional ↔ Approachable (65% professional, 35% friendly), (2) Confident ↔ Humble (70% confident, 30% humble), (3) Technical ↔ Plain Language (60% accessible, 40% technical depth when needed), (4) Serious ↔ Playful (80% serious, 20% light moments). Each dimension includes definition, rationale based on brand positioning, and 3-4 before/after examples. Separate sections for: (1) Writing principles - 5-7 core principles that guide all writing, (2) Word choice - approved terms vs. avoid terms, (3) Sentence structure - guidelines for clarity and rhythm, (4) Tone adaptations - how voice shifts for different audiences (technical users vs. executives) and contexts (product docs vs. marketing vs. support). Examples across multiple content types: website hero copy, product feature description, help center article, error message, social media post, email subject line, sales presentation.",
+      "acceptanceCriteria": [
+        "4 voice dimensions defined with spectrum positioning (e.g., 70% confident, 30% humble)",
+        "Each dimension includes: definition, rationale, 3-4 before/after examples",
+        "Writing principles section: 5-7 core principles (e.g., 'Lead with benefits', 'Use active voice')",
+        "Word choice section: Lists approved brand terms and terms to avoid",
+        "Sentence structure guidelines: Length, complexity, punctuation preferences",
+        "Tone adaptation guidance: How voice shifts for technical vs. business audiences",
+        "Examples across 6+ content types showing voice in action",
+        "Do's and don'ts list: 8-10 specific examples of what to do/avoid",
+        "Word count: 1000-1500 words",
+        "Passes brand compliance",
+        "Passes accessibility check"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["BRD-001"],
+      "notes": "This codifies our 'sound'. Test with marketing, product, and support teams for usability. Include examples from existing content that exemplify good voice."
+    },
+    {
+      "id": "BRD-003",
+      "type": "messaging-framework",
+      "title": "Hierarchical messaging framework",
+      "description": "Structured messaging framework organizing all brand messages in clear hierarchy. Level 1 - Master Brand Message (single sentence capturing core promise): 'TechFlow makes enterprise automation accessible to everyone'. Level 2 - Pillar Messages (3 supporting pillars): (1) Enterprise Power - 'Built for complexity: Handle any workflow, any scale, any compliance requirement', (2) Accessible to All - 'Designed for humans: No-code automation that business users actually want to use', (3) IT Confidence - 'Enterprise-ready: Security, governance, and control IT teams demand'. Level 3 - Proof Points (2-3 per pillar with specific data): Customer adoption metrics, deployment time comparisons, user satisfaction scores, security certifications, integration count. Level 4 - Supporting Details (examples, use cases, testimonials for each proof point). Includes usage guidance: When to lead with each pillar (enterprise buyers: start with IT Confidence; business users: start with Accessible to All). Message pull-through tracking template included.",
+      "acceptanceCriteria": [
+        "Level 1: Single master brand message (one sentence capturing core promise)",
+        "Level 2: 3 pillar messages supporting master message",
+        "Level 3: 2-3 proof points per pillar with specific data/metrics",
+        "Level 4: Supporting details (examples, use cases, testimonials) for each proof point",
+        "Visual hierarchy diagram showing message relationships",
+        "Usage guidance: Which messages to lead with for different audiences",
+        "Competitive differentiation: How our messages differ from competitors",
+        "Message testing results (if available) or testing recommendations",
+        "Word count: 800-1200 words",
+        "Passes brand compliance",
+        "Passes accessibility check"
+      ],
+      "priority": 3,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["BRD-001", "BRD-002"],
+      "notes": "Marketing team uses this for all campaign messaging. Ensure proof points are verified with product and customer success teams. Update quarterly as metrics evolve."
+    },
+    {
+      "id": "BRD-004",
+      "type": "brand-story",
+      "title": "TechFlow brand story narrative",
+      "description": "Compelling brand story explaining TechFlow's origin, mission, and vision for the future. Narrative structure: (1) The Problem We Saw - Founders' observation: enterprises stuck between overly complex legacy systems and too-simple consumer tools, (2) The Insight - Realization that business users want to automate but are blocked by technical barriers, (3) Our Approach - Decision to build enterprise-grade power with consumer-grade simplicity, (4) The Journey - 10-year evolution from startup to market leader, key milestones (first Fortune 500 customer, 1M users, Series B funding), (5) What We Stand For - Core values: accessibility, reliability, innovation, customer success, (6) Where We're Going - Vision for democratizing enterprise automation. Written in narrative style (storytelling, not bullet points), includes founder quotes, customer transformation stories, and moments of challenge overcome. Authentic tone that acknowledges difficulties while celebrating progress.",
+      "acceptanceCriteria": [
+        "Word count: 600-900 words",
+        "Narrative structure: Problem → Insight → Approach → Journey → Values → Vision",
+        "Includes origin story: Why founders started TechFlow, what problem they saw",
+        "Key milestones: 3-5 major company achievements with specific dates/numbers",
+        "Customer transformation: At least one customer story showing impact",
+        "Core values: 4-6 values with brief explanations of what each means",
+        "Future vision: Aspirational but credible picture of where company is heading",
+        "Authentic tone: Acknowledges challenges, not just successes",
+        "Storytelling style: Narrative flow, not corporate-speak or bullet points",
+        "Passes brand compliance",
+        "Passes accessibility check"
+      ],
+      "priority": 4,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["BRD-001", "BRD-002"],
+      "notes": "Use on About Us page, investor presentations, recruiting materials. Interview founders for authentic voice. Customer story: Consider TechCorp transformation (reduced deployment time from 6 months to 2 weeks)."
+    },
+    {
+      "id": "BRD-005",
+      "type": "tagline",
+      "title": "Brand tagline",
+      "description": "Short, memorable brand tagline capturing TechFlow's core promise in 3-7 words. Must express the key differentiation: enterprise automation made accessible. Options to evaluate based on positioning work: 'Enterprise automation for everyone', 'Powerful automation. Beautifully simple.', 'Where enterprise meets easy', 'Automate anything. Empower everyone.', 'Complex problems. Simple solutions.', 'Enterprise power. Human design.' Evaluation criteria for each option: (1) Clarity - immediately understandable, (2) Differentiation - unique to TechFlow, not generic, (3) Memorability - easy to remember and repeat, (4) Credibility - believable based on product reality, (5) Emotional resonance - creates positive feeling or aspiration. Recommendation with rationale explaining why chosen tagline best captures brand positioning. Usage guidelines: When tagline appears (lockup with logo, marketing materials, signature line) and when it doesn't (UI, technical docs).",
+      "acceptanceCriteria": [
+        "3-7 words maximum",
+        "Presents 5-6 tagline options for consideration",
+        "Each option evaluated against 5 criteria: clarity, differentiation, memorability, credibility, emotional resonance",
+        "Final recommendation with detailed rationale",
+        "Rationale connects tagline to brand positioning from BRD-001",
+        "Usage guidelines: Where tagline should and shouldn't appear",
+        "Testing recommendation: How to validate tagline with target audience",
+        "Trademark search notes (if applicable)",
+        "Passes brand compliance",
+        "Passes accessibility check"
+      ],
+      "priority": 5,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": ["BRD-001", "BRD-002", "BRD-003"],
+      "notes": "Consider testing top 2-3 options with customer advisory board. Trademark search before final selection. Tagline rollout plan needed (when to update website, marketing materials, swag)."
+    }
+  ]
+}

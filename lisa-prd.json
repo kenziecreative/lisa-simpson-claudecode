@@ -408,7 +408,7 @@
         "File validates against schema from US-002"
       ],
       "priority": 21,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-002"],
       "notes": "PR example - serves as template for PR professionals"
     },
@@ -418,7 +418,7 @@
       "description": "As a branding professional, I need a reference example to understand the campaign brief format",
       "acceptanceCriteria": [
         "Create examples/brand-refresh-branding.json with realistic branding project",
-        "campaignType: 'branding'",
+        "campaignType": 'branding'",
         "Include 4-5 diverse branding deliverables (brand positioning, voice-tone guide, messaging framework, brand story, tagline)",
         "Each deliverable has specific, verifiable acceptance criteria",
         "Shows proper dependency ordering (e.g., brand positioning before messaging framework)",
@@ -427,7 +427,7 @@
         "File validates against schema from US-002"
       ],
       "priority": 22,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-002"],
       "notes": "Branding example - serves as template for branding professionals"
     },
