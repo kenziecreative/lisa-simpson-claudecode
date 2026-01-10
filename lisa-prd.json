@@ -534,7 +534,7 @@
         "How to add new agent prompt templates for new disciplines"
       ],
       "priority": 27,
-      "passes": false,
+      "passes": true,
       "dependencies": ["US-001", "US-023"],
       "notes": "Enables future growth and customization for additional disciplines"
     },
