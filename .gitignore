@@ -29,8 +29,8 @@ Thumbs.db
 # Lisa development files
 lisa-prd.json
 
-# Lisa output directories
-deliverables/
+# Lisa output directories (user-generated, not plugin examples)
+/deliverables/
 learnings.txt
 campaign-plans/
 

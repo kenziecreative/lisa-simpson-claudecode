@@ -15,7 +15,8 @@ env/
 
 # User campaign output (created by Lisa)
 # These are user-specific and should not be committed
-deliverables/
+# Note: /deliverables/ only ignores root-level, examples/deliverables/ is tracked
+/deliverables/
 learnings.txt
 campaign-plans/
 
