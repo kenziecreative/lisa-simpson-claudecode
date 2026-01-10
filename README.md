@@ -74,7 +74,7 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 
 ### Prerequisites
 
-- **Claude Code**: Lisa is a Claude Code plugin. Download from [claude.ai/download](https://claude.ai/download) or your desktop app store.
+- **Claude Code CLI**: Lisa is a Claude Code plugin. Install the command-line interface from [claude.ai/code](https://claude.ai/code) or via npm: `npm install -g @anthropic-ai/claude-code`
 - **Python 3.8+**: Required for quality check scripts
 - **jq**: Required for JSON parsing in bash scripts
 
@@ -87,26 +87,30 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 ```
 Please help me install the Lisa plugin for Claude Code. Here's what needs to happen:
 
-1. Check if I have Python 3.8+ installed (run python3 --version)
+1. Check if I have Claude Code CLI installed (run claude --version)
+   - If not installed, install it via npm: npm install -g @anthropic-ai/claude-code
+   - Or guide me to download from https://claude.ai/code
+
+2. Check if I have Python 3.8+ installed (run python3 --version)
    - If not installed or version is too old, guide me through installing Python 3.8+
 
-2. Check if I have jq installed (run which jq)
+3. Check if I have jq installed (run which jq)
    - If not installed, install it:
      - macOS: brew install jq
      - Linux: apt-get install jq or yum install jq
      - Windows: Download from https://jqlang.github.io/jq/
 
-3. Clone the Lisa repository:
+4. Clone the Lisa repository:
    git clone https://github.com/kenziecreative/lisa.git
 
-4. Copy Lisa to my Claude Code plugins directory:
+5. Copy Lisa to my Claude Code plugins directory:
    cp -r lisa ~/.claude/plugins/lisa
 
-5. Install Python dependencies:
+6. Install Python dependencies:
    cd ~/.claude/plugins/lisa
    pip3 install -r scripts/requirements.txt
 
-6. Verify the installation by checking if these files exist:
+7. Verify the installation by checking if these files exist:
    ls ~/.claude/plugins/lisa/
 
 After you've done this, let me know if everything installed successfully and what to do next.
