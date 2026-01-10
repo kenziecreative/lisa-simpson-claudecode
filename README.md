@@ -74,9 +74,51 @@ Lisa supports three creative disciplines, each with discipline-specific delivera
 
 ### Prerequisites
 
-- **Claude Code**: Lisa is a Claude Code plugin. [Install Claude Code](https://docs.claude.ai/claude-code) if you haven't already.
+- **Claude Code**: Lisa is a Claude Code plugin. Download from [claude.ai/download](https://claude.ai/download) or your desktop app store.
 - **Python 3.8+**: Required for quality check scripts
 - **jq**: Required for JSON parsing in bash scripts
+
+### Easy Installation with AI Assistants
+
+**Not technical? No problem.** Use an AI coding assistant like Cursor, Windsurf, or other AI-powered editors to handle the installation for you.
+
+**Copy and paste this prompt into your AI assistant:**
+
+```
+Please help me install the Lisa plugin for Claude Code. Here's what needs to happen:
+
+1. Check if I have Python 3.8+ installed (run python3 --version)
+   - If not installed or version is too old, guide me through installing Python 3.8+
+
+2. Check if I have jq installed (run which jq)
+   - If not installed, install it:
+     - macOS: brew install jq
+     - Linux: apt-get install jq or yum install jq
+     - Windows: Download from https://jqlang.github.io/jq/
+
+3. Clone the Lisa repository:
+   git clone https://github.com/kenziecreative/lisa.git
+
+4. Copy Lisa to my Claude Code plugins directory:
+   cp -r lisa ~/.claude/plugins/lisa
+
+5. Install Python dependencies:
+   cd ~/.claude/plugins/lisa
+   pip3 install -r scripts/requirements.txt
+
+6. Verify the installation by checking if these files exist:
+   ls ~/.claude/plugins/lisa/
+
+After you've done this, let me know if everything installed successfully and what to do next.
+```
+
+Your AI assistant will handle checking prerequisites, installing missing dependencies, and setting up Lisa automatically.
+
+---
+
+### Manual Installation
+
+If you prefer to install manually, follow these steps:
 
 ### Step 1: Clone the Repository
 
