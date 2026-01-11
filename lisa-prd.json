@@ -663,6 +663,22 @@
       "passes": true,
       "dependencies": ["BUG-001", "BUG-005"],
       "notes": "FIXED: Moved Lisa to marketplaces/local/plugins/, added register_local_marketplace() function, updated all paths in setup.sh, registered local marketplace in known_marketplaces.json."
+    },
+    {
+      "id": "BUG-007",
+      "title": "Marketplace source type must be valid discriminator value",
+      "description": "As a user running setup.sh, I need the local marketplace registered with a valid source type so Claude Code doesn't crash",
+      "acceptanceCriteria": [
+        "Marketplace source.source must be one of: url, github, git, npm, file, directory",
+        "Local marketplace uses 'directory' source type",
+        "Source includes 'path' field pointing to marketplace location",
+        "setup.sh creates valid marketplace configuration",
+        "Claude Code successfully loads without ConfigParseError"
+      ],
+      "priority": 35,
+      "passes": true,
+      "dependencies": ["BUG-006"],
+      "notes": "FIXED: Changed source type from 'local' to 'directory' in register_local_marketplace(). This bug broke Claude Code completely with ConfigParseError."
     }
   ],
   "technicalNotes": {
