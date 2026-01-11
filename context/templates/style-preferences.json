@@ -1,0 +1,78 @@
+{
+  "_comment": "Style Preferences - Style guide, formatting rules, and readability thresholds",
+  "_usage": "Lisa applies these preferences to all content. Update to match your company style guide.",
+  "_schema": "See schemas/context-files.schema.json for field definitions",
+
+  "styleGuide": "AP",
+
+  "spellingChoices": {
+    "email": "email",
+    "ecommerce": "e-commerce",
+    "internet": "internet",
+    "website": "website",
+    "online": "online"
+  },
+
+  "formattingRules": {
+    "oxfordComma": true,
+    "dateFormat": "Month D, YYYY (e.g., January 15, 2024)",
+    "numberStyle": "Spell out one through nine, use digits for 10+",
+    "quotationStyle": "American (periods and commas inside quotes)"
+  },
+
+  "legalDisclaimers": [
+    {
+      "contentType": "financial-projections",
+      "disclaimer": "Past performance does not guarantee future results."
+    },
+    {
+      "contentType": "product-claims",
+      "disclaimer": "Results may vary based on usage and configuration."
+    }
+  ],
+
+  "accessibilityStandards": {
+    "altText": true,
+    "contrastRatios": "WCAG AA (4.5:1 for normal text)",
+    "readingLevel": "8th-9th grade for general audience"
+  },
+
+  "readabilityThresholds": {
+    "_comment": "Flesch Reading Ease scores (0-100, higher = easier to read). Based on comprehensive testing of all 23 deliverable types.",
+    "_fallbackChain": "1. Check deliverable acceptanceCriteria for override → 2. Use these user defaults → 3. Fall back to built-in system defaults",
+    "_guidance": "Only override types where your company needs different thresholds. Leave unspecified types to use system defaults.",
+
+    "globalDefault": 60,
+
+    "byDeliverableType": {
+      "_comment_marketing": "Marketing deliverables - generally conversational and action-oriented",
+      "email-sequence": 65,
+      "landing-page-copy": 65,
+      "social-posts": 70,
+      "ad-copy": 70,
+      "blog-article": 60,
+      "newsletter": 65,
+      "case-study": 58,
+      "webinar-script": 60,
+
+      "_comment_pr": "PR deliverables - wide range based on formality needs",
+      "press-release": 60,
+      "media-pitch": 60,
+      "crisis-response": 70,
+      "thought-leadership": 55,
+      "byline-article": 55,
+      "media-alert": 65,
+      "talking-points": 65,
+      "spokesperson-prep": 65,
+      "executive-bio": 60,
+
+      "_comment_branding": "Branding deliverables - strategic documents need room for nuance",
+      "brand-positioning": 55,
+      "messaging-framework": 58,
+      "value-proposition": 65,
+      "brand-voice-guide": 60,
+      "visual-identity-brief": 50,
+      "tagline-concepts": 65
+    }
+  }
+}

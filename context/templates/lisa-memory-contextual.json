@@ -1,0 +1,31 @@
+{
+  "_comment": "Lisa Memory Contextual - Learned patterns and preferences from user feedback",
+  "_usage": "Lisa automatically adds entries here when you provide feedback during campaigns. You can also manually add patterns you want Lisa to remember.",
+  "_schema": "See schemas/context-files.schema.json for field definitions",
+
+  "version": "1.0",
+  "lastUpdated": "2024-01-01T00:00:00Z",
+
+  "entries": [
+    {
+      "id": "mem-001",
+      "name": "Executive quotes style",
+      "category": "voice",
+      "whenToUse": "When quoting executives in press releases or media content",
+      "tags": ["press-release", "quotes", "executives"],
+      "content": "Always include full title with quotes. Format: 'Quote here,' said Jane Smith, CEO and co-founder of [Company]. Not just 'CEO Jane Smith said.'",
+      "learnedFrom": "user-feedback-campaign-001",
+      "learnedDate": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "mem-002",
+      "name": "Financial terminology",
+      "category": "content-type-specific",
+      "whenToUse": "When discussing financial metrics or revenue",
+      "tags": ["financial", "metrics", "press-release"],
+      "content": "Use 'revenue' not 'sales' when discussing financial performance. Use 'ARR' (Annual Recurring Revenue) for subscription metrics.",
+      "learnedFrom": "user-feedback-campaign-003",
+      "learnedDate": "2024-01-20T14:30:00Z"
+    }
+  ]
+}

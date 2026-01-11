@@ -1,0 +1,90 @@
+{
+  "_comment": "Brand Voice - Voice attributes, tone guidelines, and guardrails",
+  "_usage": "Lisa uses these rules when creating content to match your brand voice. Update when brand guidelines evolve.",
+  "_schema": "See schemas/context-files.schema.json for field definitions",
+
+  "voiceAttributes": [
+    {
+      "attribute": "Clear",
+      "description": "We speak plainly. No jargon. No buzzwords.",
+      "examples": [
+        "Setup takes one hour (not 'seamlessly integrate your infrastructure')",
+        "No SQL needed (not 'eliminate technical barriers')"
+      ]
+    },
+    {
+      "attribute": "Confident",
+      "description": "We know our product works. We show results boldly.",
+      "examples": [
+        "Cut reporting time by 70% (not 'might help improve your workflow')",
+        "10,000 teams trust us (not 'growing user base')"
+      ]
+    },
+    {
+      "attribute": "Practical",
+      "description": "We focus on what you can do today. Real actions. Real results.",
+      "examples": [
+        "Build your first dashboard in 20 minutes",
+        "Connect Salesforce in three clicks"
+      ]
+    }
+  ],
+
+  "toneGuidelines": {
+    "marketing": "Confident and clear. Lead with benefits. Show proof. Active voice. Punchy.",
+    "pr": "Professional but approachable. Fact-based. Quote executives. Include boilerplate.",
+    "crisis": "Empathetic and direct. Acknowledge the issue. State what we're doing. No deflection.",
+    "internal": "Transparent and supportive. Explain the why. Celebrate wins."
+  },
+
+  "prohibitedPatterns": [
+    {
+      "pattern": "Revolutionize",
+      "reason": "Overused tech buzzword that dilutes credibility",
+      "alternative": "Change how teams work with data"
+    },
+    {
+      "pattern": "Seamlessly integrate",
+      "reason": "Vague and overused",
+      "alternative": "Connect in three clicks"
+    },
+    {
+      "pattern": "Game-changing",
+      "reason": "Hyperbolic and unsubstantiated",
+      "alternative": "Saves 15 hours per week"
+    }
+  ],
+
+  "signatureMoves": [
+    {
+      "move": "Short sentences for emphasis",
+      "example": "No SQL. No waiting. No data team."
+    },
+    {
+      "move": "Contrast patterns",
+      "example": "Not next week. Not next month. Today."
+    },
+    {
+      "move": "Specific numbers over vague claims",
+      "example": "Cut reporting from 15 hours to 4 hours (not 'saves time')"
+    }
+  ],
+
+  "guardrails": [
+    "Never make medical, financial, or legal claims",
+    "Always include disclaimer for financial projections",
+    "Don't name competitors negatively",
+    "Include accessibility statements for public communications"
+  ],
+
+  "examples": {
+    "good": [
+      "TechFlow gives every business team the power to turn data into decisions. No data scientists. No SQL. No weeks of waiting.",
+      "Setup takes under one hour. Your team uses it with no training. Cut reporting time by at least half."
+    ],
+    "avoid": [
+      "TechFlow seamlessly revolutionizes your organizational data paradigm.",
+      "Our game-changing solution empowers stakeholders to leverage synergies."
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "_comment": "Company Profile - Core company information that rarely changes",
+  "_usage": "Lisa reads this at campaign start to understand your company. Update when major company changes occur.",
+  "_schema": "See schemas/context-files.schema.json for field definitions",
+
+  "companyName": "Your Company Name",
+  "industry": "Your Industry (e.g., SaaS, Healthcare, Fintech)",
+  "foundedYear": 2024,
+  "teamSize": "50-100",
+
+  "mission": "Your company mission statement here",
+
+  "valuePropositions": [
+    {
+      "audience": "Small businesses",
+      "proposition": "What you offer to this audience"
+    },
+    {
+      "audience": "Enterprise customers",
+      "proposition": "What you offer to this audience"
+    }
+  ],
+
+  "targetAudience": {
+    "description": "Who your ideal customers are",
+    "painPoints": [
+      "Problem your customers face",
+      "Another problem you solve"
+    ],
+    "demographics": {
+      "companySize": "50-500 employees",
+      "roles": ["Marketing Director", "VP of Sales"],
+      "industries": ["Technology", "Professional Services"]
+    }
+  },
+
+  "keyProducts": [
+    {
+      "name": "Product Name",
+      "description": "What this product does",
+      "launchDate": "2024-01-01"
+    }
+  ],
+
+  "metrics": {
+    "customers": "10,000+ teams",
+    "revenue": "$5M ARR",
+    "growth": "300% YoY",
+    "other": {
+      "retention": "95%",
+      "nps": "72"
+    }
+  },
+
+  "boilerplate": "Standard company description for press releases: [Your Company] is a [industry] company that [what you do]. Founded in [year], the company serves [number] customers and is backed by [investors if applicable]."
+}

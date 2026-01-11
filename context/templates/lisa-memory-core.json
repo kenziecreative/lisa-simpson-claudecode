@@ -1,0 +1,35 @@
+{
+  "_comment": "Lisa Memory Core - Core facts and information that Lisa should always remember",
+  "_usage": "Add permanent facts about your company, products, people, and processes. These are loaded at every campaign start.",
+  "_schema": "See schemas/context-files.schema.json for field definitions",
+
+  "version": "1.0",
+  "lastUpdated": "2024-01-01T00:00:00Z",
+
+  "entries": [
+    {
+      "name": "CEO name and title",
+      "content": "Jane Smith is CEO and co-founder",
+      "category": "people",
+      "tags": ["leadership", "quotes", "press"]
+    },
+    {
+      "name": "Product launch date",
+      "content": "Main product launched January 2024",
+      "category": "product",
+      "tags": ["history", "milestones"]
+    },
+    {
+      "name": "Key customer win",
+      "content": "TechCorp (Fortune 500) became customer in March 2024",
+      "category": "company",
+      "tags": ["customers", "case-study", "proof-points"]
+    },
+    {
+      "name": "Funding announcement",
+      "content": "Raised $5M Series A from Innovation Ventures in February 2024",
+      "category": "company",
+      "tags": ["funding", "milestones", "press"]
+    }
+  ]
+}

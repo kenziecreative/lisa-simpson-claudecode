@@ -1,0 +1,364 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lisa Context Files Schema",
+  "description": "Schema definitions for all Lisa context files that store company-specific information, brand voice, style preferences, and learned patterns",
+  "definitions": {
+    "companyProfile": {
+      "type": "object",
+      "title": "Company Profile",
+      "description": "Core company information that rarely changes",
+      "required": ["companyName", "industry"],
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Official company name"
+        },
+        "industry": {
+          "type": "string",
+          "description": "Primary industry or sector (e.g., 'SaaS', 'Healthcare', 'Fintech')"
+        },
+        "foundedYear": {
+          "type": "integer",
+          "description": "Year the company was founded"
+        },
+        "teamSize": {
+          "type": "string",
+          "description": "Approximate team size (e.g., '50-100', '100-500', '500+')"
+        },
+        "mission": {
+          "type": "string",
+          "description": "Company mission statement"
+        },
+        "valuePropositions": {
+          "type": "array",
+          "description": "Key value propositions for different audiences",
+          "items": {
+            "type": "object",
+            "required": ["audience", "proposition"],
+            "properties": {
+              "audience": {"type": "string"},
+              "proposition": {"type": "string"}
+            }
+          }
+        },
+        "targetAudience": {
+          "type": "object",
+          "description": "Primary target audience details",
+          "properties": {
+            "description": {"type": "string"},
+            "painPoints": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "demographics": {"type": "object"}
+          }
+        },
+        "keyProducts": {
+          "type": "array",
+          "description": "Main products or services",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "launchDate": {"type": "string"}
+            }
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "description": "Key business metrics to reference in content",
+          "properties": {
+            "customers": {"type": "string"},
+            "revenue": {"type": "string"},
+            "growth": {"type": "string"},
+            "other": {"type": "object"}
+          }
+        },
+        "boilerplate": {
+          "type": "string",
+          "description": "Standard company description for press releases and official communications"
+        }
+      }
+    },
+    "brandVoice": {
+      "type": "object",
+      "title": "Brand Voice",
+      "description": "Brand voice attributes, tone guidelines, and guardrails",
+      "required": ["voiceAttributes"],
+      "properties": {
+        "voiceAttributes": {
+          "type": "array",
+          "description": "Core voice attributes (e.g., 'clear', 'confident', 'approachable')",
+          "items": {
+            "type": "object",
+            "required": ["attribute", "description"],
+            "properties": {
+              "attribute": {"type": "string"},
+              "description": {"type": "string"},
+              "examples": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "toneGuidelines": {
+          "type": "object",
+          "description": "Tone variations for different contexts",
+          "properties": {
+            "marketing": {"type": "string"},
+            "pr": {"type": "string"},
+            "crisis": {"type": "string"},
+            "internal": {"type": "string"}
+          }
+        },
+        "prohibitedPatterns": {
+          "type": "array",
+          "description": "Phrases, words, or patterns to avoid",
+          "items": {
+            "type": "object",
+            "required": ["pattern", "reason"],
+            "properties": {
+              "pattern": {"type": "string"},
+              "reason": {"type": "string"},
+              "alternative": {"type": "string"}
+            }
+          }
+        },
+        "signatureMoves": {
+          "type": "array",
+          "description": "Distinctive voice patterns that make content recognizable",
+          "items": {
+            "type": "object",
+            "required": ["move", "example"],
+            "properties": {
+              "move": {"type": "string"},
+              "example": {"type": "string"}
+            }
+          }
+        },
+        "guardrails": {
+          "type": "array",
+          "description": "Legal or compliance requirements for communications",
+          "items": {"type": "string"}
+        },
+        "examples": {
+          "type": "object",
+          "description": "Before/after examples showing brand voice in action",
+          "properties": {
+            "good": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "avoid": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "stylePreferences": {
+      "type": "object",
+      "title": "Style Preferences",
+      "description": "Style guide, formatting rules, and readability thresholds",
+      "required": ["styleGuide"],
+      "properties": {
+        "styleGuide": {
+          "type": "string",
+          "enum": ["AP", "Chicago", "MLA", "APA", "Custom"],
+          "description": "Primary style guide to follow"
+        },
+        "spellingChoices": {
+          "type": "object",
+          "description": "Preferred spellings for ambiguous words",
+          "examples": [
+            {"email": "email", "e-mail": false},
+            {"internet": "internet", "Internet": false}
+          ]
+        },
+        "formattingRules": {
+          "type": "object",
+          "description": "Formatting preferences",
+          "properties": {
+            "oxfordComma": {"type": "boolean"},
+            "dateFormat": {"type": "string"},
+            "numberStyle": {"type": "string"},
+            "quotationStyle": {"type": "string"}
+          }
+        },
+        "legalDisclaimers": {
+          "type": "array",
+          "description": "Required legal disclaimers for specific content types",
+          "items": {
+            "type": "object",
+            "required": ["contentType", "disclaimer"],
+            "properties": {
+              "contentType": {"type": "string"},
+              "disclaimer": {"type": "string"}
+            }
+          }
+        },
+        "accessibilityStandards": {
+          "type": "object",
+          "description": "Accessibility requirements for content",
+          "properties": {
+            "altText": {"type": "boolean"},
+            "contrastRatios": {"type": "string"},
+            "readingLevel": {"type": "string"}
+          }
+        },
+        "readabilityThresholds": {
+          "type": "object",
+          "description": "Per-deliverable-type readability thresholds (Flesch Reading Ease scores). Fallback chain: (1) deliverable acceptanceCriteria, (2) these user defaults, (3) built-in system defaults",
+          "properties": {
+            "globalDefault": {
+              "type": "number",
+              "description": "Default threshold for types not specifically configured",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "byDeliverableType": {
+              "type": "object",
+              "description": "Specific thresholds for each deliverable type. Based on testing all 23 types.",
+              "properties": {
+                "email-sequence": {"type": "number"},
+                "landing-page-copy": {"type": "number"},
+                "social-posts": {"type": "number"},
+                "ad-copy": {"type": "number"},
+                "blog-article": {"type": "number"},
+                "newsletter": {"type": "number"},
+                "case-study": {"type": "number"},
+                "webinar-script": {"type": "number"},
+                "press-release": {"type": "number"},
+                "media-pitch": {"type": "number"},
+                "crisis-response": {"type": "number"},
+                "thought-leadership": {"type": "number"},
+                "byline-article": {"type": "number"},
+                "media-alert": {"type": "number"},
+                "talking-points": {"type": "number"},
+                "spokesperson-prep": {"type": "number"},
+                "executive-bio": {"type": "number"},
+                "brand-positioning": {"type": "number"},
+                "messaging-framework": {"type": "number"},
+                "value-proposition": {"type": "number"},
+                "brand-voice-guide": {"type": "number"},
+                "visual-identity-brief": {"type": "number"},
+                "tagline-concepts": {"type": "number"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "lisaMemoryCore": {
+      "type": "object",
+      "title": "Lisa Memory Core",
+      "description": "Core facts and information that Lisa should always remember",
+      "required": ["version", "lastUpdated", "entries"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "entries": {
+          "type": "array",
+          "description": "Core memory entries",
+          "items": {
+            "type": "object",
+            "required": ["name", "content", "category"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Short name for this memory"
+              },
+              "content": {
+                "type": "string",
+                "description": "The core fact or information"
+              },
+              "category": {
+                "type": "string",
+                "enum": ["company", "product", "people", "process", "other"],
+                "description": "Category of this memory"
+              },
+              "tags": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Tags for filtering"
+              }
+            }
+          }
+        }
+      }
+    },
+    "lisaMemoryContextual": {
+      "type": "object",
+      "title": "Lisa Memory Contextual",
+      "description": "Learned patterns and preferences from user feedback",
+      "required": ["version", "lastUpdated", "entries"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "entries": {
+          "type": "array",
+          "description": "Contextual memory entries",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "category", "whenToUse", "content"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for this memory"
+              },
+              "name": {
+                "type": "string",
+                "description": "Short name for this learned pattern"
+              },
+              "category": {
+                "type": "string",
+                "enum": ["voice", "formatting", "content-type-specific", "quality-threshold", "other"],
+                "description": "Category of this learned pattern"
+              },
+              "whenToUse": {
+                "type": "string",
+                "description": "When to apply this pattern (e.g., 'all press releases', 'crisis communications', 'quotes from executives')"
+              },
+              "tags": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Tags for filtering (e.g., deliverable types, situations)"
+              },
+              "content": {
+                "type": "string",
+                "description": "The learned pattern or preference"
+              },
+              "learnedFrom": {
+                "type": "string",
+                "description": "Where this was learned (campaign ID, deliverable ID)"
+              },
+              "learnedDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this was learned"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

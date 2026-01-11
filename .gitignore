@@ -17,8 +17,15 @@ env/
 # These are user-specific and should not be committed
 # Note: /deliverables/ only ignores root-level, examples/deliverables/ is tracked
 /deliverables/
-learnings.txt
 campaign-plans/
+
+# User context files (company-specific information)
+# These contain user's private company data and learned preferences
+# Users create these by copying from context/templates/
+context/*.json
+# But keep the template directory
+!context/templates/
+!context/README.md
 
 # User campaign state files (created by Lisa)
 .claude/lisa-campaign.local.md
