@@ -278,6 +278,23 @@ register_local_marketplace() {
     local marketplace_path="$HOME/.claude/plugins/marketplaces/local"
     local timestamp=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
+    # Create marketplace directory structure and metadata
+    mkdir -p "$marketplace_path/.claude-plugin"
+
+    # Create marketplace.json if it doesn't exist
+    if [ ! -f "$marketplace_path/.claude-plugin/marketplace.json" ]; then
+        print_info "Creating marketplace.json..."
+        cat > "$marketplace_path/.claude-plugin/marketplace.json" <<'EOF'
+{
+  "name": "local",
+  "displayName": "Local Plugins",
+  "description": "Locally installed custom plugins",
+  "version": "1.0.0"
+}
+EOF
+        print_success "Marketplace metadata created"
+    fi
+
     # Create file if it doesn't exist
     if [ ! -f "$marketplaces_file" ]; then
         print_info "Creating known_marketplaces.json..."
