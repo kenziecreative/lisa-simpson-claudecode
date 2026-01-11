@@ -434,9 +434,12 @@ Begin by reading the campaign brief and selecting the first deliverable to creat
 PROMPT_EOF
 )
 
-# Quote completion promise for YAML if needed
+# Sanitize and quote completion promise for YAML
 if [[ -n "$COMPLETION_PROMISE" ]] && [[ "$COMPLETION_PROMISE" != "null" ]]; then
-  COMPLETION_PROMISE_YAML="\"$COMPLETION_PROMISE\""
+  # Replace newlines with spaces to prevent YAML parsing issues
+  # Handle both \n escape sequences and actual newlines
+  COMPLETION_PROMISE_CLEAN=$(echo "$COMPLETION_PROMISE" | tr '\n' ' ' | tr '\r' ' ' | sed 's/\\n/ /g' | sed 's/\\r/ /g' | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
+  COMPLETION_PROMISE_YAML="\"$COMPLETION_PROMISE_CLEAN\""
 else
   COMPLETION_PROMISE_YAML="null"
 fi

@@ -485,6 +485,8 @@ Lisa starts working immediately. You'll see:
 /lisa campaign-brief.json --max-iterations 50 --completion-promise "FINISHED"
 ```
 
+**Note on completion promises**: Multi-line text in completion promises will be automatically converted to single-line (newlines replaced with spaces) to ensure compatibility with the campaign state file format. Use short, simple phrases for best results.
+
 ### Monitoring Progress
 
 While Lisa works:
