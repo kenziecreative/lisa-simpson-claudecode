@@ -1315,5 +1315,7 @@
       "testingCompleted": "2026-01-11",
       "testCoverage": "100% - all 23 deliverable types tested"
     }
-  ]
+  ],
+  "version": "1.0.0",
+  "versionDate": "2026-01-11"
 }
