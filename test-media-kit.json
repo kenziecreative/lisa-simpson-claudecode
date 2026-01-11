@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Media Kit Type",
+  "campaignType": "pr",
+  "description": "Test media-kit deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-KIT",
+      "type": "media-kit",
+      "title": "Company media kit overview",
+      "description": "One-page media kit with company overview, key facts, contacts",
+      "acceptanceCriteria": [
+        "Word count: 300-500",
+        "Company overview section",
+        "Key facts and figures",
+        "Executive bios (brief)",
+        "Media contact information",
+        "High-level product info",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

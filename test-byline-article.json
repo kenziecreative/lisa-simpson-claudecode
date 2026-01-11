@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Byline Article Type",
+  "campaignType": "pr",
+  "description": "Test byline-article deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-BYLINE",
+      "type": "byline-article",
+      "title": "Industry publication byline",
+      "description": "Byline article for tech publication on building data culture",
+      "acceptanceCriteria": [
+        "Word count: 700-900",
+        "Strong opening hook",
+        "Clear structure with subheads",
+        "Practical advice/takeaways",
+        "Personal anecdotes",
+        "Author voice throughout",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

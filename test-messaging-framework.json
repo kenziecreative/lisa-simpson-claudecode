@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Messaging Framework Type",
+  "campaignType": "branding",
+  "description": "Test messaging-framework deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-MESSAGING",
+      "type": "messaging-framework",
+      "title": "Company messaging framework",
+      "description": "Messaging hierarchy with core message, pillars, supporting points",
+      "acceptanceCriteria": [
+        "Word count: 500-700",
+        "Core message stated",
+        "3-5 messaging pillars",
+        "Supporting points for each pillar",
+        "Audience-specific variations",
+        "Proof points included",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

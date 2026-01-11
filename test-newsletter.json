@@ -1,0 +1,24 @@
+{
+  "campaign": "Test Newsletter Type",
+  "campaignType": "marketing",
+  "description": "Test newsletter deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-NEWSLETTER",
+      "type": "newsletter",
+      "title": "Monthly company newsletter",
+      "description": "Company newsletter with product update",
+      "acceptanceCriteria": [
+        "Word count: 300-500",
+        "2-3 sections with headers",
+        "CTA included",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

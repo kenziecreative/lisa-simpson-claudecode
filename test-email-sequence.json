@@ -1,0 +1,24 @@
+{
+  "campaign": "Test Email Sequence Type",
+  "campaignType": "marketing",
+  "description": "Test email-sequence deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-EMAIL",
+      "type": "email-sequence",
+      "title": "Welcome email sequence",
+      "description": "2-email welcome sequence for new trial users",
+      "acceptanceCriteria": [
+        "2 emails created",
+        "Each email 200-300 words",
+        "Subject lines included",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

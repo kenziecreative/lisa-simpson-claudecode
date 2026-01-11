@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Value Proposition Type",
+  "campaignType": "branding",
+  "description": "Test value-proposition deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-VALUE",
+      "type": "value-proposition",
+      "title": "Product value proposition",
+      "description": "Clear value proposition statement with benefits and differentiation",
+      "acceptanceCriteria": [
+        "Word count: 200-400",
+        "One-sentence value prop",
+        "Key benefits listed (3-5)",
+        "Differentiation from competitors",
+        "Customer pain points addressed",
+        "Outcome/transformation described",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

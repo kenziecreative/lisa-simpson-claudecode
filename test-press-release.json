@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Press Release Type",
+  "campaignType": "pr",
+  "description": "Test press-release deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-PR",
+      "type": "press-release",
+      "title": "Product launch press release",
+      "description": "Formal press release announcing new product",
+      "acceptanceCriteria": [
+        "Word count: 400-600",
+        "AP Style formatting",
+        "Inverted pyramid structure",
+        "Quote from executive",
+        "Boilerplate about company",
+        "Media contact info",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

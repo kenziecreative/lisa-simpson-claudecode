@@ -1,0 +1,27 @@
+{
+  "campaign": "Test Tagline Concepts Type",
+  "campaignType": "branding",
+  "description": "Test tagline-concepts deliverable type",
+  "deliverables": [
+    {
+      "id": "TEST-TAGLINE",
+      "type": "tagline-concepts",
+      "title": "Company tagline concepts",
+      "description": "Multiple tagline options with rationale for each",
+      "acceptanceCriteria": [
+        "Word count: 300-500",
+        "5-10 tagline options",
+        "Each tagline under 8 words",
+        "Rationale for each concept",
+        "Strategic themes represented",
+        "Memorable and ownable",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": null,
+      "dependencies": []
+    }
+  ]
+}

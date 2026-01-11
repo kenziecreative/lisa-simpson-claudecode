@@ -1,0 +1,44 @@
+{
+  "campaign": "Marketing Sample Test - Email & Landing Page",
+  "campaignType": "marketing",
+  "description": "Test 2 marketing deliverable types: email-sequence and landing-page-copy",
+  "deliverables": [
+    {
+      "id": "MKT-EMAIL",
+      "type": "email-sequence",
+      "title": "Welcome email sequence",
+      "description": "2-email welcome sequence for new trial users of analytics product",
+      "acceptanceCriteria": [
+        "2 emails created (Email 1: Welcome, Email 2: Feature highlight)",
+        "Each email 200-300 words",
+        "Subject lines included for both emails",
+        "CTAs link to product features",
+        "Passes brand compliance",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": false,
+      "targetKeyword": null,
+      "dependencies": []
+    },
+    {
+      "id": "MKT-LANDING",
+      "type": "landing-page-copy",
+      "title": "Product landing page",
+      "description": "Landing page for AI analytics dashboard product",
+      "acceptanceCriteria": [
+        "Hero section with benefit-driven headline",
+        "2 feature sections highlighting key capabilities",
+        "Clear CTA button text",
+        "Passes brand compliance",
+        "SEO optimized for target keyword",
+        "Readability score > 60",
+        "Meta description included"
+      ],
+      "priority": 2,
+      "approved": false,
+      "targetKeyword": "AI analytics dashboard",
+      "dependencies": []
+    }
+  ]
+}
