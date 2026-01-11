@@ -36,7 +36,9 @@
       ],
       "priority": 2,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Core data structure that drives Lisa's orchestration across all disciplines"
     },
     {
@@ -55,7 +57,9 @@
       ],
       "priority": 3,
       "passes": true,
-      "dependencies": ["US-002"],
+      "dependencies": [
+        "US-002"
+      ],
       "notes": "Marketing example - serves as template for marketers"
     },
     {
@@ -78,7 +82,9 @@
       ],
       "priority": 4,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Core orchestration logic - critical component, discipline-agnostic"
     },
     {
@@ -95,7 +101,9 @@
       ],
       "priority": 5,
       "passes": true,
-      "dependencies": ["US-004"],
+      "dependencies": [
+        "US-004"
+      ],
       "notes": "Connects Stop hook to Claude Code's hook system"
     },
     {
@@ -116,7 +124,10 @@
       ],
       "priority": 6,
       "passes": true,
-      "dependencies": ["US-002", "US-004"],
+      "dependencies": [
+        "US-002",
+        "US-004"
+      ],
       "notes": "Initializes the campaign loop state, adapts to discipline"
     },
     {
@@ -135,7 +146,9 @@
       ],
       "priority": 7,
       "passes": true,
-      "dependencies": ["US-006"],
+      "dependencies": [
+        "US-006"
+      ],
       "notes": "Primary entry point for all creative professionals"
     },
     {
@@ -152,7 +165,9 @@
       ],
       "priority": 8,
       "passes": true,
-      "dependencies": ["US-006"],
+      "dependencies": [
+        "US-006"
+      ],
       "notes": "Safety mechanism to stop runaway loops"
     },
     {
@@ -174,7 +189,9 @@
       ],
       "priority": 9,
       "passes": true,
-      "dependencies": ["US-002"],
+      "dependencies": [
+        "US-002"
+      ],
       "notes": "Three variants of the core prompt - the 'personality' for each discipline"
     },
     {
@@ -195,7 +212,9 @@
       ],
       "priority": 10,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Critical quality gate for brand consistency across all disciplines"
     },
     {
@@ -212,7 +231,9 @@
       ],
       "priority": 11,
       "passes": true,
-      "dependencies": ["US-010"],
+      "dependencies": [
+        "US-010"
+      ],
       "notes": "Configuration for brand-check.sh"
     },
     {
@@ -232,7 +253,9 @@
       ],
       "priority": 12,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Quality gate for content accessibility - primarily for marketing and PR"
     },
     {
@@ -253,7 +276,9 @@
       ],
       "priority": 13,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Quality gate for web content optimization - marketing-specific"
     },
     {
@@ -274,7 +299,9 @@
       ],
       "priority": 14,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Quality gate for accessibility - important for all disciplines, especially branding"
     },
     {
@@ -295,7 +322,9 @@
       ],
       "priority": 15,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Quality gate for AP Style compliance - PR-specific"
     },
     {
@@ -311,7 +340,12 @@
       ],
       "priority": 16,
       "passes": true,
-      "dependencies": ["US-012", "US-013", "US-014", "US-015"],
+      "dependencies": [
+        "US-012",
+        "US-013",
+        "US-014",
+        "US-015"
+      ],
       "notes": "Ensures quality check scripts have dependencies"
     },
     {
@@ -330,7 +364,9 @@
       ],
       "priority": 17,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "First skill - helps marketers who don't have a plan yet"
     },
     {
@@ -349,7 +385,9 @@
       ],
       "priority": 18,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Second skill - helps PR professionals create plans"
     },
     {
@@ -368,7 +406,9 @@
       ],
       "priority": 19,
       "passes": true,
-      "dependencies": ["US-001"],
+      "dependencies": [
+        "US-001"
+      ],
       "notes": "Third skill - helps branding professionals create plans"
     },
     {
@@ -390,7 +430,12 @@
       ],
       "priority": 20,
       "passes": true,
-      "dependencies": ["US-002", "US-017", "US-018", "US-019"],
+      "dependencies": [
+        "US-002",
+        "US-017",
+        "US-018",
+        "US-019"
+      ],
       "notes": "Conversion skill - works for marketing, PR, and branding PRDs"
     },
     {
@@ -409,7 +454,9 @@
       ],
       "priority": 21,
       "passes": true,
-      "dependencies": ["US-002"],
+      "dependencies": [
+        "US-002"
+      ],
       "notes": "PR example - serves as template for PR professionals"
     },
     {
@@ -428,7 +475,9 @@
       ],
       "priority": 22,
       "passes": true,
-      "dependencies": ["US-002"],
+      "dependencies": [
+        "US-002"
+      ],
       "notes": "Branding example - serves as template for branding professionals"
     },
     {
@@ -451,7 +500,15 @@
       ],
       "priority": 23,
       "passes": true,
-      "dependencies": ["US-001", "US-002", "US-007", "US-017", "US-018", "US-019", "US-020"],
+      "dependencies": [
+        "US-001",
+        "US-002",
+        "US-007",
+        "US-017",
+        "US-018",
+        "US-019",
+        "US-020"
+      ],
       "notes": "Critical for adoption - all creative professionals need clear guidance"
     },
     {
@@ -473,7 +530,14 @@
       ],
       "priority": 24,
       "passes": true,
-      "dependencies": ["US-010", "US-011", "US-012", "US-013", "US-014", "US-015"],
+      "dependencies": [
+        "US-010",
+        "US-011",
+        "US-012",
+        "US-013",
+        "US-014",
+        "US-015"
+      ],
       "notes": "Helps all creative professionals customize Lisa for their needs"
     },
     {
@@ -493,7 +557,9 @@
       ],
       "priority": 25,
       "passes": true,
-      "dependencies": ["US-006"],
+      "dependencies": [
+        "US-006"
+      ],
       "notes": "Institutional memory across campaigns and disciplines"
     },
     {
@@ -513,7 +579,11 @@
       ],
       "priority": 26,
       "passes": true,
-      "dependencies": ["US-003", "US-021", "US-022"],
+      "dependencies": [
+        "US-003",
+        "US-021",
+        "US-022"
+      ],
       "notes": "Helps all creative professionals understand expected output quality"
     },
     {
@@ -535,7 +605,10 @@
       ],
       "priority": 27,
       "passes": true,
-      "dependencies": ["US-001", "US-023"],
+      "dependencies": [
+        "US-001",
+        "US-023"
+      ],
       "notes": "Enables future growth and customization for additional disciplines"
     },
     {
@@ -557,7 +630,15 @@
       ],
       "priority": 28,
       "passes": true,
-      "dependencies": ["US-007", "US-009", "US-010", "US-012", "US-013", "US-014", "US-015"],
+      "dependencies": [
+        "US-007",
+        "US-009",
+        "US-010",
+        "US-012",
+        "US-013",
+        "US-014",
+        "US-015"
+      ],
       "notes": "Validation that all components work together across marketing, PR, and branding"
     },
     {
@@ -644,7 +725,10 @@
       ],
       "priority": 33,
       "passes": true,
-      "dependencies": ["BUG-001", "BUG-002"],
+      "dependencies": [
+        "BUG-001",
+        "BUG-002"
+      ],
       "notes": "FIXED: setup.sh now uses 'lisa@local' format in both installed_plugins.json and settings.json. Format is now correct from first installation."
     },
     {
@@ -661,7 +745,10 @@
       ],
       "priority": 34,
       "passes": true,
-      "dependencies": ["BUG-001", "BUG-005"],
+      "dependencies": [
+        "BUG-001",
+        "BUG-005"
+      ],
       "notes": "FIXED: Moved Lisa to marketplaces/local/plugins/, added register_local_marketplace() function, updated all paths in setup.sh, registered local marketplace in known_marketplaces.json."
     },
     {
@@ -677,7 +764,9 @@
       ],
       "priority": 35,
       "passes": true,
-      "dependencies": ["BUG-006"],
+      "dependencies": [
+        "BUG-006"
+      ],
       "notes": "FIXED: Changed source type from 'local' to 'directory' in register_local_marketplace(). This bug broke Claude Code completely with ConfigParseError."
     },
     {
@@ -692,14 +781,38 @@
         "Lisa plugin is found and loaded from local marketplace"
       ],
       "priority": 36,
-      "passes": false,
-      "dependencies": ["BUG-007"],
-      "notes": "FIXED (UNTESTED): marketplace.json now matches claude-code-plugins schema exactly - added required 'owner' object and 'plugins' array. Uses absolute path for directory-based marketplace. Needs Claude Code restart to verify."
+      "passes": true,
+      "dependencies": [
+        "BUG-007"
+      ],
+      "notes": "FIXED: marketplace.json now matches claude-code-plugins schema exactly - added required 'owner' object and 'plugins' array with relative path './plugins/lisa'. Plugin now loads successfully."
+    },
+    {
+      "id": "BUG-009",
+      "title": "Claude Code permission system doesn't expand ${CLAUDE_PLUGIN_ROOT} in allowed-tools",
+      "description": "As a plugin developer, I need ${CLAUDE_PLUGIN_ROOT} to work in allowed-tools patterns so plugins are portable",
+      "acceptanceCriteria": [
+        "This is a Claude Code bug tracked in GitHub Issue #145",
+        "Workaround: Users must manually add absolute path to ~/.claude/settings.json permissions.allow list",
+        "Workaround documented in README installation section",
+        "Format: 'Bash(/full/path/to/plugin/scripts/script.sh:*)'",
+        "Users see clear instructions on what to add to settings.json",
+        "Lisa commands work after applying workaround",
+        "Document this as temporary workaround until Anthropic fixes Issue #145"
+      ],
+      "priority": 37,
+      "passes": true,
+      "dependencies": [],
+      "notes": "WORKAROUND APPLIED: Users must add 'Bash(/Users/USERNAME/.claude/plugins/marketplaces/local/plugins/lisa/scripts/setup-lisa-campaign.sh:*)' to permissions.allow in settings.json. This is a Claude Code bug, not a Lisa bug. Tracked in anthropics/claude-plugins-official#145."
     }
   ],
   "technicalNotes": {
     "architecture": "Claude Code plugin using Stop hook pattern (Ralph Wiggum technique)",
-    "disciplines": ["marketing", "pr", "branding"],
+    "disciplines": [
+      "marketing",
+      "pr",
+      "branding"
+    ],
     "dependencies": [
       "Claude Code (host platform)",
       "Bash 4.0+ (for scripts)",
@@ -717,9 +830,22 @@
       "deliverables": "deliverables/ (output directory)"
     },
     "qualityGatesMatrix": {
-      "marketing": ["brand-check", "readability-check", "seo-check", "accessibility-check"],
-      "pr": ["brand-check", "readability-check", "ap-style-check", "accessibility-check"],
-      "branding": ["brand-check", "accessibility-check"]
+      "marketing": [
+        "brand-check",
+        "readability-check",
+        "seo-check",
+        "accessibility-check"
+      ],
+      "pr": [
+        "brand-check",
+        "readability-check",
+        "ap-style-check",
+        "accessibility-check"
+      ],
+      "branding": [
+        "brand-check",
+        "accessibility-check"
+      ]
     }
   },
   "successCriteria": [
