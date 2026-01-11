@@ -229,26 +229,37 @@ if [[ "$COMPLETION_PROMISE" != "null" ]] && [[ -n "$COMPLETION_PROMISE" ]]; then
   # Use = for literal string comparison (not pattern matching)
   # == in [[ ]] does glob pattern matching which breaks with *, ?, [ characters
   if [[ -n "$PROMISE_TEXT" ]] && [[ "$PROMISE_TEXT" = "$COMPLETION_PROMISE" ]]; then
+    # Calculate efficiency metrics
+    if [[ $DELIVERABLES_TOTAL -gt 0 ]]; then
+      AVG_ITERATIONS_PER_DELIVERABLE=$((ITERATION / DELIVERABLES_TOTAL))
+    else
+      AVG_ITERATIONS_PER_DELIVERABLE=0
+    fi
+
     # Use discipline-appropriate celebration messaging
     case "$CAMPAIGN_TYPE" in
       marketing)
         echo "✅ Marketing campaign complete! Detected <promise>$COMPLETION_PROMISE</promise>"
         echo "   Campaign: $CAMPAIGN_NAME"
+        echo "   Completed in $ITERATION iterations ($COMPLEXITY complexity, ~$AVG_ITERATIONS_PER_DELIVERABLE iterations/deliverable)"
         echo "   All deliverables approved. Check deliverables/ folder for your content."
         ;;
       pr)
         echo "✅ PR campaign complete! Detected <promise>$COMPLETION_PROMISE</promise>"
         echo "   Campaign: $CAMPAIGN_NAME"
+        echo "   Completed in $ITERATION iterations ($COMPLEXITY complexity, ~$AVG_ITERATIONS_PER_DELIVERABLE iterations/deliverable)"
         echo "   All deliverables approved. Check deliverables/ folder for your content."
         ;;
       branding)
         echo "✅ Branding project complete! Detected <promise>$COMPLETION_PROMISE</promise>"
         echo "   Project: $CAMPAIGN_NAME"
+        echo "   Completed in $ITERATION iterations ($COMPLEXITY complexity, ~$AVG_ITERATIONS_PER_DELIVERABLE iterations/deliverable)"
         echo "   All deliverables approved. Check deliverables/ folder for your brand assets."
         ;;
       *)
         echo "✅ Lisa campaign complete! Detected <promise>$COMPLETION_PROMISE</promise>"
         echo "   Campaign: $CAMPAIGN_NAME"
+        echo "   Completed in $ITERATION iterations ($COMPLEXITY complexity, ~$AVG_ITERATIONS_PER_DELIVERABLE iterations/deliverable)"
         ;;
     esac
     rm "$LISA_STATE_FILE"

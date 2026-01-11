@@ -444,13 +444,16 @@ else
   COMPLETION_PROMISE_YAML="null"
 fi
 
-# Calculate complexity based on deliverable count
+# Calculate complexity and suggested iterations based on deliverable count
 if [[ $DELIVERABLE_COUNT -le 3 ]]; then
   COMPLEXITY="Low"
+  SUGGESTED_ITERATIONS=15
 elif [[ $DELIVERABLE_COUNT -le 8 ]]; then
   COMPLEXITY="Moderate"
+  SUGGESTED_ITERATIONS=30
 else
   COMPLEXITY="High"
+  SUGGESTED_ITERATIONS=50
 fi
 
 # Create state file with YAML frontmatter
@@ -504,14 +507,21 @@ else
   CONTEXT_STATUS="⚠️  No context files found - content will be generic"
 fi
 
+# Build iteration recommendation message
+ITERATION_NOTE=""
+if [[ $MAX_ITERATIONS -ne $SUGGESTED_ITERATIONS ]]; then
+  ITERATION_NOTE="
+💡 Tip: Based on $COMPLEXITY complexity, suggested --max-iterations $SUGGESTED_ITERATIONS"
+fi
+
 cat <<EOF
 $EMOJI Lisa campaign activated!
 
 $DISCIPLINE_NAME: $CAMPAIGN_NAME
 Type: $CAMPAIGN_TYPE
 Deliverables: $DELIVERABLE_COUNT
-Complexity: $COMPLEXITY
-Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)
+Complexity: $COMPLEXITY (suggested: $SUGGESTED_ITERATIONS iterations)
+Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)$ITERATION_NOTE
 Completion promise: $COMPLETION_PROMISE
 
 The Stop hook is now active. Lisa will work through each deliverable,
