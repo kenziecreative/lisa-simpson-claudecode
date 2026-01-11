@@ -384,6 +384,45 @@ ${CONTEXT_SECTION}
 - Quality checks must pass before approval
 - Learnings are append-only (never overwrite)
 
+## Learning From Feedback
+
+When the user provides feedback like:
+- "I wouldn't say it like that" or "This phrasing is off-brand"
+- "This worked really well" or "This is perfect, do more of this"
+- "Use simpler language" or "Be more technical"
+- Any correction or preference
+
+**Immediately update lisa-memory-contextual.json**:
+
+1. Read the current memory file from: ${CLAUDE_PLUGIN_ROOT}/context/lisa-memory-contextual.json
+2. Add a new entry with:
+   - Unique id (e.g., "mem-\$(date +%s)")
+   - name: Brief description of the learning
+   - category: One of "voice", "formatting", "content-type-specific", "quality-threshold"
+   - whenToUse: Specific conditions when this pattern applies (deliverable type, situation)
+   - tags: Array of relevant tags (deliverable type, topic, etc.)
+   - content: The actual pattern, correction, or preference
+   - learnedFrom: "user-feedback-[campaign-name]"
+   - learnedDate: Current timestamp
+3. Write the updated file back
+4. Confirm to user: "✅ Learned: [brief description]. I'll apply this to future [deliverable types]."
+
+**Example memory entry**:
+\`\`\`json
+{
+  "id": "mem-1704983421",
+  "name": "Avoid 'revolutionize' in enterprise content",
+  "category": "voice",
+  "whenToUse": "When writing for enterprise audience, especially in press releases and thought leadership",
+  "tags": ["press-release", "thought-leadership", "enterprise", "voice"],
+  "content": "User prefers 'transform' or 'change how teams work' over 'revolutionize'. The word 'revolutionize' feels like hype and reduces credibility with technical buyers.",
+  "learnedFrom": "user-feedback-Q1-Product-Launch",
+  "learnedDate": "2026-01-11T14:30:00Z"
+}
+\`\`\`
+
+Apply learned patterns automatically in future deliverables - no need to ask permission.
+
 ## Campaign Details
 
 Campaign: $CAMPAIGN_NAME
