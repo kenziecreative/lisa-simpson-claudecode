@@ -694,7 +694,7 @@
       "priority": 36,
       "passes": false,
       "dependencies": ["BUG-007"],
-      "notes": "UNTESTED: Added marketplace.json creation to setup.sh. File created manually. Needs Claude Code restart to verify fix actually works."
+      "notes": "FIXED (UNTESTED): marketplace.json now matches claude-code-plugins schema exactly - added required 'owner' object and 'plugins' array. Uses absolute path for directory-based marketplace. Needs Claude Code restart to verify."
     }
   ],
   "technicalNotes": {
