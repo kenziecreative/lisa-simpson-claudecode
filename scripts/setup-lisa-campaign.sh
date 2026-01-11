@@ -241,6 +241,98 @@ Branding-specific notes: Target audience validation (enterprise tech decision-ma
 LEARNINGS_EOF
 fi
 
+# Load company context files if they exist
+CONTEXT_DIR="${CLAUDE_PLUGIN_ROOT}/context"
+CONTEXT_SECTION=""
+
+# Function to load and format a context file
+load_context_file() {
+  local file_path="$1"
+  local context_name="$2"
+
+  if [[ -f "$file_path" ]]; then
+    echo "## $context_name"
+    echo ""
+    echo '```json'
+    cat "$file_path"
+    echo '```'
+    echo ""
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Try to load all context files
+CONTEXT_FILES_LOADED=0
+CONTEXT_WARNINGS=""
+
+# Build context section if files exist
+if [[ -d "$CONTEXT_DIR" ]]; then
+  TEMP_CONTEXT=""
+
+  # Load company profile
+  if PROFILE_CONTENT=$(load_context_file "$CONTEXT_DIR/company-profile.json" "Company Profile"); then
+    TEMP_CONTEXT+="$PROFILE_CONTENT"
+    ((CONTEXT_FILES_LOADED++))
+  else
+    CONTEXT_WARNINGS+="⚠️  No company-profile.json found - content will be generic\n"
+  fi
+
+  # Load brand voice
+  if VOICE_CONTENT=$(load_context_file "$CONTEXT_DIR/brand-voice.json" "Brand Voice"); then
+    TEMP_CONTEXT+="$VOICE_CONTENT"
+    ((CONTEXT_FILES_LOADED++))
+  else
+    CONTEXT_WARNINGS+="⚠️  No brand-voice.json found - voice will be generic\n"
+  fi
+
+  # Load style preferences
+  if STYLE_CONTENT=$(load_context_file "$CONTEXT_DIR/style-preferences.json" "Style Preferences"); then
+    TEMP_CONTEXT+="$STYLE_CONTENT"
+    ((CONTEXT_FILES_LOADED++))
+  else
+    CONTEXT_WARNINGS+="⚠️  No style-preferences.json found - using default style\n"
+  fi
+
+  # Load core memory
+  if MEMORY_CORE_CONTENT=$(load_context_file "$CONTEXT_DIR/lisa-memory-core.json" "Core Memory"); then
+    TEMP_CONTEXT+="$MEMORY_CORE_CONTENT"
+    ((CONTEXT_FILES_LOADED++))
+  fi
+
+  # Load contextual memory
+  if MEMORY_CONTEXTUAL_CONTENT=$(load_context_file "$CONTEXT_DIR/lisa-memory-contextual.json" "Contextual Memory"); then
+    TEMP_CONTEXT+="$MEMORY_CONTEXTUAL_CONTENT"
+    ((CONTEXT_FILES_LOADED++))
+  fi
+
+  # If any context loaded, add header
+  if [[ $CONTEXT_FILES_LOADED -gt 0 ]]; then
+    CONTEXT_SECTION=$(cat <<CONTEXT_EOF
+
+# Company Context
+
+You have access to company-specific context that will help you create personalized, on-brand content.
+Apply this context throughout your work:
+
+$TEMP_CONTEXT
+
+## Using This Context
+
+- **Company Profile**: Use facts, metrics, boilerplate in appropriate deliverables
+- **Brand Voice**: Match voice attributes, avoid prohibited patterns, use signature moves
+- **Style Preferences**: Follow style guide, apply spelling/formatting rules, respect readability thresholds
+- **Core Memory**: Reference permanent facts when relevant
+- **Contextual Memory**: Apply learned patterns when \`whenToUse\` conditions match
+
+Important: Context files may include readability thresholds per deliverable type. These override default thresholds unless the deliverable's acceptanceCriteria specify a different value.
+
+CONTEXT_EOF
+)
+  fi
+fi
+
 # Build discipline-appropriate prompt based on campaignType
 AGENT_PROMPT_PATH="${CLAUDE_PLUGIN_ROOT}/prompts/${CAMPAIGN_TYPE}-agent.md"
 
@@ -250,6 +342,7 @@ PROMPT_BODY=$(cat <<PROMPT_EOF
 You are Lisa, an AI ${CAMPAIGN_TYPE} coordinator for Claude Code.
 
 Your task is to work through the campaign brief at: $CAMPAIGN_BRIEF_PATH
+${CONTEXT_SECTION}
 
 ## Your Process
 
@@ -344,6 +437,14 @@ case "$CAMPAIGN_TYPE" in
     ;;
 esac
 
+# Build context status message
+CONTEXT_STATUS=""
+if [[ $CONTEXT_FILES_LOADED -gt 0 ]]; then
+  CONTEXT_STATUS="✅ Loaded $CONTEXT_FILES_LOADED context file(s) - content will be personalized"
+else
+  CONTEXT_STATUS="⚠️  No context files found - content will be generic"
+fi
+
 cat <<EOF
 $EMOJI Lisa campaign activated!
 
@@ -359,9 +460,19 @@ checking quality and updating the campaign brief as she progresses.
 Campaign brief: $CAMPAIGN_BRIEF_PATH
 Learnings log: $LEARNINGS_FILE
 Output folder: deliverables/
+Context: $CONTEXT_STATUS
 
 $EMOJI
 EOF
+
+# Display context warnings if any
+if [[ -n "$CONTEXT_WARNINGS" ]]; then
+  echo ""
+  echo "Context Setup Recommendations:"
+  echo -e "$CONTEXT_WARNINGS"
+  echo "💡 Tip: Run the setup-company skill to create personalized context files"
+  echo ""
+fi
 
 # Output the prompt body to start the loop
 echo ""
