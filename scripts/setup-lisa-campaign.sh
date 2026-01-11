@@ -5,6 +5,15 @@
 
 set -euo pipefail
 
+# Set CLAUDE_PLUGIN_ROOT if not already set (for standalone testing)
+# In normal operation, Claude Code sets this automatically
+if [[ -z "${CLAUDE_PLUGIN_ROOT:-}" ]]; then
+  # Try to detect plugin root from script location
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  CLAUDE_PLUGIN_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+  export CLAUDE_PLUGIN_ROOT
+fi
+
 # Parse arguments
 CAMPAIGN_BRIEF_PATH=""
 MAX_ITERATIONS=30
