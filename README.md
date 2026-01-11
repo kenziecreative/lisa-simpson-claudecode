@@ -18,7 +18,7 @@ Lisa is a Claude Code plugin that brings autonomous orchestration to marketing, 
 - [Creating Campaign Briefs](#creating-campaign-briefs)
 - [Running Campaigns](#running-campaigns)
 - [Quality Gates](#quality-gates)
-- [Learnings & Institutional Memory](#learnings--institutional-memory)
+- [Lisa's Memory Systems](#lisas-memory-systems)
 - [Example Workflows](#example-workflows)
 - [Setting Up Lisa for Your Company](#setting-up-lisa-for-your-company)
 - [Configuration](#configuration)
@@ -37,7 +37,7 @@ Lisa is an AI coordinator that autonomously creates campaign deliverables for cr
 - ✍️ **Creates** deliverables one at a time (emails, press releases, brand positioning, etc.)
 - ✅ **Checks** quality automatically (brand compliance, readability, SEO, AP Style, accessibility)
 - 🔄 **Iterates** until all acceptance criteria are met
-- 🧠 **Learns** from each campaign and captures insights for future work
+- 🧠 **Remembers** your company (context system) and learns from feedback (two memory systems)
 - 🎯 **Adapts** language and quality checks to your discipline (marketing, PR, or branding)
 
 **Why Lisa?**
@@ -587,7 +587,35 @@ Lisa applies automated quality checks before marking deliverables as approved. W
 
 ---
 
-## Learnings & Institutional Memory
+## Lisa's Memory Systems
+
+Lisa has **two complementary memory systems** that work together to improve content quality over time:
+
+### 1. Agent Memory (Context System)
+**What Lisa remembers about YOUR company** - loaded into every campaign to create personalized, on-brand content.
+
+Located in: `context/*.json`
+
+- **company-profile.json**: Company facts, products, metrics, boilerplate
+- **brand-voice.json**: Voice attributes, prohibited words, signature moves
+- **style-preferences.json**: Formatting rules, readability thresholds
+- **lisa-memory-core.json**: Permanent facts (execs, dates, milestones)
+- **lisa-memory-contextual.json**: Learned patterns from your feedback
+
+**Setup**: Run `/setup-company` skill or copy templates from `context/templates/`
+
+**How it works**: Context files are loaded at campaign start and injected into Lisa's prompt. This transforms generic AI output into company-specific content that matches your brand voice and includes accurate facts.
+
+**Privacy**: Context files are gitignored - they contain your private company data.
+
+See: [Setting Up Lisa for Your Company](#setting-up-lisa-for-your-company)
+
+---
+
+### 2. Institutional Memory (Learnings Log)
+**What we learn from EACH campaign** - developer-facing documentation of insights and patterns.
+
+Located in: `learnings.txt`
 
 Lisa captures insights after every deliverable in `learnings.txt`. This creates institutional memory across campaigns.
 

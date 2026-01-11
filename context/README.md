@@ -1,6 +1,8 @@
-# Lisa Context Files
+# Lisa's Agent Memory (Context Files)
 
 This directory stores company-specific context that Lisa uses to create personalized content.
+
+**This is Lisa's memory system** - what she remembers about your company to transform generic AI output into on-brand, accurate content that sounds like your team wrote it.
 
 ## Quick Start
 

@@ -16,13 +16,12 @@
         "Marketing, PR, and Branding discipline support",
         "23 deliverable types across all disciplines",
         "Quality gates: brand compliance, readability, SEO, AP Style, accessibility",
-        "Company context system with 5 context files",
+        "Two memory systems: Agent Memory (context) and Institutional Memory (learnings.txt)",
+        "Agent Memory: 5 context files loaded into campaigns for personalized content",
         "Document ingestion for setup (setup-company skill)",
-        "Context loading during campaigns",
-        "Learning from feedback (contextual memory)",
+        "Learning from feedback updates contextual memory",
         "Comprehensive documentation for non-technical users",
         "Ralph Wiggum Stop hook pattern for autonomous orchestration",
-        "Institutional memory with learnings.txt",
         "Configurable readability thresholds per deliverable type"
       ]
     }
