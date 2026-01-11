@@ -559,6 +559,110 @@
       "passes": true,
       "dependencies": ["US-007", "US-009", "US-010", "US-012", "US-013", "US-014", "US-015"],
       "notes": "Validation that all components work together across marketing, PR, and branding"
+    },
+    {
+      "id": "BUG-001",
+      "title": "setup.sh doesn't register plugin in installed_plugins.json",
+      "description": "As a user running setup.sh, I need Lisa to be automatically registered in Claude Code's plugin registry",
+      "acceptanceCriteria": [
+        "setup.sh adds Lisa entry to ~/.claude/plugins/installed_plugins.json",
+        "Entry includes: version, installedAt, lastUpdated, installPath, isLocal",
+        "Script handles case where file doesn't exist (creates it)",
+        "Script handles case where file exists but plugins object is empty",
+        "Script validates JSON before and after modification",
+        "Uses atomic write pattern (temp file + move) for safety",
+        "Doesn't duplicate entry if Lisa already registered"
+      ],
+      "priority": 29,
+      "passes": true,
+      "dependencies": [],
+      "notes": "FIXED: Added register_plugin() function that creates/updates installed_plugins.json with lisa@local entry, includes validation and atomic writes."
+    },
+    {
+      "id": "BUG-002",
+      "title": "setup.sh doesn't enable plugin in settings.json",
+      "description": "As a user running setup.sh, I need Lisa to be automatically enabled in Claude Code settings",
+      "acceptanceCriteria": [
+        "setup.sh adds 'lisa@local': true to enabledPlugins in ~/.claude/settings.json",
+        "Script handles case where settings.json doesn't exist (creates minimal version)",
+        "Script handles case where enabledPlugins object doesn't exist (adds it)",
+        "Script validates JSON before and after modification",
+        "Uses atomic write pattern (temp file + move) for safety",
+        "Doesn't modify other settings",
+        "Doesn't duplicate or override if Lisa already enabled"
+      ],
+      "priority": 30,
+      "passes": true,
+      "dependencies": [],
+      "notes": "FIXED: Added enable_plugin() function that creates/updates settings.json with lisa@local enabled, includes validation and atomic writes."
+    },
+    {
+      "id": "BUG-003",
+      "title": "README missing application restart requirement",
+      "description": "As a user, I need clear instructions that I must fully restart Claude Code application after installation",
+      "acceptanceCriteria": [
+        "README installation section includes prominent note about restarting Claude Code",
+        "Specifies 'fully quit and relaunch the application' not just '/exit'",
+        "Explains difference between session exit (/exit) and application restart",
+        "Includes OS-specific instructions (Cmd+Q on Mac, etc.)",
+        "setup.sh outputs reminder message at end: 'Please fully quit and relaunch Claude Code application'",
+        "Troubleshooting section covers 'Plugin not appearing after installation' with restart as solution"
+      ],
+      "priority": 31,
+      "passes": true,
+      "dependencies": [],
+      "notes": "FIXED: Added prominent restart warning to setup.sh completion message with OS-specific instructions and explanation of /exit vs full restart."
+    },
+    {
+      "id": "BUG-004",
+      "title": "setup.sh needs better error handling and validation",
+      "description": "As a user running setup.sh, I need clear error messages if installation fails",
+      "acceptanceCriteria": [
+        "Validates jq is installed before attempting JSON manipulation",
+        "Checks write permissions for ~/.claude/plugins/ before copying files",
+        "Verifies ~/.claude directory exists (creates if missing)",
+        "Validates JSON files after each modification with meaningful error messages",
+        "Rolls back changes if JSON modification fails",
+        "Provides clear error messages with remediation steps",
+        "Exit codes: 0=success, 1=dependency missing, 2=permission error, 3=JSON error"
+      ],
+      "priority": 32,
+      "passes": true,
+      "dependencies": [],
+      "notes": "FIXED: Added validation checks for jq availability, directory permissions, JSON validation with jq, proper exit codes, and automatic cleanup on failure."
+    },
+    {
+      "id": "BUG-005",
+      "title": "Plugin ID must use plugin@marketplace format",
+      "description": "As a user running setup.sh, I need Lisa registered with correct plugin@marketplace ID format",
+      "acceptanceCriteria": [
+        "Plugin ID in installed_plugins.json must be 'lisa@local' not 'lisa'",
+        "Plugin ID in settings.json enabledPlugins must be 'lisa@local' not 'lisa'",
+        "setup.sh uses correct format from the start",
+        "Claude Code validation error explains the required format if wrong",
+        "Documentation clarifies local plugins use '@local' suffix"
+      ],
+      "priority": 33,
+      "passes": true,
+      "dependencies": ["BUG-001", "BUG-002"],
+      "notes": "FIXED: setup.sh now uses 'lisa@local' format in both installed_plugins.json and settings.json. Format is now correct from first installation."
+    },
+    {
+      "id": "BUG-006",
+      "title": "Lisa must be in marketplace directory structure",
+      "description": "As a user, I need Lisa installed in the correct marketplace structure so Claude Code can load it",
+      "acceptanceCriteria": [
+        "Lisa installed to ~/.claude/plugins/marketplaces/local/plugins/lisa (not ~/.claude/plugins/lisa)",
+        "Local marketplace registered in ~/.claude/plugins/known_marketplaces.json",
+        "setup.sh creates marketplace structure and registers it",
+        "setup.sh installs Lisa to correct marketplace path",
+        "All path references in setup.sh updated to marketplace structure",
+        "Claude Code successfully loads Lisa from marketplace structure"
+      ],
+      "priority": 34,
+      "passes": true,
+      "dependencies": ["BUG-001", "BUG-005"],
+      "notes": "FIXED: Moved Lisa to marketplaces/local/plugins/, added register_local_marketplace() function, updated all paths in setup.sh, registered local marketplace in known_marketplaces.json."
     }
   ],
   "technicalNotes": {
