@@ -826,7 +826,7 @@
         "Campaign brief acceptanceCriteria should use semantic language (Readable by executives) with numeric overrides only for special cases"
       ],
       "priority": 29,
-      "passes": false,
+      "passes": true,
       "dependencies": [
         "US-001"
       ],
@@ -849,7 +849,7 @@
         "After setup, runs verification: creates sample deliverable to test context loading"
       ],
       "priority": 30,
-      "passes": false,
+      "passes": true,
       "dependencies": [
         "US-029"
       ],
@@ -871,7 +871,7 @@
         "Context visible in .claude/lisa-campaign.local.md for debugging"
       ],
       "priority": 31,
-      "passes": false,
+      "passes": true,
       "dependencies": [
         "US-029",
         "US-030"
@@ -895,7 +895,7 @@
         "Over time, fewer corrections needed as Lisa learns user preferences"
       ],
       "priority": 32,
-      "passes": false,
+      "passes": true,
       "dependencies": [
         "US-031"
       ],
@@ -918,7 +918,7 @@
         "Video walkthrough or screenshots for setup process"
       ],
       "priority": 33,
-      "passes": false,
+      "passes": true,
       "dependencies": [
         "US-030"
       ],
