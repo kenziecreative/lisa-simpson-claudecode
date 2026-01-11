@@ -1,0 +1,26 @@
+{
+  "campaign": "Lisa End-to-End Test Campaign",
+  "campaignType": "marketing",
+  "description": "Simple test campaign to verify Lisa's end-to-end workflow with quality gates",
+  "deliverables": [
+    {
+      "id": "TEST-001",
+      "type": "social-posts",
+      "title": "Product announcement social post",
+      "description": "Single LinkedIn post announcing a new AI analytics feature",
+      "acceptanceCriteria": [
+        "Post length: 200-400 characters",
+        "Includes hashtag #analytics",
+        "Mentions key benefit of the feature",
+        "Includes CTA to visit product page",
+        "Passes brand compliance check",
+        "Readability score > 60"
+      ],
+      "priority": 1,
+      "approved": true,
+      "targetKeyword": "analytics",
+      "dependencies": [],
+      "notes": "Simple test to verify Lisa workflow"
+    }
+  ]
+}
