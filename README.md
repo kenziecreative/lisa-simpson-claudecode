@@ -18,6 +18,7 @@ Lisa is a Claude Code plugin that brings autonomous orchestration to marketing, 
 - [Quality Gates](#quality-gates)
 - [Learnings & Institutional Memory](#learnings--institutional-memory)
 - [Example Workflows](#example-workflows)
+- [Setting Up Lisa for Your Company](#setting-up-lisa-for-your-company)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
 - [Directory Structure](#directory-structure)
@@ -774,6 +775,361 @@ Scenario: Modernizing brand for enterprise software company
    - Website, marketing, product updates
    - Internal training on new brand
 ```
+
+---
+
+## Setting Up Lisa for Your Company
+
+**Most Important Step**: To get personalized, on-brand content instead of generic AI output, set up your company context files. This takes 10-15 minutes and dramatically improves Lisa's output quality.
+
+### Quick Setup (Recommended)
+
+The fastest way to set up Lisa is with the `setup-company` skill, which extracts information from your existing brand documents:
+
+1. **Run the setup skill**:
+   ```bash
+   # In Claude Code
+   /setup-company
+   ```
+
+2. **Provide your brand documents**:
+   - Brand guidelines or brand book (PDF, paste from Google Docs/Notion, Markdown)
+   - Style guide or editorial guidelines
+   - Company info sheet or "About Us" page
+   - Marketing messaging documents
+
+3. **Answer follow-up questions**: Lisa will ask about any missing information like:
+   - Company metrics (customer count, growth, revenue)
+   - Executive information for press release quotes
+   - Standard boilerplate for PR materials
+
+4. **Review and approve**: Lisa shows a preview before saving. Check it's accurate.
+
+5. **Run verification test**: Lisa creates a test campaign to verify context is loading correctly.
+
+### What You're Creating
+
+Lisa uses **5 context files** to understand your company:
+
+#### 1. company-profile.json
+**Core company facts that rarely change**
+
+```json
+{
+  "companyName": "Acme Analytics",
+  "industry": "SaaS - Business Intelligence",
+  "foundedYear": 2019,
+  "teamSize": "75-100",
+  "mission": "Make data accessible to everyone, not just data teams",
+  "valuePropositions": [
+    {
+      "audience": "Small businesses",
+      "proposition": "Enterprise-grade analytics without enterprise complexity"
+    }
+  ],
+  "targetAudience": {
+    "description": "Small to mid-size B2B companies (10-500 employees)",
+    "painPoints": [
+      "Too much time spent on manual reports",
+      "BI tools too complex for non-technical users",
+      "Can't afford dedicated data team"
+    ]
+  },
+  "keyProducts": [
+    {
+      "name": "Acme Analytics Platform",
+      "description": "Self-service business intelligence",
+      "keyFeatures": ["No-code dashboards", "Real-time data sync", "Slack/email alerts"]
+    }
+  ],
+  "metrics": {
+    "customers": "2,500+ companies",
+    "revenue": "$15M ARR",
+    "growth": "250% YoY",
+    "otherMetrics": ["4.9/5 G2 rating with 500+ reviews"]
+  },
+  "boilerplate": "Acme Analytics helps small businesses make data-driven decisions without hiring a data team. With no-code dashboards and real-time insights, over 2,500 companies use Acme to turn their data into action. Founded in 2019, Acme has raised $25M from top investors and is growing 250% year-over-year."
+}
+```
+
+**Used for**: Press releases, company facts, customer numbers, product descriptions
+
+#### 2. brand-voice.json
+**How your company communicates**
+
+```json
+{
+  "voiceAttributes": [
+    {
+      "attribute": "Clear & Direct",
+      "description": "We don't use jargon or buzzwords. We explain what we do in plain English.",
+      "examples": [
+        "✅ 'Setup takes one hour' (not 'seamlessly integrate your infrastructure')",
+        "✅ 'No SQL knowledge required' (not 'democratize data access')"
+      ]
+    },
+    {
+      "attribute": "Confident but Humble",
+      "description": "We know we're good, but we don't oversell or hype.",
+      "examples": [
+        "✅ 'Our customers save 10 hours per week on reports'",
+        "❌ 'Revolutionary AI-powered insights that will transform your business'"
+      ]
+    }
+  ],
+  "prohibitedPatterns": [
+    {
+      "pattern": "Revolutionize / disrupt / game-changing",
+      "reason": "Overused tech buzzwords that sound like hype",
+      "alternative": "Change how teams work with data / Make BI accessible"
+    },
+    {
+      "pattern": "Synergy / leverage / paradigm shift",
+      "reason": "Corporate jargon that obscures meaning",
+      "alternative": "Use specific, plain language"
+    }
+  ],
+  "signatureMoves": [
+    {
+      "move": "Three short sentences for emphasis",
+      "example": "No SQL. No waiting. No data team.",
+      "whenToUse": "Headlines, key benefits, CTAs"
+    }
+  ],
+  "toneGuidelines": {
+    "marketing": "Confident and benefit-focused. Lead with customer outcomes.",
+    "pr": "Professional but approachable. Lead with news value.",
+    "crisis": "Direct and empathetic. Acknowledge issue, explain action."
+  }
+}
+```
+
+**Used for**: Matching voice in all content, avoiding off-brand language
+
+#### 3. style-preferences.json
+**Formatting, style rules, and readability thresholds**
+
+```json
+{
+  "styleGuide": "AP",
+  "spellingChoices": {
+    "preferredSpellings": {
+      "email": "email (not e-mail)",
+      "login": "log in (verb) / login (noun)"
+    },
+    "hyphenationRules": ["Self-service (always hyphenated)", "Real-time (hyphenated as adjective)"]
+  },
+  "formattingRules": {
+    "headings": "Sentence case (not Title Case)",
+    "lists": "Parallel structure, end with periods if complete sentences",
+    "links": "Descriptive link text (not 'click here')",
+    "numbers": "Spell out one through nine, use numerals for 10+"
+  },
+  "readabilityThresholds": {
+    "_comment": "Based on comprehensive testing of all 23 deliverable types",
+    "globalDefault": 60,
+    "byDeliverableType": {
+      "email-sequence": 65,
+      "press-release": 60,
+      "thought-leadership": 55,
+      "crisis-response": 70,
+      "visual-identity-brief": 50
+    }
+  },
+  "legalDisclaimers": [
+    {
+      "text": "Results may vary. Individual outcomes depend on usage and configuration.",
+      "whenToUse": "Case studies, testimonials, performance claims"
+    }
+  ]
+}
+```
+
+**Used for**: Consistent formatting, appropriate readability levels
+
+**Pro Tip**: You don't need to configure all 23 deliverable types. Only override the ones where you want different readability levels. Lisa uses this fallback chain:
+
+1. **Deliverable's acceptance criteria** (highest priority) - campaign-specific override
+2. **Your style-preferences.json** - your company defaults
+3. **Built-in defaults from testing** (lowest priority) - Lisa's tested values
+
+#### 4. lisa-memory-core.json
+**Permanent facts about your company**
+
+```json
+{
+  "version": "1.0",
+  "lastUpdated": "2026-01-11T00:00:00Z",
+  "entries": [
+    {
+      "id": "mem-exec-001",
+      "content": "CEO: Jane Smith, jane@acme.com. Preferred title: 'CEO and co-founder'. Bio: Former Director of Analytics at Google, Stanford CS degree.",
+      "category": "people",
+      "tags": ["executives", "press-releases", "quotes"]
+    },
+    {
+      "id": "mem-product-001",
+      "content": "Major product launch: Acme AI Assistant launched March 2026. First AI-powered query builder for business users.",
+      "category": "product",
+      "tags": ["product-launches", "ai-features"]
+    },
+    {
+      "id": "mem-milestone-001",
+      "content": "Series B funding: $25M Series B led by Sequoia in January 2026. Use this for credibility in press releases.",
+      "category": "milestones",
+      "tags": ["funding", "press-releases"]
+    }
+  ]
+}
+```
+
+**Used for**: Executive bios, key dates, major announcements, awards
+
+**When to add entries**: When you have permanent facts that should be referenced in future campaigns (executive names, major milestones, key dates).
+
+#### 5. lisa-memory-contextual.json
+**Learned patterns from feedback**
+
+This file is automatically updated when you give Lisa feedback during campaigns. You can also edit it manually.
+
+```json
+{
+  "version": "1.0",
+  "lastUpdated": "2026-01-11T14:30:00Z",
+  "entries": [
+    {
+      "id": "mem-1704983421",
+      "name": "Avoid 'customers' in enterprise content",
+      "category": "voice",
+      "whenToUse": "When writing for enterprise audience (press releases, thought leadership)",
+      "tags": ["enterprise", "voice", "terminology"],
+      "content": "User prefers 'companies' or 'organizations' over 'customers' when targeting enterprise buyers. 'Customers' sounds too transactional for B2B.",
+      "learnedFrom": "user-feedback-Q1-Product-Launch",
+      "learnedDate": "2026-01-11T14:30:00Z"
+    }
+  ]
+}
+```
+
+**How it works**: When you provide feedback like "I wouldn't say it like that", Lisa immediately adds an entry and applies it to future deliverables.
+
+**View your memory**: Run `/lisa:show-memory` to see all learned patterns.
+
+### Manual Setup (If You Prefer)
+
+If you want to create context files manually:
+
+1. **Copy templates to context directory**:
+   ```bash
+   cd ~/.claude/plugins/marketplaces/local/plugins/lisa
+   cp context/templates/*.json context/
+   ```
+
+2. **Edit each file** with your company information:
+   - `context/company-profile.json`
+   - `context/brand-voice.json`
+   - `context/style-preferences.json`
+   - `context/lisa-memory-core.json`
+   - `context/lisa-memory-contextual.json`
+
+3. **Run verification test** (see below)
+
+### Verification Test
+
+After setup, verify Lisa is using your context:
+
+```bash
+# Create a simple test campaign
+cat > test-context.json << 'EOF'
+{
+  "campaign": "Context Verification",
+  "campaignType": "marketing",
+  "deliverables": [{
+    "id": "TEST-001",
+    "type": "email-sequence",
+    "title": "Test email to verify context",
+    "description": "Simple promotional email",
+    "acceptanceCriteria": [
+      "Uses correct company name and products",
+      "Matches brand voice",
+      "Includes boilerplate if appropriate"
+    ],
+    "priority": 1,
+    "approved": false
+  }]
+}
+EOF
+
+# Run the test
+/lisa:lisa test-context.json --max-iterations 5
+```
+
+Check the generated email for:
+- ✅ Company name and products mentioned correctly
+- ✅ Voice matches your brand attributes
+- ✅ Boilerplate included where appropriate
+- ✅ Style preferences applied
+
+### Troubleshooting
+
+**My content still feels generic**
+
+1. **Check if context files were loaded**:
+   - When you start a campaign, Lisa displays: "Context: ✅ Loaded 5 context file(s)"
+   - If you see "⚠️ No context files found", files aren't in the right location
+
+2. **Verify file location**:
+   ```bash
+   ls -la ~/.claude/plugins/marketplaces/local/plugins/lisa/context/
+   ```
+   You should see: `company-profile.json`, `brand-voice.json`, etc.
+
+3. **Check file is valid JSON**:
+   ```bash
+   jq empty ~/.claude/plugins/marketplaces/local/plugins/lisa/context/company-profile.json
+   ```
+   If you see errors, fix JSON syntax.
+
+4. **Review context section in state file**:
+   ```bash
+   cat .claude/lisa-campaign.local.md
+   ```
+   You should see a "# Company Context" section with your company information.
+
+**Lisa isn't matching my brand voice**
+
+1. Add more specific examples to `brand-voice.json` voiceAttributes
+2. Add prohibited patterns for phrases you want to avoid
+3. Provide feedback during campaigns: "I wouldn't say it like that"
+4. Lisa will learn and add to contextual memory
+
+**How do I update context as my company evolves?**
+
+- **Company profile**: Edit when major changes occur (new product, funding, updated metrics)
+- **Brand voice**: Edit when brand guidelines evolve
+- **Style preferences**: Edit when you want different readability thresholds or formatting rules
+- **Core memory**: Add new facts as they become relevant (new executives, major announcements)
+- **Contextual memory**: Lisa updates automatically from feedback, but you can manually edit
+
+### What Each File Does (Plain Language)
+
+| File | What It Stores | When Lisa Uses It |
+|------|----------------|-------------------|
+| `company-profile.json` | Company facts (name, products, metrics, boilerplate) | Press releases, company descriptions, product mentions |
+| `brand-voice.json` | How you communicate (voice attributes, prohibited words) | Every deliverable - keeps content on-brand |
+| `style-preferences.json` | Formatting rules, readability levels | Formatting all content, checking readability |
+| `lisa-memory-core.json` | Permanent facts (exec names, key dates, major news) | When relevant to the deliverable |
+| `lisa-memory-contextual.json` | Learned patterns from your feedback | Automatically when conditions match |
+
+### Privacy Note
+
+Context files contain your company's private information and are **not committed to git**.
+
+If you want version control:
+1. Create a private repo for your context: `mkdir ~/my-company-lisa-context && cd ~/my-company-lisa-context && git init`
+2. Move context directory: `mv ~/.claude/plugins/marketplaces/local/plugins/lisa/context ~/my-company-lisa-context/`
+3. Symlink it back: `ln -s ~/my-company-lisa-context/context ~/.claude/plugins/marketplaces/local/plugins/lisa/context`
+4. Now your context is version controlled separately
 
 ---
 
