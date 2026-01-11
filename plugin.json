@@ -1,0 +1,30 @@
+{
+  "name": "lisa",
+  "version": "1.0.0",
+  "description": "Multi-discipline creative orchestration for Marketing, PR, and Branding teams",
+  "author": "kenziecreative",
+  "repository": "https://github.com/kenziecreative/lisa",
+  "license": "MIT",
+  "claudeCode": {
+    "minVersion": "0.1.0"
+  },
+  "changelog": {
+    "1.0.0": {
+      "date": "2026-01-11",
+      "changes": [
+        "Initial release with all 42 user stories complete",
+        "Marketing, PR, and Branding discipline support",
+        "23 deliverable types across all disciplines",
+        "Quality gates: brand compliance, readability, SEO, AP Style, accessibility",
+        "Company context system with 5 context files",
+        "Document ingestion for setup (setup-company skill)",
+        "Context loading during campaigns",
+        "Learning from feedback (contextual memory)",
+        "Comprehensive documentation for non-technical users",
+        "Ralph Wiggum Stop hook pattern for autonomous orchestration",
+        "Institutional memory with learnings.txt",
+        "Configurable readability thresholds per deliverable type"
+      ]
+    }
+  }
+}
