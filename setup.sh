@@ -294,7 +294,7 @@ register_local_marketplace() {
     local temp_file=$(mktemp)
     jq --arg path "$marketplace_path" --arg time "$timestamp" \
         '.local = {
-            "source": {"source": "local"},
+            "source": {"source": "directory", "path": $path},
             "installLocation": $path,
             "lastUpdated": $time
         }' "$marketplaces_file" > "$temp_file"
