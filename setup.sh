@@ -449,6 +449,57 @@ enable_plugin() {
     fi
 }
 
+# Configure permission workaround for Claude Code Issue #145
+configure_permissions() {
+    print_step "Configuring command permissions (workaround for Claude Code bug #145)..."
+
+    # Verify jq is available
+    if ! command_exists jq; then
+        print_error "jq is required but was not found"
+        exit 1
+    fi
+
+    local settings_file="$HOME/.claude/settings.json"
+    local lisa_script="$HOME/.claude/plugins/marketplaces/local/plugins/lisa/scripts/setup-lisa-campaign.sh"
+
+    # Check if permissions.allow already exists
+    if jq -e '.permissions.allow' "$settings_file" >/dev/null 2>&1; then
+        # Check if Lisa script is already in the allow list
+        if jq -e --arg script "Bash($lisa_script:*)" '.permissions.allow | contains([$script])' "$settings_file" | grep -q true; then
+            print_success "Permission workaround already configured"
+            return 0
+        else
+            print_info "Adding Lisa script to existing permissions allow list..."
+            local temp_file=$(mktemp)
+            jq --arg script "Bash($lisa_script:*)" '.permissions.allow += [$script]' "$settings_file" > "$temp_file"
+            if jq empty "$temp_file" 2>/dev/null; then
+                mv "$temp_file" "$settings_file"
+                print_success "Permission workaround configured"
+            else
+                print_error "Failed to update permissions - invalid JSON"
+                rm -f "$temp_file"
+                exit 3
+            fi
+        fi
+    else
+        # Create permissions.allow section
+        print_info "Creating permissions section with Lisa script..."
+        local temp_file=$(mktemp)
+        jq --arg script "Bash($lisa_script:*)" '. + {"permissions": {"allow": [$script]}}' "$settings_file" > "$temp_file"
+        if jq empty "$temp_file" 2>/dev/null; then
+            mv "$temp_file" "$settings_file"
+            print_success "Permission workaround configured"
+        else
+            print_error "Failed to create permissions section - invalid JSON"
+            rm -f "$temp_file"
+            exit 3
+        fi
+    fi
+
+    print_info "This workaround is needed due to Claude Code Issue #145"
+    print_info "See: https://github.com/anthropics/claude-plugins-official/issues/145"
+}
+
 # Verify installation
 verify_installation() {
     print_step "Verifying installation..."
@@ -530,6 +581,7 @@ main() {
     register_local_marketplace
     register_plugin
     enable_plugin
+    configure_permissions
 
     # Verify everything works
     echo ""
@@ -548,6 +600,11 @@ main() {
         echo "  • Exit the current session with /exit"
         echo "  • Fully quit and relaunch the Claude Code application"
         echo "  • On macOS: Quit the terminal app completely and reopen it"
+        echo ""
+        print_info "Permission workaround applied:"
+        echo "  • Lisa's commands are now pre-approved in settings.json"
+        echo "  • This is needed due to Claude Code bug #145"
+        echo "  • See: https://github.com/anthropics/claude-plugins-official/issues/145"
         echo ""
         print_info "Next steps:"
         echo "  1. Restart Claude Code (see above)"

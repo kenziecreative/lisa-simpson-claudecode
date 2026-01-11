@@ -908,6 +908,31 @@ chmod +x scripts/*.sh
 chmod +x scripts/*.py
 ```
 
+### Lisa commands require approval every time (Claude Code Issue #145)
+
+**Symptom**: Claude Code asks for permission every time you run `/lisa`, even after approving once
+
+**Cause**: This is a known bug in Claude Code (Issue #145) where the `${CLAUDE_PLUGIN_ROOT}` variable doesn't expand correctly in `allowed-tools` patterns defined in plugin.json.
+
+**Solution**: The setup.sh script automatically applies a workaround by adding Lisa's setup script to your `~/.claude/settings.json` permissions. If you installed Lisa manually or the workaround didn't apply, you can add it manually:
+
+1. Open `~/.claude/settings.json` in a text editor
+2. Add this to the `permissions.allow` array:
+   ```json
+   {
+     "permissions": {
+       "allow": [
+         "Bash(/Users/YOUR_USERNAME/.claude/plugins/marketplaces/local/plugins/lisa/scripts/setup-lisa-campaign.sh:*)"
+       ]
+     }
+   }
+   ```
+   Replace `YOUR_USERNAME` with your actual username.
+
+3. Save the file and restart Claude Code
+
+**Note**: This workaround will be removed once Claude Code Issue #145 is resolved. Track the issue at: https://github.com/anthropics/claude-code/issues/145
+
 ---
 
 ## Directory Structure
