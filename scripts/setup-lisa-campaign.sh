@@ -441,6 +441,15 @@ else
   COMPLETION_PROMISE_YAML="null"
 fi
 
+# Calculate complexity based on deliverable count
+if [[ $DELIVERABLE_COUNT -le 3 ]]; then
+  COMPLEXITY="Low"
+elif [[ $DELIVERABLE_COUNT -le 8 ]]; then
+  COMPLEXITY="Moderate"
+else
+  COMPLEXITY="High"
+fi
+
 # Create state file with YAML frontmatter
 cat > "$LISA_STATE_FILE" <<EOF
 ---
@@ -451,6 +460,12 @@ completion_promise: $COMPLETION_PROMISE_YAML
 campaign_name: "$CAMPAIGN_NAME"
 campaign_type: "$CAMPAIGN_TYPE"
 started_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+deliverables_total: $DELIVERABLE_COUNT
+deliverables_completed: 0
+quality_checks_passed: 0
+quality_checks_failed: 0
+current_deliverable: "Starting campaign"
+complexity: "$COMPLEXITY"
 ---
 
 $PROMPT_BODY
@@ -490,6 +505,7 @@ $EMOJI Lisa campaign activated!
 $DISCIPLINE_NAME: $CAMPAIGN_NAME
 Type: $CAMPAIGN_TYPE
 Deliverables: $DELIVERABLE_COUNT
+Complexity: $COMPLEXITY
 Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)
 Completion promise: $COMPLETION_PROMISE
 

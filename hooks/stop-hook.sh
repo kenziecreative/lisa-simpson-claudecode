@@ -27,6 +27,22 @@ COMPLETION_PROMISE=$(echo "$FRONTMATTER" | grep '^completion_promise:' | sed 's/
 # Extract campaign details
 CAMPAIGN_NAME=$(echo "$FRONTMATTER" | grep '^campaign_name:' | sed 's/campaign_name: *//' | sed 's/^"\(.*\)"$/\1/')
 CAMPAIGN_TYPE=$(echo "$FRONTMATTER" | grep '^campaign_type:' | sed 's/campaign_type: *//' | sed 's/^"\(.*\)"$/\1/')
+# Extract progress tracking fields (with defaults for backward compatibility)
+DELIVERABLES_TOTAL=$(echo "$FRONTMATTER" | grep '^deliverables_total:' | sed 's/deliverables_total: *//')
+DELIVERABLES_COMPLETED=$(echo "$FRONTMATTER" | grep '^deliverables_completed:' | sed 's/deliverables_completed: *//')
+QUALITY_CHECKS_PASSED=$(echo "$FRONTMATTER" | grep '^quality_checks_passed:' | sed 's/quality_checks_passed: *//')
+QUALITY_CHECKS_FAILED=$(echo "$FRONTMATTER" | grep '^quality_checks_failed:' | sed 's/quality_checks_failed: *//')
+CURRENT_DELIVERABLE=$(echo "$FRONTMATTER" | grep '^current_deliverable:' | sed 's/current_deliverable: *//' | sed 's/^"\(.*\)"$/\1/')
+COMPLEXITY=$(echo "$FRONTMATTER" | grep '^complexity:' | sed 's/complexity: *//' | sed 's/^"\(.*\)"$/\1/')
+STARTED_AT=$(echo "$FRONTMATTER" | grep '^started_at:' | sed 's/started_at: *//' | sed 's/^"\(.*\)"$/\1/')
+
+# Set defaults if fields don't exist (backward compatibility)
+[[ -z "$DELIVERABLES_TOTAL" ]] && DELIVERABLES_TOTAL=0
+[[ -z "$DELIVERABLES_COMPLETED" ]] && DELIVERABLES_COMPLETED=0
+[[ -z "$QUALITY_CHECKS_PASSED" ]] && QUALITY_CHECKS_PASSED=0
+[[ -z "$QUALITY_CHECKS_FAILED" ]] && QUALITY_CHECKS_FAILED=0
+[[ -z "$CURRENT_DELIVERABLE" ]] && CURRENT_DELIVERABLE="In progress"
+[[ -z "$COMPLEXITY" ]] && COMPLEXITY="Unknown"
 
 # Validate numeric fields before arithmetic operations
 if [[ ! "$ITERATION" =~ ^[0-9]+$ ]]; then
@@ -173,6 +189,63 @@ if [[ "$COMPLETION_PROMISE" != "null" ]] && [[ -n "$COMPLETION_PROMISE" ]]; then
   fi
 fi
 
+# Calculate time elapsed since campaign start
+if [[ -n "$STARTED_AT" ]]; then
+  START_EPOCH=$(date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$STARTED_AT" +%s 2>/dev/null || echo 0)
+  CURRENT_EPOCH=$(date -u +%s)
+  if [[ $START_EPOCH -gt 0 ]]; then
+    ELAPSED_SECONDS=$((CURRENT_EPOCH - START_EPOCH))
+    ELAPSED_MINUTES=$((ELAPSED_SECONDS / 60))
+    ELAPSED_HOURS=$((ELAPSED_MINUTES / 60))
+    ELAPSED_MINS_REMAINDER=$((ELAPSED_MINUTES % 60))
+
+    if [[ $ELAPSED_HOURS -gt 0 ]]; then
+      TIME_ELAPSED="${ELAPSED_HOURS}h ${ELAPSED_MINS_REMAINDER}m"
+    else
+      TIME_ELAPSED="${ELAPSED_MINUTES}m"
+    fi
+  else
+    TIME_ELAPSED="unknown"
+  fi
+else
+  TIME_ELAPSED="unknown"
+fi
+
+# Create progress bar (30 characters wide)
+if [[ $DELIVERABLES_TOTAL -gt 0 ]]; then
+  PROGRESS_PERCENT=$((DELIVERABLES_COMPLETED * 100 / DELIVERABLES_TOTAL))
+  PROGRESS_FILLED=$((PROGRESS_PERCENT * 30 / 100))
+  PROGRESS_EMPTY=$((30 - PROGRESS_FILLED))
+
+  PROGRESS_BAR=""
+  for ((i=0; i<PROGRESS_FILLED; i++)); do
+    PROGRESS_BAR+="━"
+  done
+  for ((i=0; i<PROGRESS_EMPTY; i++)); do
+    PROGRESS_BAR+="─"
+  done
+  PROGRESS_DISPLAY="$PROGRESS_BAR $PROGRESS_PERCENT%"
+else
+  PROGRESS_DISPLAY="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0%"
+fi
+
+# Build progress summary
+PROGRESS_SUMMARY=$(cat <<PROGRESS
+📊 Campaign Progress
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Iteration: $ITERATION/$MAX_ITERATIONS
+Time elapsed: $TIME_ELAPSED
+Complexity: $COMPLEXITY
+
+Deliverables: $DELIVERABLES_COMPLETED/$DELIVERABLES_TOTAL complete
+$PROGRESS_DISPLAY
+
+Current: $CURRENT_DELIVERABLE
+Quality checks: $QUALITY_CHECKS_PASSED passed, $QUALITY_CHECKS_FAILED failed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROGRESS
+)
+
 # Not complete - continue loop with SAME PROMPT
 NEXT_ITERATION=$((ITERATION + 1))
 
@@ -201,24 +274,34 @@ TEMP_FILE="${LISA_STATE_FILE}.tmp.$$"
 sed "s/^iteration: .*/iteration: $NEXT_ITERATION/" "$LISA_STATE_FILE" > "$TEMP_FILE"
 mv "$TEMP_FILE" "$LISA_STATE_FILE"
 
-# Build system message with discipline-appropriate terminology
+# Build system message with discipline-appropriate terminology and progress
 if [[ "$COMPLETION_PROMISE" != "null" ]] && [[ -n "$COMPLETION_PROMISE" ]]; then
   case "$CAMPAIGN_TYPE" in
     marketing)
-      SYSTEM_MSG="📊 Marketing campaign - Iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)"
+      SYSTEM_MSG="📊 Marketing campaign - Iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)
+
+$PROGRESS_SUMMARY"
       ;;
     pr)
-      SYSTEM_MSG="📰 PR campaign - Iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)"
+      SYSTEM_MSG="📰 PR campaign - Iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)
+
+$PROGRESS_SUMMARY"
       ;;
     branding)
-      SYSTEM_MSG="🎨 Branding project - Iteration $NEXT_ITERATION | Project: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)"
+      SYSTEM_MSG="🎨 Branding project - Iteration $NEXT_ITERATION | Project: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)
+
+$PROGRESS_SUMMARY"
       ;;
     *)
-      SYSTEM_MSG="🔄 Lisa iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)"
+      SYSTEM_MSG="🔄 Lisa iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | To complete: output <promise>$COMPLETION_PROMISE</promise> (ONLY when all deliverables approved=true)
+
+$PROGRESS_SUMMARY"
       ;;
   esac
 else
-  SYSTEM_MSG="🔄 Lisa iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | No completion promise set - loop runs infinitely"
+  SYSTEM_MSG="🔄 Lisa iteration $NEXT_ITERATION | Campaign: $CAMPAIGN_NAME | No completion promise set - loop runs infinitely
+
+$PROGRESS_SUMMARY"
 fi
 
 # Output JSON to block the stop and feed prompt back

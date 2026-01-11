@@ -96,7 +96,41 @@ Change "approved": false to "approved": true for this deliverable
 
 Be **truthful**: Only mark approved=true when ALL acceptance criteria are genuinely met.
 
-### 6. Log Learnings
+### 6. Update Progress Tracking
+
+Update the state file (`.claude/lisa-campaign.local.md`) to track campaign progress:
+
+```bash
+# Read current state
+# Update YAML frontmatter fields:
+# - deliverables_completed: increment when marking deliverable approved=true
+# - quality_checks_passed: increment when quality check succeeds
+# - quality_checks_failed: increment when quality check fails (before retry)
+# - current_deliverable: set to current deliverable ID and name
+```
+
+Use Edit tool to update these fields in the frontmatter between the `---` markers. This enables real-time progress visibility.
+
+Example frontmatter update:
+```yaml
+---
+active: true
+iteration: 3
+max_iterations: 30
+completion_promise: "COMPLETE"
+campaign_name: "Q1 Product Launch"
+campaign_type: "marketing"
+started_at: "2026-01-11T15:30:00Z"
+deliverables_total: 6
+deliverables_completed: 2
+quality_checks_passed: 8
+quality_checks_failed: 1
+current_deliverable: "MKT-003: Email nurture sequence"
+complexity: "Moderate"
+---
+```
+
+### 7. Log Learnings
 
 Append insights to `learnings.txt`:
 
@@ -117,7 +151,7 @@ Audience considerations: Enterprise buyers respond to ROI messaging and customer
 
 ```
 
-### 7. Check Completion
+### 8. Check Completion
 
 Read the campaign brief again and verify:
 - Do **ALL** deliverables have `approved: true`?
