@@ -36,6 +36,10 @@ CURRENT_DELIVERABLE=$(echo "$FRONTMATTER" | grep '^current_deliverable:' | sed '
 COMPLEXITY=$(echo "$FRONTMATTER" | grep '^complexity:' | sed 's/complexity: *//' | sed 's/^"\(.*\)"$/\1/')
 STARTED_AT=$(echo "$FRONTMATTER" | grep '^started_at:' | sed 's/started_at: *//' | sed 's/^"\(.*\)"$/\1/')
 
+# Extract stuck detection fields
+LAST_DELIVERABLE=$(echo "$FRONTMATTER" | grep '^last_deliverable:' | sed 's/last_deliverable: *//' | sed 's/^"\(.*\)"$/\1/')
+CONSECUTIVE_FAILURES=$(echo "$FRONTMATTER" | grep '^consecutive_failures:' | sed 's/consecutive_failures: *//')
+
 # Set defaults if fields don't exist (backward compatibility)
 [[ -z "$DELIVERABLES_TOTAL" ]] && DELIVERABLES_TOTAL=0
 [[ -z "$DELIVERABLES_COMPLETED" ]] && DELIVERABLES_COMPLETED=0
@@ -43,6 +47,8 @@ STARTED_AT=$(echo "$FRONTMATTER" | grep '^started_at:' | sed 's/started_at: *//'
 [[ -z "$QUALITY_CHECKS_FAILED" ]] && QUALITY_CHECKS_FAILED=0
 [[ -z "$CURRENT_DELIVERABLE" ]] && CURRENT_DELIVERABLE="In progress"
 [[ -z "$COMPLEXITY" ]] && COMPLEXITY="Unknown"
+[[ -z "$LAST_DELIVERABLE" ]] && LAST_DELIVERABLE=""
+[[ -z "$CONSECUTIVE_FAILURES" ]] && CONSECUTIVE_FAILURES=0
 
 # Validate numeric fields before arithmetic operations
 if [[ ! "$ITERATION" =~ ^[0-9]+$ ]]; then
@@ -148,6 +154,67 @@ fi
 if [[ -z "$LAST_OUTPUT" ]]; then
   echo "⚠️  Lisa campaign: Assistant message contained no text content" >&2
   echo "   Lisa campaign is stopping." >&2
+  rm "$LISA_STATE_FILE"
+  exit 0
+fi
+
+# Stuck detection - check if consecutive failures threshold reached
+STUCK_THRESHOLD=5
+if [[ "$CONSECUTIVE_FAILURES" =~ ^[0-9]+$ ]] && [[ $CONSECUTIVE_FAILURES -ge $STUCK_THRESHOLD ]]; then
+  # Lisa is stuck on this deliverable - pause and ask for help
+  case "$CAMPAIGN_TYPE" in
+    marketing)
+      echo "🛑 Marketing campaign STUCK - Human help needed"
+      ;;
+    pr)
+      echo "🛑 PR campaign STUCK - Human help needed"
+      ;;
+    branding)
+      echo "🛑 Branding project STUCK - Human help needed"
+      ;;
+    *)
+      echo "🛑 Lisa campaign STUCK - Human help needed"
+      ;;
+  esac
+
+  cat <<STUCK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+I'm stuck on: $CURRENT_DELIVERABLE
+
+I've tried $CONSECUTIVE_FAILURES times but keep failing quality checks.
+
+This usually means:
+  • Acceptance criteria are too strict or unclear
+  • Missing context about company/brand requirements
+  • Deliverable type needs different approach
+  • Quality gate threshold needs adjustment
+
+NEXT STEPS:
+1. Review .claude/lisa-campaign.local.md for current state
+2. Check learnings.txt for what's failing
+3. Either:
+   a) Adjust acceptance criteria in campaign-brief.json
+   b) Add missing context to context/ directory
+   c) Simplify quality gate requirements
+4. Resume: /lisa:lisa same-campaign-brief.json
+
+Campaign paused. Please provide guidance and restart.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STUCK
+
+  # Log stuck event to learnings.txt
+  LEARNINGS_FILE="learnings.txt"
+  cat >> "$LEARNINGS_FILE" <<LEARNING
+
+[$(date '+%Y-%m-%d %H:%M')] - STUCK EVENT - $CAMPAIGN_TYPE - $CAMPAIGN_NAME
+Deliverable: $CURRENT_DELIVERABLE
+Consecutive failures: $CONSECUTIVE_FAILURES
+Campaign paused for human intervention.
+Action needed: Review acceptance criteria, context, or quality gates.
+
+LEARNING
+
+  # Remove state file to stop campaign
   rm "$LISA_STATE_FILE"
   exit 0
 fi

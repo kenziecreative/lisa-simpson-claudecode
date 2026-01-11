@@ -100,9 +100,16 @@ Update the state file (`.claude/lisa-campaign.local.md`) to track campaign progr
 # - quality_checks_passed: increment when quality check succeeds
 # - quality_checks_failed: increment when quality check fails (before retry)
 # - current_deliverable: set to current deliverable ID and name
+# - last_deliverable: track which deliverable you're working on
+# - consecutive_failures:
+#   - If working on SAME deliverable as last_deliverable: increment on quality check failure
+#   - If working on DIFFERENT deliverable: reset to 0
+#   - If quality check passes: reset to 0
 ```
 
 Use Edit tool to update these fields in the frontmatter between the `---` markers. This enables real-time progress visibility.
+
+**CRITICAL**: The consecutive_failures counter prevents infinite loops. If you fail the same deliverable 5 times, the campaign will pause and ask for human help. This is a safety feature.
 
 Example frontmatter update:
 ```yaml
@@ -120,6 +127,8 @@ quality_checks_passed: 6
 quality_checks_failed: 1
 current_deliverable: "BRD-003: Visual identity brief"
 complexity: "Moderate"
+last_deliverable: "BRD-003: Visual identity brief"
+consecutive_failures: 0
 ---
 ```
 

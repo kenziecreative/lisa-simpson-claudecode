@@ -466,6 +466,8 @@ quality_checks_passed: 0
 quality_checks_failed: 0
 current_deliverable: "Starting campaign"
 complexity: "$COMPLEXITY"
+last_deliverable: ""
+consecutive_failures: 0
 ---
 
 $PROMPT_BODY
