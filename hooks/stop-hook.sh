@@ -229,6 +229,73 @@ else
   PROGRESS_DISPLAY="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0%"
 fi
 
+# Early warning system - check if approaching max iterations
+WARNING_MESSAGE=""
+if [[ $MAX_ITERATIONS -gt 0 ]]; then
+  # Calculate warning threshold (80% of max iterations)
+  WARNING_THRESHOLD=$((MAX_ITERATIONS * 80 / 100))
+
+  if [[ $ITERATION -ge $WARNING_THRESHOLD ]]; then
+    ITERATIONS_REMAINING=$((MAX_ITERATIONS - ITERATION))
+    DELIVERABLES_REMAINING=$((DELIVERABLES_TOTAL - DELIVERABLES_COMPLETED))
+
+    # Calculate pace: iterations per deliverable
+    if [[ $DELIVERABLES_COMPLETED -gt 0 ]]; then
+      PACE=$((ITERATION / DELIVERABLES_COMPLETED))
+    else
+      # No deliverables completed yet, use conservative estimate
+      PACE=$ITERATION
+    fi
+
+    # Estimate iterations needed to complete remaining deliverables
+    if [[ $DELIVERABLES_REMAINING -gt 0 ]]; then
+      ITERATIONS_NEEDED=$((PACE * DELIVERABLES_REMAINING))
+    else
+      ITERATIONS_NEEDED=0
+    fi
+
+    # Check if we'll run out of iterations
+    if [[ $ITERATIONS_NEEDED -gt $ITERATIONS_REMAINING ]]; then
+      # Will NOT complete - critical warning
+      WARNING_MESSAGE=$(cat <<WARNING
+
+⚠️  ITERATION LIMIT WARNING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Status: Running low on iterations ($ITERATIONS_REMAINING remaining)
+Current pace: ~$PACE iterations per deliverable
+Remaining work: $DELIVERABLES_REMAINING deliverables
+
+⚠️  At current pace, you need ~$ITERATIONS_NEEDED more iterations
+   but only have $ITERATIONS_REMAINING remaining.
+
+RECOMMENDATIONS:
+1. Reduce scope: Mark some deliverables as lower priority
+2. Increase limit: Cancel and restart with higher --max-iterations
+3. Simplify: Adjust acceptance criteria to be less complex
+
+To cancel: Use /lisa:cancel-lisa command
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WARNING
+)
+    else
+      # Should complete, but warn anyway
+      ESTIMATED_FINAL_ITERATION=$((ITERATION + ITERATIONS_NEEDED))
+      WARNING_MESSAGE=$(cat <<WARNING
+
+⚠️  Iteration Limit Notice
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You've reached $ITERATION of $MAX_ITERATIONS iterations (${WARNING_THRESHOLD}% threshold)
+Current pace: ~$PACE iterations per deliverable
+Estimated completion: ~iteration $ESTIMATED_FINAL_ITERATION
+
+You should complete within the limit, but watch progress closely.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WARNING
+)
+    fi
+  fi
+fi
+
 # Build progress summary
 PROGRESS_SUMMARY=$(cat <<PROGRESS
 📊 Campaign Progress
@@ -242,7 +309,7 @@ $PROGRESS_DISPLAY
 
 Current: $CURRENT_DELIVERABLE
 Quality checks: $QUALITY_CHECKS_PASSED passed, $QUALITY_CHECKS_FAILED failed
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$WARNING_MESSAGE
 PROGRESS
 )
 
