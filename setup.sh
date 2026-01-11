@@ -284,12 +284,28 @@ register_local_marketplace() {
     # Create marketplace.json if it doesn't exist
     if [ ! -f "$marketplace_path/.claude-plugin/marketplace.json" ]; then
         print_info "Creating marketplace.json..."
-        cat > "$marketplace_path/.claude-plugin/marketplace.json" <<'EOF'
+        cat > "$marketplace_path/.claude-plugin/marketplace.json" <<EOF
 {
   "name": "local",
-  "displayName": "Local Plugins",
+  "version": "1.0.0",
   "description": "Locally installed custom plugins",
-  "version": "1.0.0"
+  "owner": {
+    "name": "Local",
+    "email": "local@localhost"
+  },
+  "plugins": [
+    {
+      "name": "lisa",
+      "description": "Multi-discipline creative orchestration plugin for marketing, PR, and branding",
+      "version": "1.0.0",
+      "author": {
+        "name": "Kelsey Ruger",
+        "email": "kelsey@kenziecreative.com"
+      },
+      "source": "$marketplace_path/plugins/lisa",
+      "category": "development"
+    }
+  ]
 }
 EOF
         print_success "Marketplace metadata created"
