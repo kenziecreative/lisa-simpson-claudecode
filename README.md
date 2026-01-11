@@ -2,7 +2,7 @@
 
 **Multi-Discipline Creative Orchestration for Marketing, PR, and Branding Teams**
 
-**Version:** 1.0.0 | **Released:** January 11, 2026
+**Version:** 1.1.0 | **Released:** January 11, 2026
 
 Lisa is a Claude Code plugin that brings autonomous orchestration to marketing, PR, and branding teams. Using the Ralph Wiggum Stop hook pattern, Lisa helps creative professionals automate campaign deliverables with quality gates, institutional memory, and discipline-appropriate language.
 
