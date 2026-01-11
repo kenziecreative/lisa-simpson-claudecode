@@ -228,31 +228,31 @@ setup_lisa_repo() {
         exit 1
     }
 
-    # Create Claude plugins directory if it doesn't exist
-    mkdir -p "$HOME/.claude/plugins"
+    # Create Claude plugins marketplace directory structure
+    mkdir -p "$HOME/.claude/plugins/marketplaces/local/plugins"
 
-    # Copy Lisa to plugins directory
-    print_info "Installing Lisa to ~/.claude/plugins/lisa..."
+    # Copy Lisa to plugins marketplace directory
+    print_info "Installing Lisa to ~/.claude/plugins/marketplaces/local/plugins/lisa..."
 
-    if [ -d "$HOME/.claude/plugins/lisa" ]; then
-        print_warning "Existing Lisa installation found. Backing up to ~/.claude/plugins/lisa.backup..."
-        rm -rf "$HOME/.claude/plugins/lisa.backup"
-        mv "$HOME/.claude/plugins/lisa" "$HOME/.claude/plugins/lisa.backup"
+    if [ -d "$HOME/.claude/plugins/marketplaces/local/plugins/lisa" ]; then
+        print_warning "Existing Lisa installation found. Backing up..."
+        rm -rf "$HOME/.claude/plugins/marketplaces/local/plugins/lisa.backup"
+        mv "$HOME/.claude/plugins/marketplaces/local/plugins/lisa" "$HOME/.claude/plugins/marketplaces/local/plugins/lisa.backup"
     fi
 
-    cp -r "$TEMP_DIR" "$HOME/.claude/plugins/lisa"
+    cp -r "$TEMP_DIR" "$HOME/.claude/plugins/marketplaces/local/plugins/lisa"
 
     # Clean up temp directory
     rm -rf "$TEMP_DIR"
 
-    print_success "Lisa plugin copied to ~/.claude/plugins/lisa"
+    print_success "Lisa plugin copied to ~/.claude/plugins/marketplaces/local/plugins/lisa"
 }
 
 # Install Python dependencies
 install_python_deps() {
     print_step "Installing Python dependencies..."
 
-    cd "$HOME/.claude/plugins/lisa"
+    cd "$HOME/.claude/plugins/marketplaces/local/plugins/lisa"
 
     if [ -f "scripts/requirements.txt" ]; then
         pip3 install -r scripts/requirements.txt --quiet
@@ -260,6 +260,159 @@ install_python_deps() {
     else
         print_error "requirements.txt not found. Installation may be incomplete."
         exit 1
+    fi
+}
+
+# Register local marketplace in known_marketplaces.json
+register_local_marketplace() {
+    print_step "Registering local marketplace with Claude Code..."
+
+    # Verify jq is available
+    if ! command_exists jq; then
+        print_error "jq is required for marketplace registration but was not found"
+        print_info "Please install jq: https://jqlang.github.io/jq/"
+        exit 1
+    fi
+
+    local marketplaces_file="$HOME/.claude/plugins/known_marketplaces.json"
+    local marketplace_path="$HOME/.claude/plugins/marketplaces/local"
+    local timestamp=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+
+    # Create file if it doesn't exist
+    if [ ! -f "$marketplaces_file" ]; then
+        print_info "Creating known_marketplaces.json..."
+        echo '{}' > "$marketplaces_file"
+    fi
+
+    # Check if local marketplace is already registered
+    if grep -q '"local"' "$marketplaces_file" 2>/dev/null; then
+        print_info "Local marketplace already registered"
+        return 0
+    fi
+
+    # Use jq to add local marketplace entry
+    local temp_file=$(mktemp)
+    jq --arg path "$marketplace_path" --arg time "$timestamp" \
+        '.local = {
+            "source": {"source": "local"},
+            "installLocation": $path,
+            "lastUpdated": $time
+        }' "$marketplaces_file" > "$temp_file"
+
+    # Validate JSON before replacing
+    if jq empty "$temp_file" 2>/dev/null; then
+        mv "$temp_file" "$marketplaces_file"
+        print_success "Local marketplace registered"
+    else
+        print_error "Failed to update known_marketplaces.json - invalid JSON generated"
+        rm -f "$temp_file"
+        exit 3
+    fi
+}
+
+# Register plugin in installed_plugins.json
+register_plugin() {
+    print_step "Registering Lisa plugin with Claude Code..."
+
+    # Verify jq is available
+    if ! command_exists jq; then
+        print_error "jq is required for plugin registration but was not found"
+        print_info "Please install jq: https://jqlang.github.io/jq/"
+        exit 1
+    fi
+
+    # Verify .claude directory exists
+    if [ ! -d "$HOME/.claude" ]; then
+        print_info "Creating ~/.claude directory..."
+        mkdir -p "$HOME/.claude"
+    fi
+
+    # Check write permissions
+    if [ ! -w "$HOME/.claude" ]; then
+        print_error "No write permission for ~/.claude directory"
+        print_info "Please check your file permissions"
+        exit 2
+    fi
+
+    local plugins_file="$HOME/.claude/plugins/installed_plugins.json"
+    local plugin_path="$HOME/.claude/plugins/marketplaces/local/plugins/lisa"
+    local timestamp=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+
+    # Create plugins directory if needed
+    mkdir -p "$HOME/.claude/plugins"
+
+    # Create file if it doesn't exist
+    if [ ! -f "$plugins_file" ]; then
+        print_info "Creating installed_plugins.json..."
+        echo '{"version":1,"plugins":{}}' > "$plugins_file"
+    fi
+
+    # Check if Lisa is already registered
+    if grep -q '"lisa@local"' "$plugins_file" 2>/dev/null; then
+        print_info "Lisa already registered, updating entry..."
+    fi
+
+    # Use jq to add/update Lisa entry
+    local temp_file=$(mktemp)
+    jq --arg path "$plugin_path" --arg time "$timestamp" \
+        '.plugins["lisa@local"] = {
+            "version": "1.0.0",
+            "installedAt": (if .plugins["lisa@local"].installedAt then .plugins["lisa@local"].installedAt else $time end),
+            "lastUpdated": $time,
+            "installPath": $path,
+            "isLocal": true
+        }' "$plugins_file" > "$temp_file"
+
+    # Validate JSON before replacing
+    if jq empty "$temp_file" 2>/dev/null; then
+        mv "$temp_file" "$plugins_file"
+        print_success "Lisa registered in installed_plugins.json"
+    else
+        print_error "Failed to update installed_plugins.json - invalid JSON generated"
+        rm -f "$temp_file"
+        exit 3
+    fi
+}
+
+# Enable plugin in settings.json
+enable_plugin() {
+    print_step "Enabling Lisa plugin in Claude Code settings..."
+
+    # Verify jq is available
+    if ! command_exists jq; then
+        print_error "jq is required for plugin enablement but was not found"
+        print_info "Please install jq: https://jqlang.github.io/jq/"
+        exit 1
+    fi
+
+    local settings_file="$HOME/.claude/settings.json"
+
+    # Create file if it doesn't exist
+    if [ ! -f "$settings_file" ]; then
+        print_info "Creating settings.json..."
+        echo '{"model":"sonnet","enabledPlugins":{}}' > "$settings_file"
+    fi
+
+    # Check if enabledPlugins exists
+    if ! jq -e '.enabledPlugins' "$settings_file" >/dev/null 2>&1; then
+        print_info "Adding enabledPlugins section..."
+        local temp_file=$(mktemp)
+        jq '. + {"enabledPlugins": {}}' "$settings_file" > "$temp_file"
+        mv "$temp_file" "$settings_file"
+    fi
+
+    # Enable Lisa
+    local temp_file=$(mktemp)
+    jq '.enabledPlugins["lisa@local"] = true' "$settings_file" > "$temp_file"
+
+    # Validate JSON before replacing
+    if jq empty "$temp_file" 2>/dev/null; then
+        mv "$temp_file" "$settings_file"
+        print_success "Lisa enabled in settings.json"
+    else
+        print_error "Failed to update settings.json - invalid JSON generated"
+        rm -f "$temp_file"
+        exit 3
     fi
 }
 
@@ -278,7 +431,7 @@ verify_installation() {
     fi
 
     # Check Lisa plugin directory
-    if [ -d "$HOME/.claude/plugins/lisa" ]; then
+    if [ -d "$HOME/.claude/plugins/marketplaces/local/plugins/lisa" ]; then
         print_success "Lisa plugin directory exists"
     else
         print_error "Lisa plugin directory not found"
@@ -286,7 +439,7 @@ verify_installation() {
     fi
 
     # Check for key Lisa files
-    if [ -f "$HOME/.claude/plugins/lisa/.claude-plugin/plugin.json" ]; then
+    if [ -f "$HOME/.claude/plugins/marketplaces/local/plugins/lisa/.claude-plugin/plugin.json" ]; then
         print_success "Lisa plugin configuration found"
     else
         print_error "Lisa plugin configuration missing"
@@ -341,6 +494,9 @@ main() {
     # Set up Lisa
     setup_lisa_repo
     install_python_deps
+    register_local_marketplace
+    register_plugin
+    enable_plugin
 
     # Verify everything works
     echo ""
@@ -354,10 +510,17 @@ main() {
         echo ""
         print_success "Lisa is ready to use with Claude Code"
         echo ""
+        print_warning "IMPORTANT: You must fully restart Claude Code for Lisa to appear"
+        print_info "If you're currently running Claude Code:"
+        echo "  • Exit the current session with /exit"
+        echo "  • Fully quit and relaunch the Claude Code application"
+        echo "  • On macOS: Quit the terminal app completely and reopen it"
+        echo ""
         print_info "Next steps:"
-        echo "  1. Create a campaign brief (see examples/)"
-        echo "  2. Run: claude code"
-        echo "  3. Use Lisa slash commands: /marketing, /pr, or /branding"
+        echo "  1. Restart Claude Code (see above)"
+        echo "  2. Verify Lisa appears with: /plugin"
+        echo "  3. Create a campaign brief (see examples/)"
+        echo "  4. Use Lisa command: /lisa campaign-brief.json"
         echo ""
         print_info "Documentation: https://github.com/kenziecreative/lisa-simpson-claudecode"
         print_info "Need help? Check the troubleshooting guide in the README"
