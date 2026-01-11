@@ -804,6 +804,120 @@
       "passes": true,
       "dependencies": [],
       "notes": "WORKAROUND APPLIED: Users must add 'Bash(/Users/USERNAME/.claude/plugins/marketplaces/local/plugins/lisa/scripts/setup-lisa-campaign.sh:*)' to permissions.allow in settings.json. This is a Claude Code bug, not a Lisa bug. Tracked in anthropics/claude-plugins-official#145."
+    },
+    {
+      "id": "US-029",
+      "title": "Context directory and file structure",
+      "description": "As a Lisa user, I need a place to store company-specific context that persists across campaigns and projects",
+      "acceptanceCriteria": [
+        "Create context/ directory at plugin root: ~/.claude/plugins/marketplaces/local/plugins/lisa/context/",
+        "Create schema for company-profile.json with fields: companyName, industry, foundedYear, teamSize, mission, valuePropositions, targetAudience, keyProducts, metrics, boilerplate",
+        "Create schema for brand-voice.json with fields: voiceAttributes, toneGuidelines, prohibitedPatterns, signatureMoves, guardrails, examples",
+        "Create schema for style-preferences.json with fields: styleGuide (AP/Chicago/etc), spellingChoices, formattingRules, legalDisclaimers, accessibilityStandards",
+        "Create schema for lisa-memory-core.json with fields: version, lastUpdated, entries array (name, content, category, tags)",
+        "Create schema for lisa-memory-contextual.json with fields: version, lastUpdated, entries array (id, name, category, whenToUse, tags, content)",
+        "Create empty template files with schema documentation",
+        "Add .gitignore entry for context/ (user-specific, not committed)",
+        "Document schema in schemas/context-files.schema.json"
+      ],
+      "priority": 29,
+      "passes": false,
+      "dependencies": [
+        "US-001"
+      ],
+      "notes": "Foundation for personalized content. Context lives at plugin level (shared across projects), not project level. User can version control by symlinking context/ to their own repo."
+    },
+    {
+      "id": "US-030",
+      "title": "Document ingestion for company setup",
+      "description": "As a non-technical user, I need to provide my existing brand documents and have Lisa extract the key information automatically",
+      "acceptanceCriteria": [
+        "Create skills/setup-company.md skill",
+        "Skill prompts: Upload or paste your brand guide, company info, or style guide",
+        "Skill reads prose documents and extracts structured data",
+        "Skill populates company-profile.json, brand-voice.json, and style-preferences.json",
+        "Skill identifies gaps: missing exec bios, no metrics, unclear voice rules",
+        "Skill asks follow-up questions to fill gaps",
+        "Skill shows preview of extracted data before saving",
+        "Skill validates all required fields are populated",
+        "Works with: Google Docs (paste), Notion (paste), PDF (upload), Markdown files",
+        "After setup, runs verification: creates sample deliverable to test context loading"
+      ],
+      "priority": 30,
+      "passes": false,
+      "dependencies": [
+        "US-029"
+      ],
+      "notes": "Goal time vs tool time: absorb existing docs rather than 50-question interview. Users already have brand guides - meet them where they are."
+    },
+    {
+      "id": "US-031",
+      "title": "Context loading during campaign execution",
+      "description": "As Lisa (the agent), I need to load company context at campaign start and apply it when creating deliverables",
+      "acceptanceCriteria": [
+        "setup-lisa-campaign.sh loads all context files from context/ directory",
+        "Context injected into agent prompt after campaign brief",
+        "Agent prompt includes: company profile, brand voice rules, style preferences, core memory, relevant contextual memory",
+        "Contextual memory filtered by deliverable type and category",
+        "Company boilerplate used in deliverables where appropriate",
+        "Brand voice rules enforced during content creation",
+        "Style preferences applied (AP Style, spelling choices, etc.)",
+        "If context files missing, Lisa proceeds with warning and generic approach",
+        "Context visible in .claude/lisa-campaign.local.md for debugging"
+      ],
+      "priority": 31,
+      "passes": false,
+      "dependencies": [
+        "US-029",
+        "US-030"
+      ],
+      "notes": "This is what makes content feel company-specific vs generic. Critical for user perception of value."
+    },
+    {
+      "id": "US-032",
+      "title": "Learning from feedback during campaigns",
+      "description": "As a Lisa user, I want Lisa to remember corrections and successful patterns so content improves over time",
+      "acceptanceCriteria": [
+        "During campaign, user can provide feedback: I wouldn not say it like that or This worked really well",
+        "Lisa updates lisa-memory-contextual.json with the correction or success pattern",
+        "Memory entry includes: deliverable type, what was learned, when to apply it, example",
+        "Memory entries tagged by category: voice, formatting, content-type-specific, quality-threshold",
+        "Next deliverable of same type applies learned pattern automatically",
+        "Memory includes whenToUse field so Lisa knows when to apply each learning",
+        "User can view memory: /lisa:show-memory command lists learned patterns",
+        "User can edit memory: lisa-memory-contextual.json is human-readable JSON",
+        "Memory persists across campaigns and projects",
+        "Over time, fewer corrections needed as Lisa learns user preferences"
+      ],
+      "priority": 32,
+      "passes": false,
+      "dependencies": [
+        "US-031"
+      ],
+      "notes": "This is the wow factor - Lisa gets smarter about your company with each campaign. Mirrors how real coordinators learn team preferences."
+    },
+    {
+      "id": "US-033",
+      "title": "Company setup documentation and examples",
+      "description": "As a new Lisa user, I need clear instructions on how to set up Lisa for my company without technical knowledge",
+      "acceptanceCriteria": [
+        "README section: Setting Up Lisa for Your Company",
+        "Step-by-step: Run /lisa:setup-company skill",
+        "Examples of what to provide: brand guide, company one-pager, style guide",
+        "Show sample company-profile.json with annotations",
+        "Show sample brand-voice.json with examples from different industries",
+        "Explain what each context file does in plain language",
+        "Troubleshooting: My content still feels generic (check if context loaded)",
+        "How to update context as company evolves",
+        "How to verify Lisa is using your context (run test campaign)",
+        "Video walkthrough or screenshots for setup process"
+      ],
+      "priority": 33,
+      "passes": false,
+      "dependencies": [
+        "US-030"
+      ],
+      "notes": "User education is critical. These are marketers/PR pros, not developers. Setup must feel accessible and confidence-building."
     }
   ],
   "technicalNotes": {
@@ -874,5 +988,129 @@
       "Installation tested successfully in Docker container",
       "Ready for end-to-end testing with real campaign"
     ]
+  },
+  "deliverableTypeTesting": {
+    "description": "Testing all 23 deliverable types across 3 disciplines to verify end-to-end functionality",
+    "marketing": {
+      "email-sequence": {
+        "tested": true,
+        "passes": true,
+        "notes": "Tested successfully. Created 2-email welcome sequence (98 & 122 words). Passed brand compliance and readability (95.1). Very easy to read at 5th grade level."
+      },
+      "landing-page-copy": {
+        "tested": true,
+        "passes": true,
+        "notes": "Tested successfully. Created landing page with hero, 2 features, CTAs. Passed brand compliance, readability (70.8), and SEO check (4.18% keyword density for analytics dashboard)."
+      },
+      "social-posts": {
+        "tested": true,
+        "passes": true,
+        "notes": "Tested in lisa-test-campaign.json - passed all quality gates"
+      },
+      "ad-copy": {
+        "tested": true,
+        "passes": true,
+        "notes": "Tested successfully. Created Google search ad with headline (20 chars) and description (67 chars) within limits. Passed brand compliance and readability (90.3) after simplifying supporting text."
+      },
+      "blog-article": {
+        "tested": true,
+        "passes": true,
+        "notes": "Tested successfully. Created 547-word blog article with H2/H3 structure. Passed brand compliance, readability (80.8), and SEO (2.12% keyword density with meta description)."
+      },
+      "newsletter": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "case-study": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "webinar-script": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      }
+    },
+    "pr": {
+      "press-release": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "media-pitch": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "press-kit": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "crisis-communication": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "talking-points": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "media-advisory": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "op-ed": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "qa-document": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "fact-sheet": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      }
+    },
+    "branding": {
+      "brand-guidelines": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "brand-positioning": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "voice-tone-guide": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "messaging-framework": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "tagline": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      },
+      "brand-story": {
+        "tested": false,
+        "passes": false,
+        "notes": ""
+      }
+    }
   }
 }
