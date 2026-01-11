@@ -679,6 +679,22 @@
       "passes": true,
       "dependencies": ["BUG-006"],
       "notes": "FIXED: Changed source type from 'local' to 'directory' in register_local_marketplace(). This bug broke Claude Code completely with ConfigParseError."
+    },
+    {
+      "id": "BUG-008",
+      "title": "Local marketplace missing marketplace.json metadata file",
+      "description": "As a user, the local marketplace needs a marketplace.json file so Claude Code recognizes it as valid",
+      "acceptanceCriteria": [
+        "Create ~/.claude/plugins/marketplaces/local/.claude-plugin/marketplace.json",
+        "File contains: name, displayName, description, version",
+        "setup.sh creates this file automatically",
+        "Claude Code successfully loads local marketplace",
+        "Lisa plugin is found and loaded from local marketplace"
+      ],
+      "priority": 36,
+      "passes": false,
+      "dependencies": ["BUG-007"],
+      "notes": "UNTESTED: Added marketplace.json creation to setup.sh. File created manually. Needs Claude Code restart to verify fix actually works."
     }
   ],
   "technicalNotes": {
